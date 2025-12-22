@@ -1,5 +1,5 @@
 import StudentRegisterForm from "./compounts/StudentRegisterForm";
-import StudentView from "./compounts/Studentview";
+import StudentView from "./compoents/Studentview";
 
 
 const App = () =>{

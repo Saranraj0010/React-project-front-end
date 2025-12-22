@@ -1,5 +1,5 @@
 import { useState } from "react";
-import StudentView from "./Studentview";
+import StudentView from "./StudentView";
 
 const StudentRegisterForm = () => {
 
