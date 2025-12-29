@@ -1,11 +1,14 @@
 import StudentRegisterForm from "./StudentRegisterForm"
-const StudentView = (saran) => {
-
-
+const StudentView = (props) => {
+    console.log(props.Data)
     return (
         <>
+            {
+                // props.Data.map((saran)
+            }
             {/* <p>{saran.studentProfile.firstName}</p> */}
             <p>hii</p>
+            <p></p>
             {/* <StudentRegisterForm data={data}/> */}
             {/* {saran.studentProfile.map((id) => (
                 <div key={id}>{saran.studentProfile.firstName}</div>

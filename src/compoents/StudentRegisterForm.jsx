@@ -1,9 +1,10 @@
 import { useState } from "react";
-import StudentView from "./StudentView";
+import StudentView from "./Studentview";
+import { VscChromeClose } from "react-icons/vsc";
 
 const StudentRegisterForm = () => {
 
-
+    const [show, setShow] = useState(false);
     const [student, setStudent] = useState({
         studentId: "",
         firstName: "",
@@ -20,6 +21,7 @@ const StudentRegisterForm = () => {
     })
     const [studentProfile, setStudentProfile] = useState([]);
     const [searchId, setSearchId] = useState("");
+    const [data, setData] = useState([]);
 
 
     function handleRegister(e) {
@@ -30,15 +32,69 @@ const StudentRegisterForm = () => {
         setStudentProfile(studentData);
     }
     const SearchId = () => {
-        const data = studentProfile.filter((roleid) => roleid.studentId === searchId);
-        console.log(data);
+        const result = studentProfile.filter((roleid) => roleid.studentId === searchId)
+        setData(result);
+        setShow(true)
+        // console.log(data);
     }
+
+    // console.log(data);
 
 
     return (
         <>
-            {/* <StudentView studentProfile={studentProfile[0]} /> */}
-            <div className="flex">
+            {/* <StudentView Data={data} /> */}
+            <div className="w-fit m-auto mt-15 p-5 border rounded-lg flex flex-col gap-4">
+                <h1 className="font-semibold text-lg text-center">Students Information</h1>
+                <input type="text" placeholder="Search by Student ID" className="pl-5 w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl mb-4" onChange={(e) => setSearchId(e.target.value)} />
+                <button type="button" onClick={SearchId} className="bg-blue-500 text-white p-2 rounded-lg cursor-pointer mb-4">Search</button>
+            </div>
+
+
+            {
+                show && (
+                    <div className="fixed inset-0 bg-black/50 cursor-context-menu flex justify-center items-center">
+                        <div className="grid grid-cols-1 gap-6 relative bg-white h-fit mt-7 w-fit p-5 rounded-2xl ">
+                                        <h1 className="font-bold text-xl">Student Information</h1>
+                            <VscChromeClose
+                                className="cursor-pointer self-end absolute top-3 right-3 text-2xl"
+                                onClick={() => setShow(false)}
+                            />
+                            <div className="w-fit m-auto p-5 border rounded-lg flex flex-col gap-4">
+                                <div>
+                                    <table border={1} className="p-2">
+                                                {data.map((id) => (
+                                                    <tb border={1} className="p-2">
+                                                    <tr className="p-1">Name:{id.firstName}.{id.middleName} {id.lastName}</tr>
+                                                    <tr className="p-1">Date of Birth:{id.dateOfBirth}</tr>
+                                                    <tr className="p-1">Student ID:{id.studentId}</tr>
+                                                    <tr className="p-1">Street Address:{id.streetAddress}</tr>
+                                                    <tr className="p-1">City:{id.city}</tr>
+                                                    <tr className="p-1">State:{id.state}</tr>
+                                                    <tr className="p-1">Country:{id.country}</tr>
+                                                    <tr className="p-1">Pincode:{id.pincode}</tr>
+                                                    <tr className="p-1">E-mail:{id.email}</tr>
+                                                    <tr className="p-1">Phone Number:{id.phoneNumber}</tr>
+                                                    </tb>
+                                                ))}
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+
+
+
+
+
+
+
+
+            <div className="flex justify-center items-center mt-10 mb-10">
                 <form onSubmit={handleRegister} className="w-fit p-5 border rounded-lg flex flex-col gap-4">
                     <h1 className="font-bold text-center underline text-2xl">STUDENT REGISTER FORM</h1>
                     <h1 className="font-semibold text-lg">Student Information</h1>
@@ -99,18 +155,8 @@ const StudentRegisterForm = () => {
                             <input name="phoneNumber" placeholder="Phone Number" type="text" className="pl-5 w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, phoneNumber: e.target.value })} />
                         </div>
                     </div>
-                    <button type="button" onClick={handleRegister} className="bg-blue-500 text-white p-2 rounded-lg cursor-pointer ">Register</button>
+                    <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg cursor-pointer ">Register</button>
                 </form>
-                <div className="w-fit m-auto p-5 border rounded-lg flex flex-col gap-4">
-                    <div className="w-fit m-auto p-5 border rounded-lg flex flex-col gap-4">
-                        <h1 className="font-semibold text-lg">Students Information</h1>
-                        <input type="text" placeholder="Search by Student ID" className="pl-5 w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl mb-4" onChange={(e) => setSearchId(e.target.value)} />
-                        <button type="button" onClick={SearchId} className="bg-blue-500 text-white p-2 rounded-lg cursor-pointer mb-4">Search</button>
-                    </div>
-                    <div className="w-fit m-auto p-5 border rounded-lg flex flex-col gap-4">
-                    </div>
-
-                </div>
             </div>
         </>
     )
