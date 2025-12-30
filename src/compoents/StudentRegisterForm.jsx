@@ -50,14 +50,15 @@ const StudentRegisterForm = () => {
 
     // console.log(data);
 
+    // console.log(Date.now())
 
     return (
         <>
             {/* <StudentView Data={data} /> */}
-            <div className="w-fit m-auto mt-15 p-5 border rounded-lg flex flex-col gap-4">
+            <div className="w-fit m-auto mt-15 p-5 border  rounded-lg flex flex-col gap-4">
                 <h1 className="font-semibold text-lg text-center">Students Information</h1>
                 <form>
-                    <input type="text" placeholder="Search by Student ID" name="id" minLength={2} maxLength={3} required className="pl-5 w-40 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl mb-4" onChange={(e) => setSearchId(e.target.value)} />
+                    <input type="text" placeholder="Search by Student ID" name="id" minLength={2} maxLength={3} required className="pl-5 w-40 text-sm md:text-lg md:w-60 focus:ring-2 focus:ring-blue-500 outline-none h-10 border rounded-lg hover:border-blue-500 shadow-xl mb-4" onChange={(e) => setSearchId(e.target.value)} />
                     <button type="button" onClick={SearchId} className="bg-blue-500 text-white  p-2 rounded-lg cursor-pointer mb-4">Search</button>
                 </form>
             </div>
@@ -110,62 +111,63 @@ const StudentRegisterForm = () => {
                 <form onSubmit={handleRegister} className="w-fit p-5 border rounded-lg flex flex-col gap-4">
                     <h1 className="font-bold text-center underline text-2xl">STUDENT REGISTER FORM</h1>
                     <h1 className="font-semibold text-lg">Student Information</h1>
+                    {/* <p>{Date.now()}</p> */}
                     {/* <alert className="absolute top-3 right-3 ">Student Successfully Created</alert> */}
                     <div className="grid grid-cols-3 gap-2">
 
                         <div className="flex flex-col gap-2">
                             <label>First Name:</label>
-                            <input name="firstName" placeholder="First Name" required maxLength={1} type="text" className="pl-5 w-25 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, firstName: e.target.value })} />
+                            <input name="firstName" placeholder="First Name" required maxLength={1} type="text" className="pl-5 focus:outline-blue-600 w-25 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, firstName: e.target.value })} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Middle Name:</label>
-                            <input name="middleName" placeholder="Middle Name" type="text" required className="pl-5 w-29 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, middleName: e.target.value })} />
+                            <input name="middleName" placeholder="Middle Name" type="text" required className="pl-5 w-29 focus:outline-blue-600 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, middleName: e.target.value })} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Last Name:</label>
-                            <input name="lastName" type="text" placeholder="Last Name" required className="pl-5 w-25 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, lastName: e.target.value })} />
+                            <input name="lastName" type="text" placeholder="Last Name" required className="pl-5 w-25 focus:outline-blue-600 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, lastName: e.target.value })} />
                         </div>
                         <div className="flex flex-col col-span-2 gap-2">
                             <label>Date Of Birth:</label>
-                            <input name="dateOfBirth" type="date" placeholder="Date Of Birth" required className="pl-5 w-45 text-sm md:text-lg  md:w-125 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, dateOfBirth: e.target.value })} />
+                            <input name="dateOfBirth" type="date" placeholder="Date Of Birth" required className="pl-5 w-45 focus:outline-blue-600 text-sm md:text-lg  md:w-125 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, dateOfBirth: e.target.value })} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Student ID:</label>
-                            <input name="studentId" type="text" required maxLength={3} placeholder="Student ID" className="pl-5 w-25 text-sm md:text-lg md:w-60 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, studentId: e.target.value })} />
+                            <input name="studentId" type="text" required maxLength={3} placeholder="Student ID" className="pl-5 w-25 focus:outline-blue-600 text-sm md:text-lg md:w-60 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, studentId: e.target.value })} />
                         </div>
                     </div>
                     <h1 className="font-semibold text-lg">Address</h1>
                     <div className="grid grid-cols-2 gap-1">
                         <div className="flex flex-col col-span-2 gap-2">
                             <label>Street Address:</label>
-                            <input name="streetAddress" placeholder="Street Address" required type="text" className="pl-5 w-84 text-sm md:text-lg md:w-192px h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, streetAddress: e.target.value })} />
+                            <input name="streetAddress" placeholder="Street Address" required type="text" className="pl-5 w-84 focus:outline-blue-600 text-sm md:text-lg md:w-192px h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, streetAddress: e.target.value })} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>City:</label>
-                            <input name="city" placeholder="City" type="text" required className="pl-5 w-40 text-sm md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, city: e.target.value })} />
+                            <input name="city" placeholder="City" type="text" required className="pl-5 w-40 text-sm md:text-lg focus:outline-blue-600 md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, city: e.target.value })} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>State:</label>
-                            <input name="state" placeholder="State" type="text" required className="pl-5 w-40 text-sm md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, state: e.target.value })} />
+                            <input name="state" placeholder="State" type="text" required className="pl-5 w-40 text-sm focus:outline-blue-600 md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, state: e.target.value })} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Country:</label>
-                            <input name="Country" placeholder="Country" type="text" required className="pl-5 w-40 text-sm md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, country: e.target.value })} />
+                            <input name="Country" placeholder="Country" type="text" required className="pl-5 w-40 focus:outline-blue-600 text-sm md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, country: e.target.value })} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Pincode:</label>
-                            <input name="pincode" placeholder="Pincode" type="text" maxLength={6} required className="w-40 text-sm md:text-lg md:w-95 pl-5 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, pincode: e.target.value })} />
+                            <input name="pincode" placeholder="Pincode" type="text" maxLength={6} required className="w-40 focus:outline-blue-600 text-sm md:text-lg md:w-95 pl-5 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, pincode: e.target.value })} />
                         </div>
                     </div>
                     <h1 className="font-semibold text-lg">Contact Info</h1>
                     <div className="grid grid-cols-2">
                         <div className="flex flex-col gap-2">
                             <label>E-mail:</label>
-                            <input name="E-mail" placeholder="E-mail" type="text" required className="pl-5 w-40 text-sm md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, email: e.target.value })} />
+                            <input name="E-mail" placeholder="E-mail" type="text" required className="pl-5 w-40 text-sm focus:outline-blue-600 md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, email: e.target.value })} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Phone Number:</label>
-                            <input name="phoneNumber" placeholder="Phone Number" required maxLength={10} type="text" className="pl-5 w-40 text-sm md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, phoneNumber: e.target.value })} />
+                            <input name="phoneNumber" placeholder="Phone Number" required maxLength={10} type="text" className="pl-5 focus:outline-blue-600 w-40 text-sm md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, phoneNumber: e.target.value })} />
                         </div>
                     </div>
                     <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg cursor-pointer ">Register</button>
