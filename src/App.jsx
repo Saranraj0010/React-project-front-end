@@ -11,9 +11,10 @@ const App = () =>{
 
   return(
     <>
+    <StudentView/>
+
     <StudentRegisterForm/>
     {/* <Statement/> */}
-    {/* <StudentView/> */}
     </>
   )
 }

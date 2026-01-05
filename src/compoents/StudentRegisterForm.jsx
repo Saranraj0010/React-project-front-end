@@ -33,35 +33,35 @@ const StudentRegisterForm = () => {
         localStorage.setItem("student", JSON.stringify(studentData));
         setStudentProfile(studentData);
         //   console.log(student)
-        setStudent(e.target.reset())
+        e.target.reset();
         //    alert("Student Successfully Created") 
 
 
     }
-    const SearchId = () => {
-        const result = studentProfile.filter((roleid) => roleid.studentId === searchId)
-        setData(result);
-        setShow(true)
-        // console.log(data);
-    }
+    // const SearchId = () => {
+    //     const result = studentProfile.filter((roleid) => roleid.studentId === searchId)
+    //     setData(result);
+    //     setShow(true)
+    //     // console.log(data);
+    // }
     //   const clear =()=>{
     //     setStudent(" ")
     //   }
-
+    // console.log(data)
     // console.log(data);
 
     // console.log(Date.now())
 
     return (
         <>
-            {/* <StudentView Data={data} /> */}
-            <div className="w-fit m-auto mt-15 p-5 border  rounded-lg flex flex-col gap-4">
+        <StudentView StudentProfile={studentProfile}/>
+            {/* <div className="w-fit m-auto mt-15 p-5 border  rounded-lg flex flex-col gap-4">
                 <h1 className="font-semibold text-lg text-center">Students Information</h1>
                 <form>
                     <input type="text" placeholder="Search by Student ID" name="id" minLength={2} maxLength={3} required className="pl-5 w-40 text-sm md:text-lg md:w-60 focus:ring-2 focus:ring-blue-500 outline-none h-10 border rounded-lg hover:border-blue-500 shadow-xl mb-4" onChange={(e) => setSearchId(e.target.value)} />
                     <button type="button" onClick={SearchId} className="bg-blue-500 text-white  p-2 rounded-lg cursor-pointer mb-4">Search</button>
                 </form>
-            </div>
+            </div> */}
 
 
             {
@@ -75,9 +75,10 @@ const StudentRegisterForm = () => {
                             />
                             <div className="w-fit m-auto p-5 border rounded-lg flex flex-col gap-4">
                                 <div>
-                                    <table border={1} className="p-2">
+                                     <table border={1} className="p-2">
+                                        <thead></thead>
                                         {data.map((id) => (
-                                            <tb border={1} className="p-2">
+                                            <tbody key={id} border={1} className="p-2">
                                                 <tr className="p-1">Name:{id.firstName}.{id.middleName} {id.lastName}</tr>
                                                 <tr className="p-1">Date of Birth:{id.dateOfBirth}</tr>
                                                 <tr className="p-1">Student ID:{id.studentId}</tr>
@@ -88,7 +89,7 @@ const StudentRegisterForm = () => {
                                                 <tr className="p-1">Pincode:{id.pincode}</tr>
                                                 <tr className="p-1">E-mail:{id.email}</tr>
                                                 <tr className="p-1">Phone Number:{id.phoneNumber}</tr>
-                                            </tb>
+                                            </tbody>
                                         ))}
                                     </table>
                                 </div>
