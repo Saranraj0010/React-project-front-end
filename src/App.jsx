@@ -12,10 +12,6 @@ const App = () =>{
     // const [studentProfile, setStudentProfile] = useState({});
     const{studentProfile}=useStudentStore();
 
-    const on =()=>{
-console.log(studentProfile)
-
-    }
 
 
 
@@ -23,11 +19,10 @@ console.log(studentProfile)
 
   return(
     <>
-    <StudentView />
-    <StudentRegisterForm />
-    <button onClick={on}>hii</button>
+    {/* <StudentView /> */}
+    {/* <StudentRegisterForm /> */}
     {/* <Statement/> */}
-    {/* <Api/> */}
+    <Api/>
     {/* <Promises/> */}
     {/* <Promis/> */}
     </>

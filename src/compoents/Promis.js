@@ -3,7 +3,7 @@ import { useState } from "react";
 export const Promis = () => {
     const [data, setData] = useState("")
     const Promises = new Promise((correct, reject) => {
-            const data = false;
+            const data = true;
             if (data === true) {
                 correct("data correct")
             }
@@ -22,12 +22,9 @@ export const Promis = () => {
             setData(error)
             console.log("error", error)
         })
+        .finally(()=>{
+            console.log( "Function end" )
+        })
     // console.log(data)
 
-
-    // return (
-    //     <>
-    //         <p>{data}</p>
-    //     </>
-    // )
 }

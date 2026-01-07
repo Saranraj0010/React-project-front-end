@@ -3,20 +3,20 @@ import StudentRegisterForm from "./StudentRegisterForm";
 import { useStudentStore } from "./useStudentStore";
 
 const StudentView = () => {
-        const { studentProfile } = useStudentStore()
+    const { studentProfile } = useStudentStore()
     const [searchId, setSearchId] = useState("");
     const [data, setData] = useState([]);
 
     const handleSearch = () => {
         console.log(studentProfile)
-        const result =studentProfile.filter(
+        const result = studentProfile.filter(
             (student) => student.studentId === searchId
         );
         setData(result);
         // console.log(studentProfile)
     };
 
-    return (                  
+    return (
         <>
             <div>
                 <div className=" flex flex-col items-center gap-2">
@@ -36,23 +36,23 @@ const StudentView = () => {
                 </div>
             </div>
             <div className="flex gap-5">
-            {data.map((items) => (
-                <table className="border-2">
-                    <thead className="border-2 text-center font-bold"><h1 className="p-2">Student Details</h1></thead>
-                    <tbody>
-                        <tr className="border-2"><td className="p-2" key={items}>Student ID:{items.studentId}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>Name:{items.firstName}.{items.middleName} {items.lastName}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>Date Of Birth:{items.dateOfBirth}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>Street Address:{items.streetAddress}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>City:{items.city}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>State:{items.state}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>Country:{items.country}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>Pincode:{items.pincode}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>E-mail:{items.email}</td></tr>
-                        <tr className="border-2"><td className="p-2" key={items}>Phone Number:{items.phoneNumber}</td></tr>
-                    </tbody>
-                </table>
-            ))}
+                {data.map((items) => (
+                    <table className="border-2">
+                        <thead className="border-2 text-center font-bold"><h1 className="p-2">Student Details</h1></thead>
+                        <tbody>
+                            <tr className="border-2"><td className="p-2" key={items}>Student ID:{items.studentId}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>Name:{items.firstName}.{items.middleName} {items.lastName}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>Date Of Birth:{items.dateOfBirth}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>Street Address:{items.streetAddress}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>City:{items.city}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>State:{items.state}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>Country:{items.country}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>Pincode:{items.pincode}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>E-mail:{items.email}</td></tr>
+                            <tr className="border-2"><td className="p-2" key={items}>Phone Number:{items.phoneNumber}</td></tr>
+                        </tbody>
+                    </table>
+                ))}
             </div>
         </>
     );
