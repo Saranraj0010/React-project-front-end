@@ -1,4 +1,4 @@
-const InputBox = ({ type = "text",
+const Input = ({ type = "text",
     id,
     placeholder,
     name,
@@ -6,7 +6,7 @@ const InputBox = ({ type = "text",
     // onchange,
     className,
 }) => {
-    let inputClasses = `w-60 border-2 text-center h-10 rounded-xl placeholder-text-gray-400`;
+    let inputClasses = `pl-5 focus:outline-blue-600 w-25 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl`
     return (
         <>
             <input
@@ -15,10 +15,9 @@ const InputBox = ({ type = "text",
                 placeholder={placeholder}
                 name={name}
                 value={value}
-                // onchange={onchange}
                 className={inputClasses}
             />
         </>
     )
 }
-export default InputBox
+export default Input
