@@ -1,8 +1,8 @@
 import { useState } from "react";
-import StudentView from "./Studentview";
+import StudentView from "../compoents/student/studentserach/Studentview";
 import { VscChromeClose } from "react-icons/vsc";
 import { useFormStatus } from "react-dom";
-import { useStudentStore } from "./useStudentStore";
+import { useStudentStore } from "../compoents/student/store/useStudentStore";
 
 const StudentRegisterForm = () => {
     const { studentProfile, student, handleRegister, setData } = useStudentStore()
