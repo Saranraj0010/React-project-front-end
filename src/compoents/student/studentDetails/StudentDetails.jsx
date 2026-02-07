@@ -174,7 +174,7 @@ const UpdateForm = async (e) => {
                 {/* update Form */}
                 {show && (
                     <div className="p-3">
-                        <div className="">
+                        <div className=" flex justify-center items-center">
                             <form className="w-fit p-5 border rounded-lg flex flex-col gap-2 " onSubmit={(e) => UpdateForm(e)}>
                                 <h1 className="font-bold text-center underline text-2xl">STUDENT REGISTER FORM</h1>
                                 <h1 className="font-semibold text-lg">Student Information</h1>

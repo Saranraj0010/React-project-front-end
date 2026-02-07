@@ -68,7 +68,7 @@ const Staff = () => {
                         <div className="grid grid-cols-3 gap-5">
                             <div className="flex flex-col gap-2">
                                 <label>User Name:</label>
-                                <input name="userName" value={staff.studentId} placeholder="User Name" className="pl-5 w-25 focus:outline-blue-600 text-sm md:text-lg md:w-50 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStaff({ ...staff, userName: e.target.value })} />
+                                <input name="userName" value={staff.userName} placeholder="User Name" className="pl-5 w-25 focus:outline-blue-600 text-sm md:text-lg md:w-50 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStaff({ ...staff, userName: e.target.value })} />
                                 {/* {error.studentId && (
                                 <p className="text-red-600 text-[10px]">{error.studentId}</p>
                             )} */}
