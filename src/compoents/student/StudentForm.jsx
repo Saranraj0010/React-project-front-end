@@ -57,7 +57,7 @@ const StudentForm = () => {
         try {
             // console.log("add")
             e.preventDefault();
-            if (!Validation()) return
+            // if (!Validation()) return
             console.log(student)
             const add = await axios.post(`${API}addForm`, student)
             console.log(add, "add")
