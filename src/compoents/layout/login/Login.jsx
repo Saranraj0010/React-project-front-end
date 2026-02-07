@@ -1,0 +1,90 @@
+import axios from "axios";
+import BackGroundImage from "../../../assets/background.jpg";
+import { useLoginStore } from "../store/useLoginStore";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+const API = import.meta.env.VITE_API;
+const Login = () => {
+    const { user, setUser, showPassword, ShowPassword, eyeShow, eyeHide,setProfileData,profileData } = useLoginStore();
+    const [users, setUsers] = useState([]);
+    const navigate = useNavigate();
+    const [error, setError] = useState({})
+
+    // Fetch registered users
+    const getUsers = async () => {
+        try {
+            const res = await axios.get(`${API}getSignUp`);
+            setUsers(res.data.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        getUsers();
+    });
+    const Validation = () => {
+        let newError = {};
+        if (user.UserId.trim() === "") newError.UserId = "UserId requird"
+        if (user.Password.trim() === "") newError.Password = "Password requird"
+        if (user.Password.length <5) {
+            console.log("hello")
+            newError.Passwordlength = "Password too Long"
+        }
+        setError(newError)
+        if (Object.keys(newError).length > 0) {
+            setTimeout(() => { setError(Object.keys(newError).length > 0) }, 1000 * 1000)
+        }
+    }
+    const Login = (e) => {
+        e.preventDefault();
+        console.log(user)
+        // if (!Validation()) return
+        const result = users.filter((item) => item.UserName === user.UserId && item.Password === user.Password);
+        setProfileData(result)
+        console.log(profileData)
+        if (result.length === 1) {
+            console.log("Login success");
+            navigate("/layout");
+        } else {
+            console.log("Invalid username or password");
+        }
+    };
+
+    return (
+        <div className="bg-gray-200/80">
+            <div className="absolute inset-0">
+                <img src={BackGroundImage} alt="bg" className="w-full h-full object-cover" />
+            </div>
+
+            <form onSubmit={Login} className="bg-white absolute top-24 flex flex-col right-35 p-6 rounded-xl shadow-2xl z-50">
+                <h1 className="text-center text-2xl font-bold mb-4">User Login</h1>
+                <div className=" flex flex-col">
+                    <label>User Number</label>
+                    <input className="w-60 h-10 border rounded-lg pl-3 mb-3" onChange={(e) => { setUser("UserId", e.target.value), setError({ ...error, UserId: "" }) }} />
+                    {error.UserId && (
+                        <p className="text-red-600 text-[10px]">{error.UserId}</p>
+                    )}</div>
+                <div className="relative flex flex-col">
+                    <label>Password</label>
+                    <div className="">
+                        <input type={showPassword ? "text" : "password"} className="w-60 h-10 border rounded-lg pl-3 mb-4" onChange={(e) => { setUser("Password", e.target.value), setError({ ...error, Password: "" }) }} />
+                        <button className=" absolute right-0 h-10 p-2" type="button" onClick={ShowPassword}><img width={20} src={showPassword ? eyeHide : eyeShow} /></button></div></div>
+                {error.Password && (
+                    <p className="text-red-600 text-[10px]">{error.Password}</p>
+                )}
+                {error.Passwordlength && (
+                    <p className="text-red-600 text-[10px]">{error.Passwordlength}</p>
+                )}
+
+                <div className="flex gap-4 justify-center">
+                    <Link to="/homePage" className="bg-red-500 text-white p-1.5 rounded-lg">Close</Link>
+                    <button type="submit" className="bg-blue-500 text-white p-1.5 rounded-lg">Login</button>
+                </div>
+            </form>
+        </div>
+    );
+};
+
+export default Login;
