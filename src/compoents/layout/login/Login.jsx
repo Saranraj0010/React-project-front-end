@@ -1,21 +1,29 @@
 import axios from "axios";
 import BackGroundImage from "../../../assets/background.jpg";
-import { useLoginStore } from "../store/useLoginStore";
+import { useLoginStore } from"../store/useLoginStore";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const API = import.meta.env.VITE_API;
 const Login = () => {
-    const { user, setUser, showPassword, ShowPassword, eyeShow, eyeHide,setProfileData,profileData } = useLoginStore();
+    const { user, setUser, showPassword, ShowPassword, eyeShow, eyeHide, setProfileData, profileData } = useLoginStore();
     const [users, setUsers] = useState([]);
+    const [admin, setAdmin] = useState([])
+    const [staff, setStaff] = useState([])
+    const [student, setStudent] = useState([])
     const navigate = useNavigate();
     const [error, setError] = useState({})
 
     // Fetch registered users
     const getUsers = async () => {
         try {
-            const res = await axios.get(`${API}getSignUp`);
-            setUsers(res.data.data);
+            const user = await axios.get(`${API}getSignUp`);
+            const staff = await axios.get(`${API}getStaff`);
+            const student=await axios.get(`${API}getForm`);
+            setUsers(user.data.data);
+            setStaff(staff.data.data);
+            setStudent(student.data.data);
+            console.log(student)
         } catch (err) {
             console.error(err);
         }
@@ -23,12 +31,12 @@ const Login = () => {
 
     useEffect(() => {
         getUsers();
-    });
+    }, []);
     const Validation = () => {
         let newError = {};
         if (user.UserId.trim() === "") newError.UserId = "UserId requird"
         if (user.Password.trim() === "") newError.Password = "Password requird"
-        if (user.Password.length <5) {
+        if (user.Password.length < 5) {
             console.log("hello")
             newError.Passwordlength = "Password too Long"
         }
@@ -41,14 +49,41 @@ const Login = () => {
         e.preventDefault();
         console.log(user)
         // if (!Validation()) return
-        const result = users.filter((item) => item.UserName === user.UserId && item.Password === user.Password);
-        setProfileData(result)
-        console.log(profileData)
-        if (result.length === 1) {
-            console.log("Login success");
+        const userResult = users.find(
+            (item) =>
+                item.UserName === user.UserId &&
+                item.Password === user.Password
+        );
+        console.log(userResult)
+        const staffResult = staff.find(
+            (item) =>
+                item.userName === user.UserId &&
+                item.password === user.Password
+        );
+        console.log(staffResult)
+        const studentResult = student.find(
+            (item) =>
+                item.userName === user.UserId &&
+                item.password === user.Password
+        );
+        console.log(staffResult)
+        if (userResult) {
+            setProfileData(userResult);
+            console.log("User login success");
             navigate("/layout");
-        } else {
-            console.log("Invalid username or password");
+        }    
+        else if (staffResult) {
+            setProfileData(staffResult);
+            console.log("Staff login success");
+            navigate("/stafflayout");
+        }
+        else if (studentResult){
+            setProfileData(studentResult);
+            console.log("Student login success");
+            navigate("/studentlayout");
+        }
+        else{
+        console.log("Invalid username or password");
         }
     };
 

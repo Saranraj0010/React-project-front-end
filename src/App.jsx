@@ -5,6 +5,7 @@ import Login from "./compoents/layout/login/Login";
 import SignUp from "./compoents/layout/signup/SignUp";
 import { Route, Routes } from "react-router-dom";
 import Home from "./compoents/home/Home";
+import StaffLayout from "./compoents/staffLayout/StaffLayout";
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/homePage" element={<Home/>}/>
+        <Route path="/stafflayout" element={<StaffLayout/>}/>
         <Route path="/layout" element={<Layout/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
