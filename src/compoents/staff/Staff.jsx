@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useEffect } from "react";
 import { useState } from "react"
+import logo from "../../assets/profile4.jpg"
+import CommenHeader from "../commenHeader/CommenHeader";
 const API = import.meta.env.VITE_API;
 const Staff = () => {
     const [staff, setStaff] = useState({
@@ -19,8 +21,6 @@ const Staff = () => {
     })
     const [error, setError] = useState({})
     const[data,setData]=useState({})
-
-             console.log(data,"get")
 
     const AddFrom = async (e) => {
         try {
@@ -48,7 +48,6 @@ const Staff = () => {
         const GetData = async() => {
             try{
                 const get=await axios.get(`${API}getStaff`)
-                console.log(get.data.data)
                 setData(get.data.data)
             }
             catch(err){
@@ -61,8 +60,9 @@ const Staff = () => {
     return (
         <>
             <div className="">
-                <div className="flex justify-center items-center m-10">
-                    <form className={`w-fit p-5 border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
+                <CommenHeader title={"Add Staff"} logo={logo}/>
+                <div className="flex justify-center items-center m-10 p-10 bg-white rounded-2xl shadow-2xl">
+                    <form className={`p-5 w-full border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
                         <h1 className="font-bold text-center underline text-2xl">STAFF REGISTER FORM</h1>
                         <h1 className="font-semibold text-lg">Staff Information</h1>
                         <div className="grid grid-cols-3 gap-5">
@@ -161,7 +161,7 @@ const Staff = () => {
                             )} */}
                             </div>
                         </div>
-                        <button type="submit" className="bg-blue-500 mt-2 text-white p-2 w-170 ml-2 rounded-lg cursor-pointer ">Register</button>
+                        <button type="submit" className="bg-blue-500 mt-2 text-white p-2 w-full rounded-lg cursor-pointer ">Register</button>
                     </form>
                 </div>
             </div>

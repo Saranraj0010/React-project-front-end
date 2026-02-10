@@ -70,17 +70,17 @@ const Login = () => {
         if (userResult) {
             setProfileData(userResult);
             console.log("User login success");
-            navigate("/layout");
+            navigate("/homePage/adminlayout");
         }    
         else if (staffResult) {
             setProfileData(staffResult);
             console.log("Staff login success");
-            navigate("/stafflayout");
+            navigate("/homePage/stafflayout");
         }
         else if (studentResult){
             setProfileData(studentResult);
             console.log("Student login success");
-            navigate("/studentlayout");
+            navigate("/homePage/studentlayout");
         }
         else{
         console.log("Invalid username or password");

@@ -5,6 +5,8 @@ const API = import.meta.env.VITE_API;
 import Delimage from "../../../assets/trash.png"
 import EditImg from "../../../assets/edit.png"
 import close from "../../../assets/close.png"
+import logo from "../../../assets/profile4.jpg"
+import CommenHeader from "../../commenHeader/CommenHeader";
 
 const StudentDetails = () => {
     const [data, setData] = useState([]);
@@ -136,9 +138,9 @@ const UpdateForm = async (e) => {
     }
     return (
         <>
-            <div className="">
-                <h1 className="font-bold text-xl text-center">Student Information</h1>
-                <div className="flex justify-center">
+            <div className="w-full">
+                <CommenHeader title={"Student Details"} logo={logo}/>
+                <div className="flex justify-center bg-white shadow-2xl rounded-2xl max-w-full m-5 p-5">
                     <table border={1} className="p-2 m-2 text-center">
                         <thead className="bg-gray-200">
                             <tr className="border text-black">

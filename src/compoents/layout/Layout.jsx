@@ -8,17 +8,17 @@ const Layout = () => {
     return (
         <div className="m-0 p-0 h-screen flex flex-col">
             {/* Header */}
-            <div className="h-20 shadow-2xl">
+            <div className="h-20 shadow-lg bg-white w-full fixed z-50">
                 <LayoutHeader/>
             </div>
 
             {/* Body */}
-            <div className="flex flex-1">
-                <div className="shadow-2xl w-64">
+            <div className="flex flex-1 mt-20 relative max-w-full">
+                <div className="shadow-2xl w-64 fixed h-full">
                     <Sidebar setActivePage={setActivePage} />
                 </div>
 
-                <div className="flex-1 overflow-auto">
+                <div className="flex-1 overflow-auto ml-65">
                     <Container activePage={activePage} />
                 </div>
             </div>

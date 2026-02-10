@@ -4,6 +4,8 @@ import { useFormStatus } from "react-dom";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import logo from "../../assets/profile4.jpg"
+import CommenHeader from "../commenHeader/CommenHeader";
 
 
 const API = import.meta.env.VITE_API;
@@ -382,8 +384,9 @@ const StudentForm = () => {
 
 
             {/* Student addForm  */}
-            <div className="flex justify-center items-center m-10">
-                <form className={`w-fit p-5 border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
+            <CommenHeader title={"Add Student"} logo={logo} />
+            <div className="flex justify-center items-center m-5 bg-white p-5 rounded-2xl shadow-2xl">
+                <form className={`w-full p-5 border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
                     <h1 className="font-bold text-center underline text-2xl">STUDENT REGISTER FORM</h1>
                     <h1 className="font-semibold text-lg">Student Information</h1>
                     <div className="grid grid-cols-3 gap-5">
@@ -483,7 +486,7 @@ const StudentForm = () => {
                             )}
                         </div>
                     </div>
-                    <button type="submit" className="bg-blue-500 mt-2 text-white p-2 w-170 ml-2 rounded-lg cursor-pointer ">Register</button>
+                    <button type="submit" className="bg-blue-500 mt-2 text-white p-2 w-full rounded-lg cursor-pointer ">Register</button>
                 </form>
             </div>
         </div>

@@ -4,6 +4,8 @@ import Dashboard from "../dashboard/Dashboard"
 import StudentDetails from "../../student/studentDetails/StudentDetails"
 import Staff from "../../staff/Staff"
 import TotalStaff from "../../staff/TotalStaff"
+import StudentAdmission from "../../student/StudentAdmission"
+import Standard from "../../standard/Standard"
 const Container = ({ activePage }) => {
     return (
         <>
@@ -12,7 +14,9 @@ const Container = ({ activePage }) => {
                 {activePage === "student" && <StudentForm />}
                 {activePage === "studentDetails" && <StudentDetails />}
                 {activePage ==="staff" && <Staff/>}
-                {activePage==="staffDetails"&&<TotalStaff/>}
+                {activePage==="staffDetails" && <TotalStaff/>}
+                {activePage==="studentAdmission" && <StudentAdmission/>}
+                {activePage==="standard" && <Standard/>}
             </div>
         </>
     )

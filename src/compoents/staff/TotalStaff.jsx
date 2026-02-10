@@ -3,6 +3,8 @@ import { useEffect } from "react"
 import { useState } from "react"
 import Delimage from "../../assets/trash.png"
 import EditImg from "../../assets/edit.png"
+import CommenHeader from "../commenHeader/CommenHeader"
+import logo from "../../assets/profile4.jpg"
 const API = import.meta.env.VITE_API;
 
 const TotalStaff = () => {
@@ -88,7 +90,9 @@ const TotalStaff = () => {
     }
     return (
         <>
-            <div className="flex  flex-col justify-center gap-5">
+        <div className="">
+            <CommenHeader title={"Staff Details"} logo={logo}/>
+            <div className="flex  flex-col justify-center bg-white p-5 m-5 rounded-2xl shadow-2xl gap-5">
                 <table border={1} className="p-2 m-2 text-center">
                     <thead className="bg-gray-200">
                         <tr className="border text-black">
@@ -184,6 +188,7 @@ const TotalStaff = () => {
                     </div>
                 )}
 
+            </div>
             </div>
         </>
 
