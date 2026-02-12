@@ -10,7 +10,7 @@ const Staff = () => {
         firstName: "",
         lastName: "",
         dateOfBirth: "",
-        password: "",
+        // password: "",
         role: "",
         address: "",
         state: "",
@@ -32,7 +32,7 @@ const Staff = () => {
                 firstName: "",
                 lastName: "",
                 dateOfBirth: "",
-                password: "",
+                // password: "",
                 role: "to",
                 address: "",
                 state: "",
@@ -59,7 +59,7 @@ const Staff = () => {
         },[])
     return (
         <>
-            <div className="">
+            <div className="bg-white rounded-lg shadow p-1 m-2">
                 <CommenHeader title={"Add Staff"} logo={logo}/>
                 <div className="flex justify-center items-center m-10 p-10 bg-white rounded-2xl shadow-2xl">
                     <form className={`p-5 w-full border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
@@ -94,13 +94,13 @@ const Staff = () => {
                                 <p className="text-red-600 text-[10px]">{error.dateOfBirth}</p>
                             )} */}
                             </div>
-                            <div className="flex flex-col gap-2">
+                            {/* <div className="flex flex-col gap-2">
                                 <label>Password:</label>
                                 <input name="password" value={staff.studentId} placeholder="Password" className="pl-5 w-25 focus:outline-blue-600 text-sm md:text-lg md:w-50 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStaff({ ...staff, password: e.target.value })} />
-                                {/* {error.studentId && (
+                                {error.studentId && (
                                 <p className="text-red-600 text-[10px]">{error.studentId}</p>
-                            )} */}
-                            </div>
+                            )}
+                            </div> */}
                             <div className="flex flex-col gap-2">
                                 <label>Role:</label>
                                 <select name="role" value={staff.studentId} placeholder="Role" className="pl-5 w-25 focus:outline-blue-600 text-sm md:text-lg md:w-50 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStaff({ ...staff, role: e.target.value })} >

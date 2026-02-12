@@ -2,6 +2,7 @@ import { useState } from "react";
 import LayoutHeader from "../layout/layoutHender/LayoutHeader";
 import StaffSidebar from "./sidebar/StaffSidebar";
 import StaffContainer from "./container/StaffContainer";
+import { Footer } from "../layout/footer/Footer";
 
 const StaffLayout = () => {
     const [activePage, setActivePage] = useState("dashboard");
@@ -24,7 +25,9 @@ const StaffLayout = () => {
             </div>
 
             {/* Footer */}
-            <div className="border h-20"></div>
+            <div className="border fixed max-h-fit">
+                <Footer/>
+            </div>
         </div>
     );
 };

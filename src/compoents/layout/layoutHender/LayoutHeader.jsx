@@ -3,26 +3,34 @@ import { Link } from "react-router-dom"
 import Logo from "../../../assets/logo.png"
 import { useLoginStore } from "../store/useLoginStore"
 import { useState } from "react"
+import light from "../../../assets/LightMode.png"
+import dark from "../../../assets/darkMode.png"
 const LayoutHeader = () => {
     const [show, setShow] = useState(false)
     const [profile, setProfile] = useState(false)
-    const { profileData } = useLoginStore();
-    console.log(profileData,"profile")
+    const { profileData, darkMode, setDarkMode } = useLoginStore();
+    // const [darkMode, SetDarkMode] = useState(false)
+    // console.log(profileData,"profile")
     return (
         <>
-            <div className="flex justify-between items-center">
-                {/* <RouterProvider router={Form}/> */}
-                <div className="m-2"><img width={70} src={Logo} /></div>
-                <div className="text-4xl font-extrabold"><h1>School Site</h1></div>
-                <div className="flex gap-2 m-1">
-                    <div className="" onClick={() => setProfile(true)}>Profile</div>
-                    <button className="text-black mr-4 hover:underline hover:text-red-500" onClick={() => { setShow(true) }} >Logout</button>
+            <div className={`flex justify-between items-center shadow ${darkMode ? "bg-black text-white shadow shadow-white" : "bg-blue-800"}`}>
+                <div className="flex justify-center items-center gap-5 mx-5">
+                    {/* <RouterProvider router={Form}/> */}
+                    <div className="m-2"><img width={70} src={Logo} /></div>
+                    <div className="text-4xl font-extrabold"><h1>School Site</h1></div>
+                </div>
+                <div className="flex gap-4 w-fit m-1 mx-5">
+                    <div className="m-2" onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <img width={70} src={light} /> : <img width={70} src={dark} />}</div>
+                    <div className=" flex gap-4 items-center m-1 mx-5">
+                        <div className=" hover:underline  hover:text-white" onClick={() => setProfile(true)}>Profile</div>
+                        <button className="hover:underline hover:text-red-500" onClick={() => { setShow(true) }} >Logout</button>
+                    </div>
                 </div>
                 {
                     profile && (
                         <div className=" absolute top-15 right-25">
                             <div className="bg-white w-fit h-fit flex justify-center items-center gap-5 border rounded-lg">
-                               hello{
+                                hello{
                                     profileData.map((item) => (<div className="px-2 py-5" key={item.UserName}>hello
                                         <img src={close} alt="" onClick={() => setProfile(false)} />
                                         <p>User Name:  {item.UserName}</p>
@@ -36,10 +44,13 @@ const LayoutHeader = () => {
                 }
                 {
                     show && (
-                        <div className=" absolute top-15 right-5">
-                            <div className=" bg-gray-300 w-50 h-20 flex justify-center items-center gap-5 border rounded-lg">
-                                <button onClick={() => setShow(false)} className="bg-blue-500 p-1 h-fit rounded-sm  hover:bg-blue-700 text-white">Cancel</button>
-                                <button className="bg-red-500 p-1 h-fit rounded-sm text-white hover:bg-red-700"><Link to="/homePage">Yes,Logout</Link></button>
+                        <div className=" absolute bg-black/50 flex items-center justify-center inset-0 h-screen w-screen">
+                            <div className=" bg-gray-300 p-5 flex flex-col justify-center items-center gap-3 border rounded-lg">
+                                <h1>You Want To Logout?</h1>
+                                <div className="flex gap-3">
+                                    <button onClick={() => setShow(!show)} className="bg-blue-400 p-1 h-fit rounded-sm  hover:bg-blue-700 text-white">Cancel</button>
+                                    <button className="bg-red-400 p-1 h-fit rounded-sm text-white hover:bg-red-700"><Link to="/homePage">Yes,Logout</Link></button>
+                                </div>
                             </div>
                         </div>
                     )

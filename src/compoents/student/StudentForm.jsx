@@ -384,6 +384,7 @@ const StudentForm = () => {
 
 
             {/* Student addForm  */}
+            <div className="bg-white rounded-lg shadow p-1 m-2">
             <CommenHeader title={"Add Student"} logo={logo} />
             <div className="flex justify-center items-center m-5 bg-white p-5 rounded-2xl shadow-2xl">
                 <form className={`w-full p-5 border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
@@ -393,21 +394,21 @@ const StudentForm = () => {
 
                         <div className="flex flex-col gap-2">
                             <label>First Name:</label>
-                            <input name="firstName" value={student.firstName} placeholder="First Name" className="pl-5 focus:outline-blue-600 w-25 text-sm md:text-lg md:w-50 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, firstName: e.target.value }), setError({ ...error, firstName: "" }) }} />
+                            <input name="firstName" value={student.firstName} placeholder="First Name" className="pl-5 focus:outline-blue-600 max-w-full text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, firstName: e.target.value }), setError({ ...error, firstName: "" }) }} />
                             {error.firstName||error.Duplicate && (
                                 <p className="text-red-600 text-[10px]">{error.firstName||error.Duplicate}</p>
                             )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Middle Name:</label>
-                            <input name="middleName" value={student.middleName} placeholder="Middle Name" className="pl-5 w-29 focus:outline-blue-600 text-sm md:text-lg md:w-50 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, middleName: e.target.value }), setError({ ...error, middleName: "" }) }} />
+                            <input name="middleName" value={student.middleName} placeholder="Middle Name" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, middleName: e.target.value }), setError({ ...error, middleName: "" }) }} />
                             {error.middleName && (
                                 <p className="text-red-600 text-[10px]">{error.middleName}</p>
                             )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Last Name:</label>
-                            <input name="lastName" value={student.lastName} placeholder="Last Name" className="pl-5 w-25 focus:outline-blue-600 text-sm md:text-lg md:w-50 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, lastName: e.target.value }), setError({ ...error, lastName: "" }) }} />
+                            <input name="lastName" value={student.lastName} placeholder="Last Name" className="pl-5 focus:outline-blue-600 text-sm md:text-lg max-w-full h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, lastName: e.target.value }), setError({ ...error, lastName: "" }) }} />
                             {error.lastName && (
                                 <p className="text-red-600 text-[10px]">{error.lastName}</p>
                             )}
@@ -418,14 +419,14 @@ const StudentForm = () => {
                                 // showMonthDropdown
                                 // showYearDropdown
                                 //   dropdownMode="select"  placeholderText="Select the BirthDay"
-                                name="dateOfBirth" value={student.dateOfBirth} placeholder="Enter the Date Of Birth" className="pl-5 w-45 focus:outline-blue-600 text-sm md:text-lg  md:w-115 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, dateOfBirth: e.target.value }), setError({ ...error, dateOfBirth: "" }) }} />
+                                name="dateOfBirth" value={student.dateOfBirth} placeholder="Enter the Date Of Birth" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg   h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, dateOfBirth: e.target.value }), setError({ ...error, dateOfBirth: "" }) }} />
                             {error.dateOfBirth && (
                                 <p className="text-red-600 text-[10px]">{error.dateOfBirth}</p>
                             )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Student ID:</label>
-                            <input name="studentId" value={student.studentId} maxLength={3} placeholder="Student ID" className="pl-5 w-25 focus:outline-blue-600 text-sm md:text-lg md:w-50 h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, studentId: e.target.value }), setError({ ...error, studentId: "" }) }} />
+                            <input name="studentId" value={student.studentId} maxLength={3} placeholder="Student ID" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, studentId: e.target.value }), setError({ ...error, studentId: "" }) }} />
                             {error.studentId && (
                                 <p className="text-red-600 text-[10px]">{error.studentId}</p>
                             )}
@@ -435,35 +436,35 @@ const StudentForm = () => {
                     <div className="grid grid-cols-2 gap-1">
                         <div className="flex flex-col col-span-2 gap-2">
                             <label>Street Address:</label>
-                            <input name="streetAddress" value={student.streetAddress} placeholder="Street Address" className="pl-5 w-84 focus:outline-blue-600 text-sm md:text-lg md:w-192px h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, streetAddress: e.target.value }), setError({ ...error, streetAddress: "" }) }} />
+                            <input name="streetAddress" value={student.streetAddress} placeholder="Street Address" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, streetAddress: e.target.value }), setError({ ...error, streetAddress: "" }) }} />
                             {error.streetAddress && (
                                 <p className="text-red-600 text-[10px]">{error.streetAddress}</p>
                             )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>City:</label>
-                            <input name="city" value={student.city} placeholder="City" className="pl-5 w-40 text-sm md:text-lg focus:outline-blue-600 md:w-85 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, city: e.target.value }), setError({ ...error, city: "" }) }} />
+                            <input name="city" value={student.city} placeholder="City" className="pl-5 text-sm md:text-lg focus:outline-blue-600 max-w-full h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, city: e.target.value }), setError({ ...error, city: "" }) }} />
                             {error.city && (
                                 <p className="text-red-600 text-[10px]">{error.city}</p>
                             )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>State:</label>
-                            <input name="statee" value={student.statee} placeholder="State" className="pl-5 w-40 text-sm focus:outline-blue-600 md:text-lg md:w-85 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, statee: e.target.value }), setError({ ...error, statee: "" }) }} />
+                            <input name="statee" value={student.statee} placeholder="State" className="pl-5 text-sm focus:outline-blue-600 md:text-lg max-w-full h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, statee: e.target.value }), setError({ ...error, statee: "" }) }} />
                             {error.statee && (
                                 <p className="text-red-600 text-[10px]">{error.statee}</p>
                             )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Country:</label>
-                            <input name="country" value={student.country} placeholder="Country" className="pl-5 w-40 focus:outline-blue-600 text-sm md:text-lg md:w-85 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, country: e.target.value }), setError({ ...error, country: "" }) }} />
+                            <input name="country" value={student.country} placeholder="Country" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, country: e.target.value }), setError({ ...error, country: "" }) }} />
                             {error.country && (
                                 <p className="text-red-600 text-[10px]">{error.country}</p>
                             )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Pincode:</label>
-                            <input name="pincode" value={student.pincode} placeholder="Pincode" maxLength={6} className="w-40 focus:outline-blue-600 text-sm md:text-lg md:w-85 pl-5 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, pincode: e.target.value }), setError({ ...error, pincode: "" }) }} />
+                            <input name="pincode" value={student.pincode} placeholder="Pincode" maxLength={6} className="focus:outline-blue-600 text-sm md:text-lg max-w-full pl-5 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, pincode: e.target.value }), setError({ ...error, pincode: "" }) }} />
                             {error.pincode && (
                                 <p className="text-red-600 text-[10px]">{error.pincode}</p>
                             )}
@@ -473,14 +474,14 @@ const StudentForm = () => {
                     <div className="grid grid-cols-2">
                         <div className="flex flex-col gap-2">
                             <label>E-mail:</label>
-                            <input name="email" value={student.email} placeholder="E-mail" className="pl-5 w-40 text-sm focus:outline-blue-600 md:text-lg md:w-85 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, email: e.target.value }), setError({ ...error, email: "" }) }} />
+                            <input name="email" value={student.email} placeholder="E-mail" className="pl-5 text-sm focus:outline-blue-600 md:text-lg max-w-full h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, email: e.target.value }), setError({ ...error, email: "" }) }} />
                             {error.email && (
                                 <p className="text-red-600 text-[10px]">{error.email}</p>
                             )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label>Phone Number:</label>
-                            <input name="phoneNumber" value={student.phoneNumber} placeholder="Phone Number" maxLength={10} className="pl-5 focus:outline-blue-600 w-40 text-sm md:text-lg md:w-85 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, phoneNumber: e.target.value }), setError({ ...error, firstName: "" }) }} />
+                            <input name="phoneNumber" value={student.phoneNumber} placeholder="Phone Number" maxLength={10} className="pl-5 focus:outline-blue-600 max-w-full  text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStudent({ ...student, phoneNumber: e.target.value }), setError({ ...error, firstName: "" }) }} />
                             {error.phoneNumber && (
                                 <p className="text-red-600 text-[10px]">{error.phoneNumber}</p>
                             )}
@@ -489,6 +490,7 @@ const StudentForm = () => {
                     <button type="submit" className="bg-blue-500 mt-2 text-white p-2 w-full rounded-lg cursor-pointer ">Register</button>
                 </form>
             </div>
+        </div>
         </div>
     )
 }

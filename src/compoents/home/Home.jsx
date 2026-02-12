@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Header from "../layout/header/Header";
 import { useLoginStore } from "../layout/store/useLoginStore";
+import { Footer } from "../layout/footer/Footer";
+import HomeContainer from "../homeContainer/HomeContainer";
 
 const Home = () => {
     const [activePage, setActivePage] = useState("dashboard");
@@ -12,9 +14,13 @@ const Home = () => {
                 <Header />
             </div>
             {/* Body */}
-            <div className="h-full shadow-xl"></div>
+            <div className="h-full shadow-xl">
+                <HomeContainer/>
+            </div>
             {/* Footer */}
-            <div className="h-20"></div>
+            <div className="">
+                <Footer/>
+            </div>
         </div>
     );
 };

@@ -112,7 +112,7 @@ const StudentAdmission = () => {
         GetForm()
     },[])
     return (
-        <div className="">
+        <div className="bg-white rounded-lg shadow p-1 m-2">
             <CommenHeader title={"Student Admission"} logo={logo} button={"Add Student"} />
             {/* Student addForm  */}
             <div className="flex justify-center items-center m-5 p-5 bg-white rounded-2xl shadow-2xl max-w-full">

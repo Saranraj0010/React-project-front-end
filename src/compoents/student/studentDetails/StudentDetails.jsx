@@ -138,34 +138,34 @@ const UpdateForm = async (e) => {
     }
     return (
         <>
-            <div className="w-full">
+            <div className="bg-white rounded-lg shadow p-1 m-2">
                 <CommenHeader title={"Student Details"} logo={logo}/>
-                <div className="flex justify-center bg-white shadow-2xl rounded-2xl max-w-full m-5 p-5">
+                <div className="flex justify-center bg-white shadow-2xl rounded-2xl max-w-full   m-5 p-5">
                     <table border={1} className="p-2 m-2 text-center">
                         <thead className="bg-gray-200">
-                            <tr className="border text-black">
-                                <td className="border border-gray-400">ID.No</td>
-                                <td className="border border-gray-400">Name</td>
-                                <td className="border border-gray-400">Date of Birth</td>
-                                <td className="border border-gray-400">E-mail</td>
-                                <td className="border border-gray-400">Phone Number</td>
-                                <td className="border border-gray-400">View</td>
-                                <td className="border border-gray-400">Action</td>
+                            <tr className="bg-blue-600 text-white uppercase text-sm">
+                                <td className="border p-3">ID.No</td>
+                                <td className="border p-3">Name</td>
+                                <td className="border p-3 hidden md:block">Date of Birth</td>
+                                <td className="border p-3">E-mail</td>
+                                <td className="border p-3 hidden md:block">Phone Number</td>
+                                <td className="border p-3">View</td>
+                                <td className="border p-3">Action</td>
                             </tr>
                         </thead>
                         {data.map((id) => (
-                            <tbody key={id.studentId} className="p-2 border">
+                            <tbody key={id.studentId} className={`bg-white hover:bg-gray-500 hover:text-white transition-colors`}>
                                 <tr>
-                                    <td className="p-2 px-4 border border-gray-400">{id.studentId}</td>
-                                    <td className="p-2 px-4 border border-gray-400">{id.firstName} {id.middleName} {id.lastName}</td>
-                                    <td className="p-2 px-4 border border-gray-400">{id.dateOfBirth}</td>
-                                    <td className="p-2 px-4 border border-gray-400">{id.email}</td>
-                                    <td className="p-2 px-4 border border-gray-400">{id.phoneNumber}</td>
-                                    <td className="p-2 px-4 border border-gray-400">
+                                    <td className="p-2 border">{id.studentId}</td>
+                                    <td className="p-2 border">{id.firstName} {id.middleName} {id.lastName}</td>
+                                    <td className="p-3 border hidden md:block">{id.dateOfBirth}</td>
+                                    <td className="p-2 border">{id.email}</td>
+                                    <td className="p-3 border hidden md:block">{id.phoneNumber}</td>
+                                    <td className="p-2 border">
                                         <button className="bg-blue-700 p-1 rounded-lg text-white" onClick={() => OnView(id.studentId)}>View</button>
                                     </td>
-                                    <td className="p-1 border border-gray-400">
-                                        <button className="bg-blue-700 p-1 rounded-lg text-white" onClick={() => OnEdit(id.studentId)}><img width={20} src={EditImg} /></button>
+                                    <td className="p-2 border">
+                                        <button className="bg-green-500 p-1 rounded-lg text-white" onClick={() => OnEdit(id.studentId)}><img width={20} src={EditImg} /></button>
                                         <button className="bg-red-700 p-1 rounded-lg text-white" onClick={() => Del(id.studentId)}><img width={20} src={Delimage} /></button>
                                     </td>
                                 </tr>
@@ -175,9 +175,9 @@ const UpdateForm = async (e) => {
                 </div>
                 {/* update Form */}
                 {show && (
-                    <div className="p-3">
-                        <div className=" flex justify-center items-center">
-                            <form className="w-fit p-5 border rounded-lg flex flex-col gap-2 " onSubmit={(e) => UpdateForm(e)}>
+                    <div className=" absolute bg-black/50 flex items-center justify-center inset-0 h-screen w-screen">
+                        <div className=" flex justify-center h-screen rounded-2xl z-50 bg-white items-center gap-3">
+                            <form className="w-fit p-5 rounded-lg flex flex-col gap-2 " onSubmit={(e) => UpdateForm(e)}>
                                 <h1 className="font-bold text-center underline text-2xl">STUDENT REGISTER FORM</h1>
                                 <h1 className="font-semibold text-lg">Student Information</h1>
                                 <div className="grid grid-cols-3 gap-2">
@@ -237,7 +237,7 @@ const UpdateForm = async (e) => {
                                         <input name="phoneNumber" value={student.phoneNumber} placeholder="Phone Number" maxLength={10} className="pl-5 focus:outline-blue-600 w-40 text-sm md:text-lg md:w-95 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => setStudent({ ...student, phoneNumber: e.target.value })} />
                                     </div>
                                 </div>
-                                <div className="flex gap-3 justify-center">
+                                <div className="flex gap-3 mb-15 justify-center">
                                     <button onClick={() => setShow(false)} className="bg-red-500 mt-2 px-4 text-white p-2 rounded-lg cursor-pointer ">Close</button>
                                     <button type="submit" className="bg-blue-500 mt-2 px-4 text-white p-2 rounded-lg cursor-pointer ">Update</button>
                                 </div>
@@ -250,7 +250,7 @@ const UpdateForm = async (e) => {
                 {/* student View */}
                 {
                     view && viewData && (
-                        <div className="flex justify-center items-center inset-0 absolute top-20 left-20 ">
+                        <div className="flex justify-center items-center inset-0 absolute left-20 ">
                             <div className="bg-blue-500 p-6 relative rounded-lg text-center text-white">
                                 <p className=" absolute top-1 right-1 " onClick={() => setView(false)}><img src={close} className="" /></p>
                                 <div className="text-4xl font-serif rounded-lg h-20 bg-blue-300 text-center"><h1 className="pt-5">Student Details</h1></div>

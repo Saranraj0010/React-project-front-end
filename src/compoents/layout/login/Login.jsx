@@ -23,7 +23,7 @@ const Login = () => {
             setUsers(user.data.data);
             setStaff(staff.data.data);
             setStudent(student.data.data);
-            console.log(student)
+            console.log(staff)
         } catch (err) {
             console.error(err);
         }
@@ -47,14 +47,14 @@ const Login = () => {
     }
     const Login = (e) => {
         e.preventDefault();
-        console.log(user)
+        // console.log(user)
         // if (!Validation()) return
         const userResult = users.find(
             (item) =>
                 item.UserName === user.UserId &&
                 item.Password === user.Password
         );
-        console.log(userResult)
+        // console.log(userResult)
         const staffResult = staff.find(
             (item) =>
                 item.userName === user.UserId &&
@@ -66,7 +66,7 @@ const Login = () => {
                 item.userName === user.UserId &&
                 item.password === user.Password
         );
-        console.log(staffResult)
+        // console.log(staffResult)
         if (userResult) {
             setProfileData(userResult);
             console.log("User login success");

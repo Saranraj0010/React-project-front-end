@@ -22,6 +22,10 @@ export const useLoginStore = create((set, get) => ({
     eyeHide: hide,
     showPassword: false,
     showConfirmPassword: false,
+    darkMode:false,
+    setDarkMode:(value)=>{
+        set((item)=>({darkMode:value}))
+    },
     setShowPassword: (value) => {
         set((item) => ({ showPassword: value }))
     },

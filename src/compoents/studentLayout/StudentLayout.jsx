@@ -2,6 +2,7 @@ import { useState } from "react";
 import LayoutHeader from "../layout/layoutHender/LayoutHeader";
 import StudentSidebar from "./sidebar/StudentSidebar";
 import StudentContainer from "./container/StudentContainer";
+import { Footer } from "../layout/footer/Footer";
 
 const StudentLayout = () => {
     const [activePage, setActivePage] = useState("dashboard");
@@ -24,7 +25,9 @@ const StudentLayout = () => {
             </div>
 
             {/* Footer */}
-            <div className="border h-20"></div>
+            <div className="border fixed max-h-fit">
+                <Footer/>
+            </div>
         </div>
     );
 };
