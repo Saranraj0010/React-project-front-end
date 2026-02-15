@@ -19,11 +19,11 @@ const Login = () => {
         try {
             const user = await axios.get(`${API}getSignUp`);
             const staff = await axios.get(`${API}getStaff`);
-            const student=await axios.get(`${API}getForm`);
+            const student=await axios.get(`${API}getStudent`);
             setUsers(user.data.data);
             setStaff(staff.data.data);
             setStudent(student.data.data);
-            console.log(staff)
+            console.log(student)
         } catch (err) {
             console.error(err);
         }
@@ -54,19 +54,19 @@ const Login = () => {
                 item.UserName === user.UserId &&
                 item.Password === user.Password
         );
-        // console.log(userResult)
+        console.log(userResult,"admin")
         const staffResult = staff.find(
             (item) =>
                 item.userName === user.UserId &&
                 item.password === user.Password
         );
-        console.log(staffResult)
+        console.log(staffResult,"staff")
         const studentResult = student.find(
             (item) =>
                 item.userName === user.UserId &&
                 item.password === user.Password
         );
-        // console.log(staffResult)
+        console.log(studentResult,"student")
         if (userResult) {
             setProfileData(userResult);
             console.log("User login success");

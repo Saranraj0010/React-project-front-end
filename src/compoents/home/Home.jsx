@@ -10,11 +10,11 @@ const Home = () => {
     return (
         <div className={`m-0 p-0 h-screen flex flex-col`}>
             {/* Header */}
-            <div className="h-20 shadow-xl">
+            <div className="shadow-xl">
                 <Header />
             </div>
             {/* Body */}
-            <div className="h-full shadow-xl">
+            <div className=" shadow-xl">
                 <HomeContainer/>
             </div>
             {/* Footer */}

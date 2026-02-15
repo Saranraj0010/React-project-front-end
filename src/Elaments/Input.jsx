@@ -3,10 +3,11 @@ const Input = ({ type = "text",
     placeholder,
     name,
     value,
-    // onchange,
-    className,
+    onchange,
+    className="",
+    onclick
 }) => {
-    let inputClasses = `pl-5 focus:outline-blue-600 w-25 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl`
+    let inputClasses = `pl-5 focus:outline-blue-600 w-25 text-sm md:text-lg md:w-60 h-10 border rounded-lg hover:border-blue-500 shadow-xl ${className}`
     return (
         <>
             <input
@@ -16,6 +17,8 @@ const Input = ({ type = "text",
                 name={name}
                 value={value}
                 className={inputClasses}
+                onChange={onchange}
+                onClick={onclick}
             />
         </>
     )

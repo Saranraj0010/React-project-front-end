@@ -8,6 +8,7 @@ import StudentAdmission from "../../student/StudentAdmission"
 import Standard from "../../standard/Standard"
 import AdmissionDetails from "../../student/admissionDetails/AdmissionDetails"
 import Role from "../../role/Role"
+import Circular from "../../circular/Circular"
 const Container = ({ activePage }) => {
     return (
         <>
@@ -15,6 +16,7 @@ const Container = ({ activePage }) => {
                 <div className="max-h-screen bg-white shadow-2xl rounded-2xl cursor-pointer">
                 {activePage === "dashboard" && <Dashboard />}
                 </div>
+                {activePage==="circular" && <Circular/>}
                 {activePage === "student" && <StudentForm />}
                 {activePage === "studentDetails" && <StudentDetails />}
                 {activePage ==="staff" && <Staff/>}

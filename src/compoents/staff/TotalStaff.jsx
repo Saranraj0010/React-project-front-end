@@ -44,8 +44,8 @@ const TotalStaff = () => {
     useEffect(() => {
         GetData()
     }, [])
-    const OnEdit = (UserName) => {
-        const selected = data.find((items) => items.UserName === UserName)
+    const OnEdit = (id) => {
+        const selected = data.find((items) => items.id === id)
         console.log(selected)
         if (selected) {
             setShow(true)
@@ -132,18 +132,18 @@ const TotalStaff = () => {
                         </thead>
                         {data.map((staff) => (
                             <tbody key={staff.id} className="p-2 border">
-                                <tr className={`bg-white hover:bg-gray-500 hover:text-white transition-colors font-medium`}>
+                                <tr className={`bg-white hover:bg-gray-300 transition-colors font-medium`}>
                                     <td className="border p-3">{staff.id}</td>
                                     <td className="border p-3">{staff.firstName}{staff.lastName}</td>
                                     <td className="border p-3">{staff.dateOfBirth}</td>
                                     <td className="border p-3">{staff.email}</td>
                                     <td className="border p-3">{staff.phoneNumber}</td>
-                                    <td className="border p-3 relative">
-                                        <button className="bg-blue-500 p-1 hover:p-2 hover:absolute top-2 hover:font-extrabold left-3 rounded-lg text-white hover:bg-blue-700" onClick={() => OnView(staff.id)}>View</button>
+                                    <td className="border p-3">
+                                        <button className="bg-blue-500 p-1 hover:font-extrabold cursor-pointer left-3 rounded-lg text-white hover:bg-blue-700" onClick={() => OnView(staff.id)}>View</button>
                                     </td>
-                                    <td className="border p-3 relative">
-                                        <button className="bg-green-500 hover:p-2 hover:absolute top-2 hover:font-extrabold left-3 p-1 rounded-lg text-white" onClick={() => OnEdit(staff.id)}><img width={20} src={EditImg} /></button>
-                                        <button className="bg-red-700 hover:p-2 hover:absolute top-2 hover:font-extrabold right-3 p-1 rounded-lg text-white" onClick={() => Del(staff.id)}><img width={20} src={Delimage} /></button>
+                                    <td className="border p-3">
+                                        <button className="bg-green-500 hover:font-extrabold cursor-pointer left-3 p-1 rounded-lg text-white" onClick={() => OnEdit(staff.id)}><img width={20} src={EditImg} /></button>
+                                        <button className="bg-red-700 hover:font-extrabold cursor-pointer right-3 p-1 rounded-lg text-white" onClick={() => Del(staff.id)}><img width={20} src={Delimage} /></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -154,8 +154,8 @@ const TotalStaff = () => {
                             <div className="bg-white w-fit p-3 border rounded-2xl text-center">
                                 <h1 className="text-xl m-1">Want to Delete Data</h1>
                                 <div className=" flex justify-center gap-3">
-                                    <button onClick={() => { setShows(false) }} className="bg-blue-700 p-1 rounded-lg" >Cancel</button>
-                                    <button onClick={() => DeleteForm()} className="bg-red-700 p-1 rounded-lg">Delete</button>
+                                    <button onClick={() => { setShows(false) }} className="bg-blue-700 cursor-pointer p-1 rounded-lg" >Cancel</button>
+                                    <button onClick={() => DeleteForm()} className="bg-red-700 p-1  cursor-pointer rounded-lg">Delete</button>
                                 </div>
 
                             </div>

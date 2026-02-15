@@ -1,11 +1,19 @@
-const LabelName = ({ htmlFor,className,children}) => {
-    let inputclass="";
-    inputclass=`text-2xl`;
-  return (
-    <label htmlFor={htmlFor}
-    className={inputclass}>
-      {children}
-    </label>
-  );
+const LabelName = ({
+    htmlFor,
+    className = "",
+    children
+}) => {
+
+    const baseClasses = "text-lg font-medium";
+
+    return (
+        <label
+            htmlFor={htmlFor}
+            className={`${baseClasses} ${className}`}
+        >
+            {children}
+        </label>
+    );
 };
-export default LabelName
+
+export default LabelName;

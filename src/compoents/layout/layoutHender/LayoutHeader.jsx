@@ -1,16 +1,14 @@
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Link } from "react-router-dom"
 import Logo from "../../../assets/logo.png"
 import { useLoginStore } from "../store/useLoginStore"
 import { useState } from "react"
 import light from "../../../assets/LightMode.png"
 import dark from "../../../assets/darkMode.png"
+import Settings from "../../../assets/settings.png"
 const LayoutHeader = () => {
     const [show, setShow] = useState(false)
     const [profile, setProfile] = useState(false)
     const { profileData, darkMode, setDarkMode } = useLoginStore();
-    // const [darkMode, SetDarkMode] = useState(false)
-    // console.log(profileData,"profile")
     return (
         <>
             <div className={`flex justify-between items-center shadow ${darkMode ? "bg-black text-white shadow shadow-white" : "bg-blue-800"}`}>
@@ -19,11 +17,14 @@ const LayoutHeader = () => {
                     <div className="m-2"><img width={70} src={Logo} /></div>
                     <div className="text-4xl font-extrabold"><h1>School Site</h1></div>
                 </div>
-                <div className="flex gap-4 w-fit m-1 mx-5">
-                    <div className="m-2" onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <img width={70} src={light} /> : <img width={70} src={dark} />}</div>
+                <div className="flex items-center gap-4 w-fit m-1 mx-5">
+                    <div className="m-2 cursor-pointer" onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <img width={70} src={light} /> : <img width={70} src={dark} />}</div>
+                    <div className="cursor-pointer" onClick={()=>{}}>
+                        <img src={Settings} />
+                    </div>
                     <div className=" flex gap-4 items-center m-1 mx-5">
-                        <div className=" hover:underline  hover:text-white" onClick={() => setProfile(true)}>Profile</div>
-                        <button className="hover:underline hover:text-red-500" onClick={() => { setShow(true) }} >Logout</button>
+                        <div className=" hover:underline  hover:text-white cursor-pointer" onClick={() => setProfile(true)}>Profile</div>
+                        <button className="hover:underline hover:text-red-500 cursor-pointer" onClick={() => { setShow(true) }} >Logout</button>
                     </div>
                 </div>
                 {
