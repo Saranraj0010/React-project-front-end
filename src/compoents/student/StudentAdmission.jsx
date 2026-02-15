@@ -39,6 +39,12 @@ const StudentAdmission = () => {
 
     const Validation = () => {
         let newError = {};
+        let Email=/^\S+@\S+\.\S+$/
+        let Number=/^\+?[1-9]\d{6,14}$/
+        // let list=["userName","firstName","lastName","gender","dateOfBirth","aaadharno","standard","bloodGroup","language","address","state","nationality","pincode","email","studentMobileNo","fatherName","fatherOccupation","fatherNumber","motherName","motherOccupation","motherNumber","password"]
+        // list.forEach((item)=>{
+        //     if(student[item].trim()==="") newError[item]=`${item} requird`
+        // })
         if (student.userName.trim() === "") newError.userName = "User Name requird"
         if (student.firstName.trim() === "") newError.firstName = "First Name requird"
         if (student.lastName.trim() === "") newError.lastName = "Last Name requird"
@@ -53,16 +59,16 @@ const StudentAdmission = () => {
         if (student.pincode.trim() === "") newError.pincode = "Pincode requird"
         if (student.nationality.trim() === "") newError.nationality = "Nationality requird"
         if (student.email.trim() === "") { newError.email = "Email requird" }
-        else if (!/^\S+@\S+\.\S+$/.test(student.email)) { newError.email = "Invalid email" }
+        else if (!Email.test(student.email)) { newError.email = "Invalid email" }
         if (student.studentMobileNo.trim() === "") { newError.studentMobileNo = "Phone Number requird" }
-        else if (!/^\+?[1-9]\d{6,14}$/.test(student.studentMobileNo)) { newError.studentMobileNo = "Invalid phone number format" }
+        else if (!Number.test(student.studentMobileNo)) { newError.studentMobileNo = "Invalid phone number format" }
         if (student.fatherName.trim() === "") { newError.fatherName = "Father Name requird" }
         if (student.fatherNumber.trim() === "") { newError.fatherNumber = "Father Number requird" }
-        else if (!/^\+?[1-9]\d{6,14}$/.test(student.fatherNumber)) { newError.fatherNumber = "Invalid phone number format" }
+        else if (!Number.test(student.fatherNumber)) { newError.fatherNumber = "Invalid phone number format" }
         if (student.fatherOccupation.trim() === "") { newError.fatherOccupation = "Father Occupation requird" }
         if (student.motherName.trim() === "") { newError.motherName = "Mother Name requird" }
         if (student.motherNumber.trim() === "") { newError.motherNumber = "Mother Number requird" }
-        else if (!/^\+?[1-9]\d{6,14}$/.test(student.motherNumber)) { newError.motherNumber = "Invalid phone number format" }
+        else if (!Number.test(student.motherNumber)) { newError.motherNumber = "Invalid phone number format" }
         if (student.motherOccupation.trim() === "") { newError.motherOccupation = "Mother Occupation requird" }
 
 
