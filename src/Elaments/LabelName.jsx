@@ -1,4 +1,4 @@
-const LabelName = ({
+export const LabelName = ({
     htmlFor,
     className = "",
     children
@@ -15,5 +15,3 @@ const LabelName = ({
         </label>
     );
 };
-
-export default LabelName;

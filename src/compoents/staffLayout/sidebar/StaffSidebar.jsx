@@ -3,6 +3,7 @@ import { useLoginStore } from "../../layout/store/useLoginStore";
 const sidebar = [
     { id: 1, name: "Dashboard", page: "dashboard" },
     { id: 2, name: "Student Details", page: "studentDetails" },
+    {id:3,name:"Circular",page:"circular"}
 ]
 
 const StaffSidebar = ({ setActivePage }) => {

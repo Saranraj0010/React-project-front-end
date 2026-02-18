@@ -1,7 +1,8 @@
 import { useLoginStore } from "../../layout/store/useLoginStore";
 
 const sidebar = [
-    { id: 1, name: "Dashboard", page: "dashboard" }
+    { id: 1, name: "Dashboard", page: "dashboard" },
+    {id:2,name:"Circular",page:"circular"}
 ]
 
 const StudentSidebar = ({ setActivePage }) => {
