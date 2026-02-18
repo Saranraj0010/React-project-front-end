@@ -23,7 +23,7 @@ const Sidebar = ({ setActivePage }) => {
             <h1 className="text-center p-3 border-b ">Admin Pannel</h1>
             <ol className="w-full p-2 flex flex-col gap-2">
                 {sidebar.map((item) => (
-                    <li key={item.id} onClick={() => { setActivePage(item.page) }} className={`${darkMode ? "bg-gray-400 text-black hover:bg-gray-800 hover:text-white    " : "bg-white text-blue-600 hover:bg-blue-600 hover:text-white"} rounded-md p-2 text-lg font-serif cursor-pointer`} >
+                    <li key={item.id} onClick={() => { setActivePage(item.page) }} className={`${darkMode ? "bg-gray-400 text-black hover:bg-gray-800 hover:text-white" : "bg-white text-blue-600 hover:bg-blue-600 hover:text-white"} rounded-md p-2 text-lg font-serif cursor-pointer`} >
                         {item.name}
                     </li>
                 ))}

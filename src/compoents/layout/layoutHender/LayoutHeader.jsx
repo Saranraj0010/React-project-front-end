@@ -5,10 +5,42 @@ import { useState } from "react"
 import light from "../../../assets/LightMode.png"
 import dark from "../../../assets/darkMode.png"
 import Settings from "../../../assets/settings.png"
+import Input from "../../../Elaments/Input"
+import { LabelName } from "../../../Elaments/LabelName"
+import axios from "axios"
+import { useEffect } from "react"
+const API = import.meta.env.VITE_API;
+
 const LayoutHeader = () => {
     const [show, setShow] = useState(false)
     const [profile, setProfile] = useState(false)
-    const { profileData, darkMode, setDarkMode } = useLoginStore();
+    const [password, setPassword] = useState(false)
+    const {profileData, darkMode, setDarkMode } = useLoginStore();
+    const [data, setData] = useState([])
+     const AddFrom = async (e) => {
+        try {
+            e.preventDefault();
+            if (!Validation()) return
+            const add = await axios.post(`${API}addStaff`, staff)
+            console.log(add)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    const fullData=data.filter((item)=>item.id===profileData.id)
+    const GetData = async () => {
+        try {
+            const get = await axios.get(`${API}getStaff`)
+            setData(get.data.data)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        GetData()
+    }, [])
     return (
         <>
             <div className={`flex justify-between items-center shadow ${darkMode ? "bg-black text-white shadow shadow-white" : "bg-blue-800"}`}>
@@ -20,13 +52,23 @@ const LayoutHeader = () => {
                 <div className="flex items-center gap-4 w-fit m-1 mx-5">
                     <div className="m-2 cursor-pointer" onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <img width={70} src={light} /> : <img width={70} src={dark} />}</div>
                     <div className="cursor-pointer" onClick={()=>{}}>
-                        <img src={Settings} />
+                        <img src={Settings} onClick={()=>setPassword(!password)} className=" cursor-pointer"  />
                     </div>
                     <div className=" flex gap-4 items-center m-1 mx-5">
                         <div className=" hover:underline  hover:text-white cursor-pointer" onClick={() => setProfile(true)}>Profile</div>
                         <button className="hover:underline hover:text-red-500 cursor-pointer" onClick={() => { setShow(true) }} >Logout</button>
                     </div>
                 </div>
+                {
+                    password&&(
+                        <div className=" absolute top-15 right-50">
+                            <div className="bg-white w-fit h-fit flex justify-center items-center gap-5 border border-gray-500 rounded-lg p-5">
+                                <LabelName>Update the Password:</LabelName>
+                                <Input value={data.password} />
+                            </div>
+                        </div>
+                    )
+                }
                 {
                     profile && (
                         <div className=" absolute top-15 right-25">

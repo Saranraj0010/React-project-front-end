@@ -20,7 +20,6 @@ const AdmissionDetails = () => {
     const GetForm = async () => {
         try {
             const get = await axios.get(`${API}getStudent`)
-            console.log(get.data.data)
             setStudent(get.data.data)
             const standard = await axios.get(`${API}getStandard`)
             setStandard(standard.data.data)

@@ -16,23 +16,23 @@ const Circular = () => {
     const [filter, setFilter] = useState({ text: "", select: "" })
     const [circular, setCircular] = useState({ text: "", title: "", file: null, select: "" })
     const Submit = async () => {
-        // const formData=new FormData();
-        // formData.append("file",circular.file)
-        // formData.append("text",circular.text)
-        // formData.append("select",circular.select)
-        // console.log(formData,"helloz")
-        // console.log(circular)    
-        // const add=await axios.post(`${API}addCircular`,formData,{
-        //     headers:{
-        //         'Content-Type':'multipart/form-data',
-        //     }
-        // })
-        const add = await axios.post(`${API}addCircular`, circular)
+        const formData=new FormData();
+        formData.append("file",circular.file)
+        formData.append("text",circular.text)
+        formData.append("select",circular.select)
+        console.log(formData,"helloz")
+        console.log(circular)    
+        const add=await axios.post(`${API}addCircular`,formData,{
+            headers:{
+                'Content-Type':'multipart/form-data',
+            }
+        })
+        // const add = await axios.post(`${API}addCircular`, circular)
         console.log(add)
         setCircular({
             text: "",
-            title:"",
-            // file: null,
+            title: "",
+            file: null,
             select: ""
         })
         GetForm()
@@ -58,7 +58,7 @@ const Circular = () => {
     // if(filterData.length=0){
     //     setNoData(true)
     // }
-        useEffect(() => {
+    useEffect(() => {
         GetForm()
     }, [])
     return (
@@ -66,22 +66,32 @@ const Circular = () => {
             <div className="">
                 <ButtonHeader title={"Circular"} logo={logo} button={"Add Circular"} onclick={() => { setShowCircular(true) }} />
                 <div className=" bg-white rounded-2xl p-5 m-5 shadow-2xl text-right">
-                    <Input type="text" placeholder={"enter title or content"} onchange={(e) => { setFilter({ ...filter, text: e.target.value }) }} />
-                    <select className="h-10 mx-5 border rounded-lg" onChange={(e) => { setFilter({ ...filter, select: e.target.value }) }} name="" id="">
+                    <Input type="text" placeholder={"enter title or content"} value={filter.text} onchange={(e) => { setFilter({ ...filter, text: e.target.value }) }} />
+                    <select className="h-10 mx-5 border rounded-lg" value={filter.select} onChange={(e) => { setFilter({ ...filter, select: e.target.value }) }} name="" id="">
                         <option value="">Select the Role Type</option>
                         <option value="all">All</option>
                         <option value="staff">Staff</option>
                         <option value="student">Student</option>
                     </select>
+                    <button onClick={()=>setFilter({text:"",select:""})}>Reset</button>
                 </div>
                 <div className=" bg-white rounded-2xl p-5 m-5 shadow-2xl">{
                     noData ? (<></>) : (
                         <div className=" grid grid-cols-3 gap-5">
                             {filterData.map((item) => (
-                                <div className="border rounded-xl p-4" key={item.id}>
-                                    <p>Role Type:{item.role_type}</p>
-                                    <p>Title:{item.title}</p>
-                                    <p>Circular:{item.text}</p>
+                                <div className="border rounded-xl p-4 text-lg" key={item.id}>
+                                    <div className="flex gap-3">
+                                        <p className=" font-bold">Role Type:</p>
+                                        <p>{item.role_type}</p>
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <p className=" font-bold">Title:</p>
+                                        <p>{item.title}</p>
+                                    </div>
+                                    <div className="gap-3">
+                                        <p className=" font-bold">Circular:</p>
+                                        <p className="mx-2">{item.text}</p>
+                                    </div>
                                 </div>
                             ))}
                         </div>)

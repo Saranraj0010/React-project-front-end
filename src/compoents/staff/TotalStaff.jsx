@@ -34,7 +34,6 @@ const TotalStaff = () => {
     const GetData = async () => {
         try {
             const get = await axios.get(`${API}getStaff`)
-            console.log(get.data.data)
             setData(get.data.data)
         }
         catch (err) {

@@ -267,7 +267,7 @@ const StudentAdmission = () => {
                     <h1 className="font-semibold text-lg">Parants Details</h1>
                     <div className="md:grid lg:grid-cols-3">
                         {inputData.map((item)=>(
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-2" key={item.title}>
                             <LabelName>{item.title}</LabelName>
                             <input name={item.name} ref={(el) => (inputRef.current[item.name] = el)} value={student[item.name]} placeholder={item.title} className={input} onChange={(e) => { setStudent({ ...student, [item.name]: e.target.value }), setError({ ...error, [item.name]: "" }) }} />
                             {error[item.name] && (

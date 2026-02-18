@@ -74,7 +74,6 @@ const Staff = () => {
             const staffs = await axios.get(`${API}getRole`)
             setData(get.data.data)
             setRole(staffs.data.data)
-            console.log(role)
         }
         catch (err) {
             console.log(err)
