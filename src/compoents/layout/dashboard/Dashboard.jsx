@@ -40,7 +40,7 @@ const Dashboard = () => {
                     <p className=" font-semibold text-red-600 text-2xl">Number Of Students in School</p>
                     <p className="font-extrabold text-blue-600 text-2xl">{student.length}</p>
                 </div>
-                <div className="bg-white rounded-lg shadow-2xl p-1 m-2 text-center">
+                <div className="bg-white rounded-lg shadow-2xl p-4 m-2 text-center">
                     <p className=" font-semibold text-red-600 text-2xl">Number Of Staffs in School</p>
                     <p className="font-extrabold text-blue-600 text-2xl">{staff.length}</p>
                 </div>

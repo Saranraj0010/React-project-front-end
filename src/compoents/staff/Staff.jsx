@@ -27,8 +27,7 @@ const Staff = () => {
         if (staff.firstName.trim() === "") newError.firstName = "First Name requird"
         if (staff.lastName.trim() === "") newError.lastName = "Last Name requird"
         if (staff.dateOfBirth.trim() === "") newError.dateOfBirth = "DOB requird"
-        if (staff.role.trim() === "") { newError.role = "Role requird" }
-        // else if (data.filter(item => item.firstName === staff.firstName)) { newError.Duplicate = "Name Duplicate", console.log("hello") }
+        if (staff.role.trim() === "") newError.role = "Role requird"
         if (staff.address.trim() === "") newError.address = "Address requird"
         if (staff.state.trim() === "") newError.state = "State requird"
         if (staff.pincode.trim() === "") newError.pincode = "Pincode requird"
@@ -40,14 +39,15 @@ const Staff = () => {
 
         setError(newError)
         if (Object.keys(newError).length > 0) {
-            setTimeout(() => { setError(Object.keys(newError).length > 0) }, 1000 * 1000)
+            const firstErrorKey = Object.keys(newError)[0];
+            inputRef.current[firstErrorKey].focus();
         }
 
     }
     const AddFrom = async (e) => {
         try {
             e.preventDefault();
-            if (!Validation()) return
+            // if (!Validation()) return
             const add = await axios.post(`${API}addStaff`, staff)
             console.log(add)
             setStaff({
@@ -93,7 +93,7 @@ const Staff = () => {
                         <div className="grid grid-cols-3 gap-5">
                             <div className="flex flex-col gap-2">
                                 <label>User Name:</label>
-                                <input name="userName" value={staff.userName} placeholder="User Name" className="pl-5 focus:outline-blue-600 text-sm md:text-lg max-w-full h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, userName: e.target.value }),setError({ ...error, userName: "" })}} />
+                                <input name="userName" value={staff.userName} placeholder="User Name" className="pl-5 focus:outline-blue-600 text-sm md:text-lg max-w-full h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, userName: e.target.value }), setError({ ...error, userName: "" }) }} />
                                 {error.userName && (
                                     <p className="text-red-600 text-[10px]">{error.userName}</p>
                                 )}
@@ -107,14 +107,14 @@ const Staff = () => {
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label>Last Name:</label>
-                                <input name="lastName" value={staff.lastName} placeholder="Last Name" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, lastName: e.target.value }),setError({ ...error, lastName: "" })}} />
+                                <input name="lastName" value={staff.lastName} placeholder="Last Name" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, lastName: e.target.value }), setError({ ...error, lastName: "" }) }} />
                                 {error.lastName && (
                                     <p className="text-red-600 text-[10px]">{error.lastName}</p>
                                 )}
                             </div>
                             <div className="flex flex-col col-span-2 gap-2">
                                 <label>Date Of Birth:</label>
-                                <input name="dateOfBirth" value={staff.dateOfBirth} placeholder="Enter the Date Of Birth" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, dateOfBirth: e.target.value }),setError({ ...error, dateOfBirth: "" })}} />
+                                <input name="dateOfBirth" value={staff.dateOfBirth} placeholder="Enter the Date Of Birth" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, dateOfBirth: e.target.value }), setError({ ...error, dateOfBirth: "" }) }} />
                                 {error.dateOfBirth && (
                                     <p className="text-red-600 text-[10px]">{error.dateOfBirth}</p>
                                 )}
@@ -122,7 +122,7 @@ const Staff = () => {
                             <div className="flex flex-col gap-2">
                                 <label>Role:</label>
                                 <select name="standard" value={staff.role} placeholder="Role" className="pl-5  focus:outline-blue-600 text-sm md:text-lg max-w-full p-2 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, role: e.target.value }), setError({ ...error, role: "" }) }} >
-                                    <option value="">Select Standard</option>
+                                    <option value="">Select Role</option>
                                     {role.map((item) => (
                                         <option key={item.role} value={item.role}>{item.role}</option>
                                     ))}
@@ -136,28 +136,28 @@ const Staff = () => {
                         <div className="grid grid-cols-2 gap-1">
                             <div className="flex flex-col col-span-2 gap-2">
                                 <label>Address:</label>
-                                <input name="address" value={staff.address} placeholder="Address" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, address: e.target.value }),setError({ ...error, address: "" })}} />
+                                <input name="address" value={staff.address} placeholder="Address" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, address: e.target.value }), setError({ ...error, address: "" }) }} />
                                 {error.address && (
                                     <p className="text-red-600 text-[10px]">{error.address}</p>
                                 )}
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label>State:</label>
-                                <input name="state" value={staff.state} placeholder="State" className="pl-5 max-w-full text-sm focus:outline-blue-600 md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, state: e.target.value }),setError({ ...error, state: "" })}} />
+                                <input name="state" value={staff.state} placeholder="State" className="pl-5 max-w-full text-sm focus:outline-blue-600 md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, state: e.target.value }), setError({ ...error, state: "" }) }} />
                                 {error.state && (
                                     <p className="text-red-600 text-[10px]">{error.state}</p>
                                 )}
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label>Country:</label>
-                                <input name="country" value={staff.country} placeholder="Country" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, country: e.target.value }),setError({ ...error, country: "" })}} />
+                                <input name="country" value={staff.country} placeholder="Country" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, country: e.target.value }), setError({ ...error, country: "" }) }} />
                                 {error.country && (
                                     <p className="text-red-600 text-[10px]">{error.country}</p>
                                 )}
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label>Pincode:</label>
-                                <input name="pincode" value={staff.pincode} placeholder="Pincode" maxLength={6} className="max-w-full focus:outline-blue-600 text-sm md:text-lg pl-5 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, pincode: e.target.value }),setError({ ...error, pincode: "" })}} />
+                                <input name="pincode" value={staff.pincode} placeholder="Pincode" maxLength={6} className="max-w-full focus:outline-blue-600 text-sm md:text-lg pl-5 h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, pincode: e.target.value }), setError({ ...error, pincode: "" }) }} />
                                 {error.pincode && (
                                     <p className="text-red-600 text-[10px]">{error.pincode}</p>
                                 )}
@@ -167,14 +167,14 @@ const Staff = () => {
                         <div className="grid grid-cols-2">
                             <div className="flex flex-col gap-2">
                                 <label>E-mail:</label>
-                                <input name="email" value={staff.email} placeholder="E-mail" className="pl-5 max-w-full text-sm focus:outline-blue-600 md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, email: e.target.value }),setError({ ...error, email: "" })}} />
+                                <input name="email" value={staff.email} placeholder="E-mail" className="pl-5 max-w-full text-sm focus:outline-blue-600 md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, email: e.target.value }), setError({ ...error, email: "" }) }} />
                                 {error.email && (
                                     <p className="text-red-600 text-[10px]">{error.email}</p>
                                 )}
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label>Phone Number:</label>
-                                <input name="phoneNumber" value={staff.phoneNumber} placeholder="Phone Number" maxLength={10} className="pl-5 focus:outline-blue-600 max-w-full text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {setStaff({ ...staff, phoneNumber: e.target.value }),setError({ ...error, phoneNumber: "" })}} />
+                                <input name="phoneNumber" value={staff.phoneNumber} placeholder="Phone Number" maxLength={10} className="pl-5 focus:outline-blue-600 max-w-full text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, phoneNumber: e.target.value }), setError({ ...error, phoneNumber: "" }) }} />
                                 {error.phoneNumber && (
                                     <p className="text-red-600 text-[10px]">{error.phoneNumber}</p>
                                 )}

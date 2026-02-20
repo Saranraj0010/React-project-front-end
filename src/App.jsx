@@ -7,6 +7,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./compoents/home/Home";
 import StaffLayout from "./compoents/staffLayout/StaffLayout";
 import StudentLayout from "./compoents/studentLayout/StudentLayout";
+import StudentAdmission from "./compoents/student/StudentAdmission";
+import CounsllerLayout from "./compoents/counsllerLayout/CounsllerLayout";
 
 
 const App = () => {
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/homePage/studentlayout" element={<StudentLayout/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
+        <Route path="/admission" element={<StudentAdmission/>}/>
+        <Route path="/counsllerlayout" element={<CounsllerLayout/>}/>
       </Routes>
     </>
   )

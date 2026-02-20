@@ -120,7 +120,8 @@ const TotalStaff = () => {
                     <table border={1} className="p-2 m-2 text-center">
                         <thead className="bg-gray-200">
                             <tr className="bg-blue-600 text-white uppercase text-sm">
-                                <td className="border p-3">Employee.No</td>
+                                <td className="border p-3">S.No</td>
+                                <td className="border p-3">Employee.id</td>
                                 <td className="border ">Name</td>
                                 <td className="border ">Date of Birth</td>
                                 <td className="border ">E-mail</td>
@@ -129,9 +130,10 @@ const TotalStaff = () => {
                                 <td className="border ">Action</td>
                             </tr>
                         </thead>
-                        {data.map((staff) => (
+                        {data.map((staff,index) => (
                             <tbody key={staff.id} className="p-2 border">
                                 <tr className={`bg-white hover:bg-gray-300 transition-colors font-medium`}>
+                                    <td className="border p-3">{index+1}</td>
                                     <td className="border p-3">{staff.id}</td>
                                     <td className="border p-3">{staff.firstName}{staff.lastName}</td>
                                     <td className="border p-3">{staff.dateOfBirth}</td>
@@ -140,7 +142,7 @@ const TotalStaff = () => {
                                     <td className="border p-3">
                                         <button className="bg-blue-500 p-1 hover:font-extrabold cursor-pointer left-3 rounded-lg text-white hover:bg-blue-700" onClick={() => OnView(staff.id)}>View</button>
                                     </td>
-                                    <td className="border p-3">
+                                    <td className="flex gap-3 p-3">
                                         <button className="bg-green-500 hover:font-extrabold cursor-pointer left-3 p-1 rounded-lg text-white" onClick={() => OnEdit(staff.id)}><img width={20} src={EditImg} /></button>
                                         <button className="bg-red-700 hover:font-extrabold cursor-pointer right-3 p-1 rounded-lg text-white" onClick={() => Del(staff.id)}><img width={20} src={Delimage} /></button>
                                     </td>

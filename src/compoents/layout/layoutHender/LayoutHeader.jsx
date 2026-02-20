@@ -4,10 +4,11 @@ import { useLoginStore } from "../store/useLoginStore"
 import { useState } from "react"
 import light from "../../../assets/LightMode.png"
 import dark from "../../../assets/darkMode.png"
-import Settings from "../../../assets/settings.png"
+import settings from "../../../assets/settings.png"
 import Input from "../../../Elaments/Input"
 import { LabelName } from "../../../Elaments/LabelName"
 import axios from "axios"
+import close from "../../../assets/close.png"
 import { useEffect } from "react"
 const API = import.meta.env.VITE_API;
 
@@ -17,18 +18,7 @@ const LayoutHeader = () => {
     const [password, setPassword] = useState(false)
     const {profileData, darkMode, setDarkMode } = useLoginStore();
     const [data, setData] = useState([])
-     const AddFrom = async (e) => {
-        try {
-            e.preventDefault();
-            if (!Validation()) return
-            const add = await axios.post(`${API}addStaff`, staff)
-            console.log(add)
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
-    const fullData=data.filter((item)=>item.id===profileData.id)
+    const fullData=data.find((item)=>item.id===profileData.id)
     const GetData = async () => {
         try {
             const get = await axios.get(`${API}getStaff`)
@@ -52,7 +42,7 @@ const LayoutHeader = () => {
                 <div className="flex items-center gap-4 w-fit m-1 mx-5">
                     <div className="m-2 cursor-pointer" onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <img width={70} src={light} /> : <img width={70} src={dark} />}</div>
                     <div className="cursor-pointer" onClick={()=>{}}>
-                        <img src={Settings} onClick={()=>setPassword(!password)} className=" cursor-pointer"  />
+                        <img src={settings} onClick={()=>setPassword(!password)} className=" cursor-pointer"  />
                     </div>
                     <div className=" flex gap-4 items-center m-1 mx-5">
                         <div className=" hover:underline  hover:text-white cursor-pointer" onClick={() => setProfile(true)}>Profile</div>
@@ -73,14 +63,6 @@ const LayoutHeader = () => {
                     profile && (
                         <div className=" absolute top-15 right-25">
                             <div className="bg-white w-fit h-fit flex justify-center items-center gap-5 border rounded-lg">
-                                hello{
-                                    profileData.map((item) => (<div className="px-2 py-5" key={item.UserName}>hello
-                                        <img src={close} alt="" onClick={() => setProfile(false)} />
-                                        <p>User Name:  {item.UserName}</p>
-                                        <p>User Number:  {item.PhoneNumber}</p>
-                                    </div>
-                                    ))
-                                }
                             </div>
                         </div>
                     )

@@ -21,6 +21,7 @@ const StudentAdmission = () => {
         standard: "",
         bloodGroup: "",
         language: "",
+        section: "",
         address: "",
         state: "",
         nationality: "",
@@ -36,17 +37,14 @@ const StudentAdmission = () => {
     })
     const [error, setError] = useState({})
     const [standard, setStandard] = useState([])
+    const [section, setSection] = useState([])
     const inputRef = useRef({})
-    const input="pl-5 focus:outline-blue-600  text-sm md:text-lg max-w-full h-10 border rounded-lg hover:border-blue-500 shadow-xl"
-    const inputData=[{name:"fatherName",title:"Father Name:"},{name:"fatherOccupation",title:"Father Occupation:"},{name:"fatherNumber",title:"Father Number:"},{name:"motherName",title:"Mother Name:"},{name:"motherOccupation",title:"Mother Occupation:"},{name:"motherNumber",title:"Mother Number:"}]
+    const input = "pl-5 focus:outline-blue-600  text-sm md:text-lg max-w-full h-10 border rounded-lg hover:border-blue-500 shadow-xl"
+    const inputData = [{ name: "fatherName", title: "Father Name:" }, { name: "fatherOccupation", title: "Father Occupation:" }, { name: "fatherNumber", title: "Father Number:" }, { name: "motherName", title: "Mother Name:" }, { name: "motherOccupation", title: "Mother Occupation:" }, { name: "motherNumber", title: "Mother Number:" }]
     const Validation = () => {
         let newError = {};
-        let Email=/^\S+@\S+\.\S+$/
-        let Number=/^\+?[1-9]\d{6,14}$/
-        // let list=["userName","firstName","lastName","gender","dateOfBirth","aaadharno","standard","bloodGroup","language","address","state","nationality","pincode","email","studentMobileNo","fatherName","fatherOccupation","fatherNumber","motherName","motherOccupation","motherNumber","password"]
-        // list.forEach((item)=>{
-        //     if(student[item].trim()==="") newError[item]=`${item} requird`
-        // })
+        let Email = /^\S+@\S+\.\S+$/
+        let Number = /^\+?[1-9]\d{6,14}$/
         if (student.userName.trim() === "") newError.userName = "User Name requird"
         if (student.firstName.trim() === "") newError.firstName = "First Name requird"
         if (student.lastName.trim() === "") newError.lastName = "Last Name requird"
@@ -56,6 +54,7 @@ const StudentAdmission = () => {
         if (student.standard.trim() === "") newError.standard = "Standard requird"
         if (student.bloodGroup.trim() === "") newError.bloodGroup = "BloodGroup requird"
         if (student.language.trim() === "") newError.language = "Language requird"
+        if (student.section.trim() === "") newError.section = "Section requird"
         if (student.address.trim() === "") newError.address = "Address requird"
         if (student.state.trim() === "") newError.state = "State requird"
         if (student.pincode.trim() === "") newError.pincode = "Pincode requird"
@@ -73,24 +72,22 @@ const StudentAdmission = () => {
         else if (!Number.test(student.motherNumber)) { newError.motherNumber = "Invalid phone number format" }
         if (student.motherOccupation.trim() === "") { newError.motherOccupation = "Mother Occupation requird" }
 
-
         setError(newError)
         if (Object.keys(newError).length > 0) {
-        const firstErrorKey = Object.keys(newError)[0];
-        inputRef.current[firstErrorKey].focus();
-    }
+            const firstErrorKey = Object.keys(newError)[0];
+            inputRef.current[firstErrorKey].focus();
+        }
 
     }
     const AddFrom = async (e) => {
-            console.log(student,"hello")
+        console.log(student, "hello")
         try {
             e.preventDefault();
-            // if (!Validation()) return
+            if (!Validation()) return
             console.log(student)
             const add = await axios.post(`${API}addStudent`, student)
             console.log(add)
-            setStudent(
-                {
+            setStudent({
                     userName: "",
                     firstName: "",
                     lastName: "",
@@ -100,6 +97,7 @@ const StudentAdmission = () => {
                     standard: "",
                     bloodGroup: "",
                     language: "",
+                    Section: "",
                     address: "",
                     state: "",
                     nationality: "",
@@ -112,23 +110,22 @@ const StudentAdmission = () => {
                     motherName: "",
                     motherOccupation: "",
                     motherNumber: ""
-                }
-            )
+                })
             GetForm()
         }
         catch (err) {
             console.log(err, "helolo")
-        }
-    };
+        }};
     const GetForm = async () => {
         try {
             const get = await axios.get(`${API}getStandard`)
+            const section = await axios.get(`${API}getSection`)
+            setSection(section.data.data)
             setStandard(get.data.data)
         }
         catch (err) {
             console.log(err, "hello")
-        }
-    }
+        }}
     useEffect(() => {
         GetForm()
     }, [])
@@ -214,6 +211,18 @@ const StudentAdmission = () => {
                                 <p className="text-red-600 text-[10px]">{error.language}</p>
                             )}
                         </div>
+                        <div className="flex flex-col gap-2">
+                            <LabelName>Section:</LabelName>
+                            <select name="section" ref={(el) => (inputRef.current["section"] = el)} value={student.section} placeholder="Section" className={input} onChange={(e) => { setStudent({ ...student, section: e.target.value }), setError({ ...error, section: "" }) }} >
+                                <option value="">Select Section</option>
+                                {section.map((item) => (
+                                    <option key={item.section} value={item.section}>{item.section}</option>
+                                ))}
+                            </select>
+                            {error.section && (
+                                <p className="text-red-600 text-[10px]">{error.section}</p>
+                            )}
+                        </div>
                     </div>
                     <h1 className="font-semibold text-lg">Address</h1>
                     <div className="grid grid-cols-2 gap-1">
@@ -241,7 +250,7 @@ const StudentAdmission = () => {
                         </div>
                         <div className="flex flex-col gap-2">
                             <LabelName>Pincode:</LabelName>
-                            <input name="pincode" ref={(el) => (inputRef.current["pincode"] = el)} value={student.pincode} placeholder="Pincode" maxLength={6} className={input}onChange={(e) => { setStudent({ ...student, pincode: e.target.value }), setError({ ...error, pincode: "" }) }} />
+                            <input name="pincode" ref={(el) => (inputRef.current["pincode"] = el)} value={student.pincode} placeholder="Pincode" maxLength={6} className={input} onChange={(e) => { setStudent({ ...student, pincode: e.target.value }), setError({ ...error, pincode: "" }) }} />
                             {error.pincode && (
                                 <p className="text-red-600 text-[10px]">{error.pincode}</p>
                             )}
@@ -258,7 +267,7 @@ const StudentAdmission = () => {
                         </div>
                         <div className="flex flex-col gap-2">
                             <LabelName>Student Mobilno:</LabelName>
-                            <input name="studentMobileNo" ref={(el) => (inputRef.current["studentMobileNo"] = el)} value={student.studentMobileNo} placeholder="Student MobileNo " className={input}onChange={(e) => { setStudent({ ...student, studentMobileNo: e.target.value }), setError({ ...error, studentMobileNo: "" }) }} />
+                            <input name="studentMobileNo" ref={(el) => (inputRef.current["studentMobileNo"] = el)} value={student.studentMobileNo} placeholder="Student MobileNo " className={input} onChange={(e) => { setStudent({ ...student, studentMobileNo: e.target.value }), setError({ ...error, studentMobileNo: "" }) }} />
                             {error.studentMobileNo && (
                                 <p className="text-red-600 text-[10px]">{error.studentMobileNo}</p>
                             )}
@@ -266,14 +275,14 @@ const StudentAdmission = () => {
                     </div>
                     <h1 className="font-semibold text-lg">Parants Details</h1>
                     <div className="md:grid lg:grid-cols-3">
-                        {inputData.map((item)=>(
+                        {inputData.map((item) => (
                             <div className="flex flex-col gap-2" key={item.title}>
-                            <LabelName>{item.title}</LabelName>
-                            <input name={item.name} ref={(el) => (inputRef.current[item.name] = el)} value={student[item.name]} placeholder={item.title} className={input} onChange={(e) => { setStudent({ ...student, [item.name]: e.target.value }), setError({ ...error, [item.name]: "" }) }} />
-                            {error[item.name] && (
-                                <p className="text-red-600 text-[10px]">{error[item.name]}</p>
-                            )}
-                        </div>
+                                <LabelName>{item.title}</LabelName>
+                                <input name={item.name} ref={(el) => (inputRef.current[item.name] = el)} value={student[item.name]} placeholder={item.title} className={input} onChange={(e) => { setStudent({ ...student, [item.name]: e.target.value }), setError({ ...error, [item.name]: "" }) }} />
+                                {error[item.name] && (
+                                    <p className="text-red-600 text-[10px]">{error[item.name]}</p>
+                                )}
+                            </div>
                         ))}
                     </div>
                     <button type="submit" className="bg-blue-500 mt-2 text-white p-2 max-w-full rounded-lg cursor-pointer ">Register</button>

@@ -9,6 +9,10 @@ import Standard from "../../standard/Standard"
 import AdmissionDetails from "../../student/admissionDetails/AdmissionDetails"
 import Role from "../../role/Role"
 import Circular from "../../circular/Circular"
+import Section from "../../section/Section"
+import Calendar from "../../calendar/Calendar"
+import StaffAllocation from "../../staffAllocation/StaffAllocation"
+import Subject from "../../subject/Subject"
 const Container = ({ activePage }) => {
     return (
         <>
@@ -25,6 +29,10 @@ const Container = ({ activePage }) => {
                 {activePage==="admissionDetails" && <AdmissionDetails/>}
                 {activePage==="standard" && <Standard/>}
                 {activePage==="role" && <Role/>}
+                {activePage==="section" && <Section/>}
+                {activePage==="calendar" && <Calendar/>}
+                {activePage==="staffAllocation" && <StaffAllocation/>}
+                {activePage==="subject" && <Subject/>}
             </div>
         </>
     )

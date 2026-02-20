@@ -6,12 +6,12 @@ import axios from "axios"
 import ButtonHeader from "../commenHeader/ButtonHeader"
 const API = import.meta.env.VITE_API;
 
-const Standard = () => {
+const Section = () => {
     const [user, setUser] = useState({
-        standard: ""
+        section: ""
     })
     const [roll, setRoll] = useState({
-        standard: ""
+        section: ""
     })
     const [data, setData] = useState([])
     const [show, setShow] = useState(false)
@@ -21,7 +21,7 @@ const Standard = () => {
     const [id, setId] = useState("")
     const Validation = () => {
         let newError = {};
-        if (user.standard.trim() === "") newError.standard = "Standard required";
+        if (user.section.trim() === "") newError.section = "Section required";
         setError(newError);
         return Object.keys(newError).length === 0;
     }
@@ -29,8 +29,8 @@ const Standard = () => {
         try {
             e.preventDefault();
             if (!Validation()) return
-            const add = await axios.post(`${API}addStandard`, user)
-            setUser({ standard: "" })
+            const add = await axios.post(`${API}addSection`, user)
+            setUser({ section: "" })
             GetForm()
             setShow(false)
         }
@@ -41,7 +41,7 @@ const Standard = () => {
     }
     const GetForm = async () => {
         try {
-            const get = await axios.get(`${API}getStandard`)
+            const get = await axios.get(`${API}getSection`)
             setData(get.data.data)
         }
         catch (err) {
@@ -58,7 +58,7 @@ const Standard = () => {
             setUpdate(true)
             setShow(true)
             setRoll({
-                standard: result.standard,
+                section: result.section,
                 id: result.id
             })
         }
@@ -68,8 +68,8 @@ const Standard = () => {
             e.preventDefault();
             console.log("update")
             console.log(user)
-            const add = await axios.patch(`${API}updateStandard`, roll)
-            setRoll({ standard: "" })
+            const add = await axios.patch(`${API}updateSection`, roll)
+            setRoll({ section: "" })
             GetForm()
             setShow(false)
             setUpdate(false)
@@ -81,7 +81,7 @@ const Standard = () => {
     }
     const Deletes = async () => {
         try {
-            const add = await axios.patch(`${API}deleteStandard`, { id })
+            const add = await axios.patch(`${API}deleteSection`, { id })
             GetForm()
             setDelete(false)
         }
@@ -97,13 +97,13 @@ const Standard = () => {
     return (
         <>
             <div className="bg-white rounded-lg shadow p-1 m-2">
-                <ButtonHeader title={"Standard"} logo={logo} button={"Add Standard"} onclick={() => { setShow(true), setUpdate(false) }} />
+                <ButtonHeader title={"Section"} logo={logo} button={"Add Section"} onclick={() => { setShow(true), setUpdate(false) }} />
                 <div className="bg-white p-5 m-5 shadow-2xl flex justify-center items-center rounded-2xl">
                     <table className="text-center">
                         <thead>
                             <tr>
                                 <td className="p-2 border">S.No</td>
-                                <td className="p-2 border">Standard</td>
+                                <td className="p-2 border">Section</td>
                                 <td className="p-2 border">Action</td>
                             </tr>
 
@@ -112,7 +112,7 @@ const Standard = () => {
                             {data.map((item, index) => (
                                 <tr className="p-2 border" key={item.id}>
                                     <td className="p-2 border">{index + 1}</td>
-                                    <td className="p-2 border" >{item.standard}</td>
+                                    <td className="p-2 border" >{item.section}</td>
                                     <td className="p-2 border">
                                         <button onClick={() => { IsEdit(item.id) }} className="bg-blue-700 cursor-pointer m-1 p-2 rounded-lg text-white">edit</button>
                                         <button onClick={() => { Del(item.id) }} className="bg-red-700 cursor-pointer m-1 p-2 rounded-lg text-white">Delete</button>
@@ -125,13 +125,13 @@ const Standard = () => {
                 {show &&
                     <div className="flex justify-center  items-center inset-0 absolute bg-black/50">
                         <div className="bg-white p-6 relative mb-30 rounded-lg">
-                            <h1 className=" font-bold text-center text-2xl -mt-3">STANDARD</h1>
+                            <h1 className=" font-bold text-center text-2xl -mt-3">SECTION</h1>
                             <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close} width={30} /></div>
                             <form action="" className="flex flex-col" onSubmit={(e) => { update ? Update(e) : Submit(e) }}>
-                                <label className="text-black">Standard:</label>
-                                <input type="text" value={update ? roll.standard : user.standard} className="border p-2 text-xl border-black font-bold text-black focus:outline-blue-600  md:text-lg max-w-full h-10 rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { update ? setRoll({ ...roll, standard: e.target.value }) : setUser({ ...user, standard: e.target.value }), setError({ ...error, standard: "" }) }} />
+                                <label className="text-black">Section:</label>
+                                <input type="text" value={update ? roll.section : user.section} className="border p-2 text-xl border-black font-bold text-black focus:outline-blue-600  md:text-lg max-w-full h-10 rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { update ? setRoll({ ...roll, section: e.target.value }) : setUser({ ...user, section: e.target.value }), setError({ ...error, section: "" }) }} />
                                 {
-                                    error.standard && <span className="text-red-500">{error.standard}</span>
+                                    error.section && <span className="text-red-500">{error.section}</span>
                                 }
                                 <button className="bg-blue-500 mt-2 text-white p-2 max-w-full rounded-lg cursor-pointer" type="Submit">{update ? "update" : "Submit"}</button>
                             </form>
@@ -142,7 +142,7 @@ const Standard = () => {
                     Delete &&
                     <div className="flex justify-center  items-center inset-0 absolute bg-black/50">
                         <div className="bg-white  p-6 relative mb-30 rounded-lg text-white">
-                            <h1 className="text-black">If You Want To Delete The Standard? </h1>
+                            <h1 className="text-black">If You Want To Delete The Section? </h1>
                             <div className="text-center">
                                 <button onClick={() => setDelete(false)} className="bg-blue-700 cursor-pointer p-2 m-3 rounded-lg">Close</button>
                                 <button className="bg-red-700 p-2 m-3 rounded-lg cursor-pointer" onClick={Deletes}>Delete</button>
@@ -154,4 +154,4 @@ const Standard = () => {
         </>
     )
 }
-export default Standard
+export default Section

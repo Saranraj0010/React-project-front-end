@@ -16,27 +16,28 @@ const Circular = () => {
     const [filter, setFilter] = useState({ text: "", select: "" })
     const [circular, setCircular] = useState({ text: "", title: "", file: null, select: "" })
     const Submit = async () => {
-        const formData=new FormData();
-        formData.append("file",circular.file)
-        formData.append("text",circular.text)
-        formData.append("select",circular.select)
-        console.log(formData,"helloz")
-        console.log(circular)    
-        const add=await axios.post(`${API}addCircular`,formData,{
-            headers:{
-                'Content-Type':'multipart/form-data',
-            }
-        })
-        // const add = await axios.post(`${API}addCircular`, circular)
-        console.log(add)
-        setCircular({
-            text: "",
-            title: "",
-            file: null,
-            select: ""
-        })
-        GetForm()
-        setShowCircular(false)
+        const formData = new FormData();
+        formData.append("file", circular.file)
+        formData.append("text", circular.text)
+        formData.append("title", circular.title)
+        formData.append("select", circular.select)
+        console.log(formData, "helloz")
+        console.log(circular)
+        try {
+            const add = await axios.post(`${API}addCircular`, formData)
+            console.log(add)
+            setCircular({
+                text: "",
+                title: "",
+                file: null,
+                select: ""
+            })
+            GetForm()
+            setShowCircular(false)
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
     const GetForm = async () => {
         const get = await axios.get(`${API}getCircular`)
@@ -73,7 +74,7 @@ const Circular = () => {
                         <option value="staff">Staff</option>
                         <option value="student">Student</option>
                     </select>
-                    <button onClick={()=>setFilter({text:"",select:""})}>Reset</button>
+                    <button className="bg-green-400 rounded-lg p-1 cursor-pointer" onClick={() => setFilter({ text: "", select: "" })}>Reset</button>
                 </div>
                 <div className=" bg-white rounded-2xl p-5 m-5 shadow-2xl">{
                     noData ? (<></>) : (
@@ -92,6 +93,9 @@ const Circular = () => {
                                         <p className=" font-bold">Circular:</p>
                                         <p className="mx-2">{item.text}</p>
                                     </div>
+                                    <div className="">
+                                        <a href={`${item.file}`} target="_blank">View File </a>
+                                    </div>
                                 </div>
                             ))}
                         </div>)
@@ -99,11 +103,11 @@ const Circular = () => {
                 </div>
                 {
                     showCircular && (
-                        <div className="bg-black/50 absolute inset-0 justify-center items-center flex">
+                        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                             <div className="relative bg-white rounded-2xl p-3 text-center">
                                 <img src={close} className="bg-red-500 absolute right-3" onClick={() => { setShowCircular(false) }} />
                                 <h1 className="font-bold">Create Circular</h1>
-                                <select name="select" id="" onChange={(e) => (setCircular({ ...circular, select: e.target.value }))}>
+                                <select name="select" className=" border rounded-lg h-10" id="" onChange={(e) => (setCircular({ ...circular, select: e.target.value }))}>
                                     <option value="">Select the Staff or Student</option>
                                     <option value="all">All</option>
                                     <option value="staff">Staff</option>

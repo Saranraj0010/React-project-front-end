@@ -23,7 +23,7 @@ const Login = () => {
             setUsers(user.data.data);
             setStaff(staff.data.data);
             setStudent(student.data.data);
-            console.log(student)
+            console.log(staff   )
         } catch (err) {
             console.error(err);
         }
@@ -55,23 +55,35 @@ const Login = () => {
                 item.Password === user.Password
         );
         console.log(userResult,"admin")
+        const counsller = staff.find(
+            (item) =>
+                item.userName === user.UserId &&
+                item.password === user.Password &&
+                item.role === "Counsller"
+        );
         const staffResult = staff.find(
             (item) =>
                 item.userName === user.UserId &&
                 item.password === user.Password
         );
-        console.log(staffResult,"staff")
+        console.log(counsller,"staff")
         const studentResult = student.find(
             (item) =>
                 item.userName === user.UserId &&
-                item.password === user.Password
+                item.password === user.Password 
         );
         console.log(studentResult,"student")
         if (userResult) {
             setProfileData(userResult);
+            console.log(profileData)
             console.log("User login success");
             navigate("/homePage/adminlayout");
-        }    
+        }
+        else if (counsller) {
+            setProfileData(counsller);
+            console.log("Counsller login success");
+            navigate("/counsllerlayout");
+        }
         else if (staffResult) {
             setProfileData(staffResult);
             console.log("Staff login success");
