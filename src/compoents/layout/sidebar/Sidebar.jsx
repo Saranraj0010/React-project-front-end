@@ -9,11 +9,12 @@ const sidebar = [
     { id: 5, name: "Staff Details", page: "staffDetails" },
     { id: 6, name: "Student Admission", page: "studentAdmission" },
     { id: 7, name: "Admission Details", page: "admissionDetails" },
-    { id: 8, name: "Subject", page: "subject"},
-    { id: 9, name: "Standard", page: "standard" },
-    { id: 10, name: "Role", page: "role" },
-    { id: 11, name: "Section", page: "section" },
-    { id: 12, name:"Calendar", page:"calendar" }
+    { id: 8, name: "Fees", page: "fees" },
+    { id: 9, name: "Subject", page: "subject" },
+    { id: 10, name: "Standard", page: "standard" },
+    { id: 11, name: "Role", page: "role" },
+    { id: 12, name: "Section", page: "section" },
+    { id: 13, name: "Calendar", page: "calendar" }
 ];
 
 const Sidebar = ({ setActivePage }) => {

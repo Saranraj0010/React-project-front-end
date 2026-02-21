@@ -13,6 +13,7 @@ import Section from "../../section/Section"
 import Calendar from "../../calendar/Calendar"
 import StaffAllocation from "../../staffAllocation/StaffAllocation"
 import Subject from "../../subject/Subject"
+import Fees from "../../fees/Fees"
 const Container = ({ activePage }) => {
     return (
         <>
@@ -27,6 +28,7 @@ const Container = ({ activePage }) => {
                 {activePage==="staffDetails" && <TotalStaff/>}
                 {activePage==="studentAdmission" && <StudentAdmission/>}
                 {activePage==="admissionDetails" && <AdmissionDetails/>}
+                {activePage==="fees" && <Fees/>}
                 {activePage==="standard" && <Standard/>}
                 {activePage==="role" && <Role/>}
                 {activePage==="section" && <Section/>}

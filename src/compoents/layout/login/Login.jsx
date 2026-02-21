@@ -33,20 +33,17 @@ const Login = () => {
     const Validation = () => {
         let newError = {};
         if (user.UserId.trim() === "") newError.UserId = "UserId requird"
+        // if(user.UserId ===)
         if (user.Password.trim() === "") newError.Password = "Password requird"
-        if (user.Password.length < 5) {
-            console.log("hello")
-            newError.Passwordlength = "Password too Long"
-        }
+        if (user.Password.length > 5) newError.Password = "Invalid Password"
         setError(newError)
-        if (Object.keys(newError).length > 0) {
-            setTimeout(() => { setError(Object.keys(newError).length > 0) }, 1000 * 1000)
-        }
+        console.log(error)
+        return Object.keys(newError).length === 0;
     }
     const Login = (e) => {
         e.preventDefault();
         // console.log(user)
-        // if (!Validation()) return
+        if (!Validation()) return
         const userResult = users.find(
             (item) =>
                 item.UserName === user.UserId &&
@@ -121,9 +118,6 @@ const Login = () => {
                         <button className=" absolute right-0 h-10 p-2" type="button" onClick={ShowPassword}><img width={20} src={showPassword ? eyeHide : eyeShow} /></button></div></div>
                 {error.Password && (
                     <p className="text-red-600 text-[10px]">{error.Password}</p>
-                )}
-                {error.Passwordlength && (
-                    <p className="text-red-600 text-[10px]">{error.Passwordlength}</p>
                 )}
 
                 <div className="flex gap-4 justify-center">
