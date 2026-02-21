@@ -1,29 +1,27 @@
 import axios from "axios";
 import BackGroundImage from "../../../assets/background.jpg";
-import { useLoginStore } from"../store/useLoginStore";
+import { useLoginStore } from "../store/useLoginStore";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const API = import.meta.env.VITE_API;
 const Login = () => {
-    const { user, setUser, showPassword, ShowPassword, eyeShow, eyeHide, setProfileData, profileData } = useLoginStore();
+    const { user, setUser, showPassword, ShowPassword, eyeShow, eyeHide } = useLoginStore();
     const [users, setUsers] = useState([]);
     const [admin, setAdmin] = useState([])
     const [staff, setStaff] = useState([])
     const [student, setStudent] = useState([])
     const navigate = useNavigate();
     const [error, setError] = useState({})
-
-    // Fetch registered users
     const getUsers = async () => {
         try {
             const user = await axios.get(`${API}getSignUp`);
             const staff = await axios.get(`${API}getStaff`);
-            const student=await axios.get(`${API}getStudent`);
+            const student = await axios.get(`${API}getStudent`);
             setUsers(user.data.data);
             setStaff(staff.data.data);
             setStudent(student.data.data);
-            console.log(staff   )
+            console.log(staff)
         } catch (err) {
             console.error(err);
         }
@@ -54,7 +52,7 @@ const Login = () => {
                 item.UserName === user.UserId &&
                 item.Password === user.Password
         );
-        console.log(userResult,"admin")
+        console.log(userResult, "admin")
         const counsller = staff.find(
             (item) =>
                 item.userName === user.UserId &&
@@ -66,36 +64,39 @@ const Login = () => {
                 item.userName === user.UserId &&
                 item.password === user.Password
         );
-        console.log(counsller,"staff")
+        console.log(counsller, "staff")
         const studentResult = student.find(
             (item) =>
                 item.userName === user.UserId &&
-                item.password === user.Password 
+                item.password === user.Password
         );
-        console.log(studentResult,"student")
+        console.log(studentResult, "student")
         if (userResult) {
-            setProfileData(userResult);
-            console.log(profileData)
             console.log("User login success");
             navigate("/homePage/adminlayout");
+            localStorage.setItem('Profile', JSON.stringify(userResult));
         }
         else if (counsller) {
-            setProfileData(counsller);
+            // setProfileData(counsller);
             console.log("Counsller login success");
             navigate("/counsllerlayout");
+            localStorage.setItem('adminProfile', JSON.stringify(counsller));
         }
         else if (staffResult) {
-            setProfileData(staffResult);
+            // setProfileData(staffResult);
             console.log("Staff login success");
             navigate("/homePage/stafflayout");
+            localStorage.setItem('adminProfile', JSON.stringify(staffResult));
         }
-        else if (studentResult){
-            setProfileData(studentResult);
+        else if (studentResult) {
+            // setProfileData(studentResult);
             console.log("Student login success");
             navigate("/homePage/studentlayout");
+            localStorage.setItem('adminProfile', JSON.stringify(studentResult));
+
         }
-        else{
-        console.log("Invalid username or password");
+        else {
+            console.log("Invalid username or password");
         }
     };
 

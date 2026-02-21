@@ -22,6 +22,7 @@ const Role = () => {
     const Validation = () => {
         let newError = {};
         if (user.role.trim() === "") newError.role = "Role required";
+        if (data.find((item) => item.role.toLocaleLowerCase() === user.role.toLocaleLowerCase())) newError.role = "Already exist";
         setError(newError);
         return Object.keys(newError).length === 0;
     }
@@ -127,7 +128,7 @@ const Role = () => {
                     <div className="flex justify-center  items-center inset-0 absolute bg-black/50">
                         <div className="bg-white p-6 relative mb-30 rounded-lg">
                             <h1 className=" font-bold text-center text-2xl -mt-3">ROLE</h1>
-                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close} width={30} /> </div>
+                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => {setShow(false)}}><img src={close} onClick={()=>{setUser({role:""}),setError({role:""})}} width={30} /> </div>
                             <form action="" className="flex flex-col" onSubmit={(e) => { update ? Update(e) : Submit(e) }}>
                                 <label>Role:</label>
                                 <input type="text" value={update ? roll.role : user.role} className="pl-5 font-bold text-black focus:outline-blue-600  md:text-lg max-w-full h-10 border border-black rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { update ? setRoll({ ...roll, role: e.target.value }) : setUser({ ...user, role: e.target.value }), setError({ ...error, role: "" }) }} />

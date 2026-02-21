@@ -22,6 +22,7 @@ const Section = () => {
     const Validation = () => {
         let newError = {};
         if (user.section.trim() === "") newError.section = "Section required";
+        if (data.find((item) => item.section.toLocaleLowerCase() === user.section.toLocaleLowerCase())) newError.section = "Already exist";
         setError(newError);
         return Object.keys(newError).length === 0;
     }
@@ -126,7 +127,7 @@ const Section = () => {
                     <div className="flex justify-center  items-center inset-0 absolute bg-black/50">
                         <div className="bg-white p-6 relative mb-30 rounded-lg">
                             <h1 className=" font-bold text-center text-2xl -mt-3">SECTION</h1>
-                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close} width={30} /></div>
+                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close}  onClick={()=>{setUser({section:""}),setError({section:""})}} width={30} /></div>
                             <form action="" className="flex flex-col" onSubmit={(e) => { update ? Update(e) : Submit(e) }}>
                                 <label className="text-black">Section:</label>
                                 <input type="text" value={update ? roll.section : user.section} className="border p-2 text-xl border-black font-bold text-black focus:outline-blue-600  md:text-lg max-w-full h-10 rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { update ? setRoll({ ...roll, section: e.target.value }) : setUser({ ...user, section: e.target.value }), setError({ ...error, section: "" }) }} />

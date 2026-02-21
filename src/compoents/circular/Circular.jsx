@@ -56,9 +56,6 @@ const Circular = () => {
             item.text.toLowerCase().includes(filter.text.toLowerCase())
         )
     }
-    // if(filterData.length=0){
-    //     setNoData(true)
-    // }
     useEffect(() => {
         GetForm()
     }, [])

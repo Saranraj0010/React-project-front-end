@@ -1,8 +1,8 @@
 import Sidebar from "./sidebar/Sidebar";
 import Container from "./container/Container";
 import { useState } from "react";
-import LayoutHeader from "./layoutHender/LayoutHeader";
 import { Footer } from "./footer/Footer";
+import AdminLayoutHeader from "./adminLayoutHeader/AdminLayoutHeader";
 
 const Layout = () => {
     const [activePage, setActivePage] = useState("dashboard");
@@ -10,7 +10,7 @@ const Layout = () => {
         <div className="m-0 p-0 h-screen flex flex-col">
             {/* Header */}
             <div className="h-20 shadow-lg bg-white w-full fixed z-50">
-                <LayoutHeader/>
+                <AdminLayoutHeader/>
             </div>
 
             {/* Body */}

@@ -12,7 +12,7 @@ import close from "../../../assets/close.png"
 import { useEffect } from "react"
 const API = import.meta.env.VITE_API;
 
-const LayoutHeader = () => {
+const AdminLayoutHeader = () => {
     const [show, setShow] = useState(false)
     const [profile, setProfile] = useState(false)
     const [profileData, setProfileData] = useState(false)
@@ -31,7 +31,7 @@ const LayoutHeader = () => {
     }
     useEffect(() => {
         GetData()
-        const storedData = localStorage.getItem('adminProfile');
+        const storedData = localStorage.getItem('Profile');
         setProfileData(JSON.parse(storedData))
     }, [])
     return (
@@ -68,31 +68,13 @@ const LayoutHeader = () => {
                             <div className=" bg-gray-300 p-5 flex relative flex-col justify-center items-center gap-3 border rounded-lg">
                                 <div className="bg-red-500 absolute top-2 right-2" onClick={()=>{setProfile(false)}}><img src={close} alt="" /></div>
                                 <div className="flex font-bold">
-                                    UserName:<p className="font-light mx-3">{profileData.userName}</p>
+                                    UserName:<p className="font-light mx-3">{profileData.UserName}</p>
                                 </div>
                                 <div className="flex font-bold">
-                                    Name:<p className="font-light mx-3">{profileData.firstName}{profileData.lastName}</p>
+                                    Role:<p className="font-light mx-3">Admin</p>
                                 </div>
                                 <div className="flex font-bold">
-                                    DateOfBirth:<p className="font-light mx-3">{profileData.dateOfBirth}</p>
-                                </div>
-                                <div className="flex font-bold">
-                                    Role:<p className="font-light mx-3">{profileData.role}</p>
-                                </div>
-                                <div className="flex font-bold">
-                                    Phone Number: <p className="font-light mx-3">{profileData.phoneNumber}</p>
-                                </div>
-                                <div className="flex font-bold">
-                                    Email:<p className="font-light mx-3">{profileData.email}</p>
-                                </div>
-                                <div className="flex font-bold">
-                                    Address:<p className="font-light mx-3">{profileData.address}{profileData.state}</p>
-                                </div>
-                                <div className="flex font-bold">
-                                    Country:<p className="font-light mx-3">{profileData.country}</p>
-                                </div>
-                                <div className="flex font-bold">
-                                    Pincode:<p className="font-light mx-3">{profileData.pincode}</p>
+                                    Phone Number: <p className="font-light mx-3">{profileData.PhoneNumber}</p>
                                 </div>
                             </div>
                         </div>
@@ -114,4 +96,4 @@ const LayoutHeader = () => {
             </div></>
     )
 }
-export default LayoutHeader
+export default AdminLayoutHeader

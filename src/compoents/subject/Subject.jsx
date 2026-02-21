@@ -22,6 +22,7 @@ const Subject = () => {
     const Validation = () => {
         let newError = {};
         if (user.subject.trim() === "") newError.subject = "Subject required";
+        if(data.find((item)=>item.subject.toLocaleLowerCase()===user.subject.toLocaleLowerCase()))newError.subject = "Already exist";
         setError(newError);
         return Object.keys(newError).length === 0;
     }
@@ -126,7 +127,7 @@ const Subject = () => {
                     <div className="flex justify-center  items-center inset-0 absolute bg-black/50">
                         <div className="bg-white p-6 relative mb-30 rounded-lg">
                             <h1 className=" font-bold text-center text-2xl -mt-3">SUBJECT</h1>
-                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close} width={30}/></div>
+                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close}  onClick={()=>{setUser({subject:""}),setError({subject:""})}} width={30}/></div>
                             <form action="" className="flex flex-col" onSubmit={(e) =>{update?Update(e):Submit(e)}}>
                                 <label className="text-black">Subject:</label>
                                 <input type="text" value={update?roll.subject:user.subject} className="border p-2 text-xl border-black font-bold text-black focus:outline-blue-600  md:text-lg max-w-full h-10 rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => {update?setRoll({...roll,subject:e.target.value}):setUser({ ...user, subject: e.target.value }), setError({ ...error, subject: "" }) }} />

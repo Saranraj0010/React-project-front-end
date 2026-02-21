@@ -22,6 +22,7 @@ const Standard = () => {
     const Validation = () => {
         let newError = {};
         if (user.standard.trim() === "") newError.standard = "Standard required";
+        if (data.find((item) => item.standard.toLocaleLowerCase() === user.standard.toLocaleLowerCase())) newError.standard = "Already exist";
         setError(newError);
         return Object.keys(newError).length === 0;
     }
@@ -124,9 +125,9 @@ const Standard = () => {
                 </div>
                 {show &&
                     <div className="flex justify-center  items-center inset-0 absolute bg-black/50">
-                        <div className="bg-white p-6 relative mb-30 rounded-lg">
+                        <div className="bg-white p-6 relative mb-50 rounded-lg">
                             <h1 className=" font-bold text-center text-2xl -mt-3">STANDARD</h1>
-                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close} width={30} /></div>
+                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close}  onClick={()=>{setUser({standard:""}),setError({standard:""})}} width={30} /></div>
                             <form action="" className="flex flex-col" onSubmit={(e) => { update ? Update(e) : Submit(e) }}>
                                 <label className="text-black">Standard:</label>
                                 <input type="text" value={update ? roll.standard : user.standard} className="border p-2 text-xl border-black font-bold text-black focus:outline-blue-600  md:text-lg max-w-full h-10 rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { update ? setRoll({ ...roll, standard: e.target.value }) : setUser({ ...user, standard: e.target.value }), setError({ ...error, standard: "" }) }} />
