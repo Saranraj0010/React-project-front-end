@@ -22,7 +22,7 @@ const Sidebar = ({ setActivePage }) => {
     const [style, setStyle] = useState(false)
 
     return (
-        <div className={`${darkMode ? "bg-black" : "bg-blue-800"} overflow-y-scroll  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] font-semibold w-64 h-[570px] text-white`}>
+        <div className={`${darkMode ? "bg-black" : "bg-blue-800"} overflow-y-scroll  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] font-semibold w-64 h-142 text-white`}>
             <h1 className="text-center p-3 border-b ">Admin Pannel</h1>
             <ol className="w-full p-2 flex flex-col gap-2">
                 {sidebar.map((item) => (
