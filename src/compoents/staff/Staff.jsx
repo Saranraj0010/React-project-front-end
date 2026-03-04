@@ -47,7 +47,7 @@ const Staff = () => {
     const AddFrom = async (e) => {
         try {
             e.preventDefault();
-            if (!Validation()) return
+            // if (!Validation()) return
             const add = await axios.post(`${API}addStaff`, staff)
             console.log(add)
             setStaff({

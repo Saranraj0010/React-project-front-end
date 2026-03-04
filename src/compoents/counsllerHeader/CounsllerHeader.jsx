@@ -1,25 +1,24 @@
 import { Link } from "react-router-dom"
-import Logo from "../../../assets/logo.png"
-import { useLoginStore } from "../store/useLoginStore"
+import Logo from "../../assets/logo.png"
 import { useState } from "react"
-import light from "../../../assets/LightMode.png"
-import dark from "../../../assets/darkMode.png"
-import settings from "../../../assets/settings.png"
-import Input from "../../../Elaments/Input"
-import { LabelName } from "../../../Elaments/LabelName"
+import light from "../../assets/LightMode.png"
+import dark from "../../assets/darkMode.png"
+import settings from "../../assets/settings.png"
+import Input from "../../Elaments/Input"
+import { LabelName } from "../../Elaments/LabelName"
 import axios from "axios"
-import close from "../../../assets/close.png"
+import close from "../../assets/close.png"
 import { useEffect } from "react"
+import { useLoginStore } from "../layout/store/useLoginStore"
 const API = import.meta.env.VITE_API;
 
-const AdminLayoutHeader = () => {
+const CounsllerHeader = () => {
     const [show, setShow] = useState(false)
     const [profile, setProfile] = useState(false)
     const [profileData, setProfileData] = useState(false)
     const [password, setPassword] = useState(false)
     const { darkMode, setDarkMode } = useLoginStore();
     const [data, setData] = useState([])
-    // const fullData=data.find((item)=>item.id===profileData.id)
     const GetData = async () => {
         try {
             const get = await axios.get(`${API}getStaff`)
@@ -31,8 +30,9 @@ const AdminLayoutHeader = () => {
     }
     useEffect(() => {
         GetData()
-        const storedData = localStorage.getItem('adminProfile');
+        const storedData = localStorage.getItem('counsllerProfile');
         setProfileData(JSON.parse(storedData))
+        console.log(profileData)
     }, [])
     return (
         <>
@@ -66,15 +66,33 @@ const AdminLayoutHeader = () => {
                     profile && (
                         <div className=" absolute bg-black/50 flex items-center justify-center inset-0 h-screen w-screen">
                             <div className=" bg-gray-300 p-5 flex relative flex-col justify-center items-center gap-3 border rounded-lg">
-                                <div className="bg-red-500 absolute top-2 right-2" onClick={()=>{setProfile(false)}}><img src={close} alt="" /></div>
+                                <div className="bg-red-500 absolute top-2 right-2" onClick={() => { setProfile(false) }}><img src={close} alt="" /></div>
                                 <div className="flex font-bold">
-                                    UserName:<p className="font-light mx-3">{profileData.UserName}</p>
+                                    UserName:<p className="font-light mx-3">{profileData.userName}</p>
                                 </div>
                                 <div className="flex font-bold">
-                                    Role:<p className="font-light mx-3">Admin</p>
+                                    Name:<p className="font-light mx-3">{profileData.firstName}{profileData.lastName}</p>
                                 </div>
                                 <div className="flex font-bold">
-                                    Phone Number: <p className="font-light mx-3">{profileData.PhoneNumber}</p>
+                                    DateOfBirth:<p className="font-light mx-3">{profileData.dateOfBirth}</p>
+                                </div>
+                                <div className="flex font-bold">
+                                    Role:<p className="font-light mx-3">{profileData.role}</p>
+                                </div>
+                                <div className="flex font-bold">
+                                    Phone Number: <p className="font-light mx-3">{profileData.phoneNumber}</p>
+                                </div>
+                                <div className="flex font-bold">
+                                    Email:<p className="font-light mx-3">{profileData.email}</p>
+                                </div>
+                                <div className="flex font-bold">
+                                    Address:<p className="font-light mx-3">{profileData.address}{profileData.state}</p>
+                                </div>
+                                <div className="flex font-bold">
+                                    Country:<p className="font-light mx-3">{profileData.country}</p>
+                                </div>
+                                <div className="flex font-bold">
+                                    Pincode:<p className="font-light mx-3">{profileData.pincode}</p>
                                 </div>
                             </div>
                         </div>
@@ -96,4 +114,4 @@ const AdminLayoutHeader = () => {
             </div></>
     )
 }
-export default AdminLayoutHeader
+export default CounsllerHeader

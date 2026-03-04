@@ -1,60 +1,73 @@
 import logo from "../../assets/profile4.jpg"
-import { useState } from "react"
 import close from "../../assets/close.png"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 import ButtonHeader from "../commenHeader/ButtonHeader"
+
 const API = import.meta.env.VITE_API;
 
 const Section = () => {
-    const [user, setUser] = useState({
-        section: ""
-    })
-    const [roll, setRoll] = useState({
-        section: ""
-    })
+
+    const [user, setUser] = useState({ section: "" })
+    const [roll, setRoll] = useState({ section: "", id: "" })
     const [data, setData] = useState([])
     const [show, setShow] = useState(false)
     const [update, setUpdate] = useState(false)
     const [Delete, setDelete] = useState(false)
     const [error, setError] = useState({})
     const [id, setId] = useState("")
+
+    // ---------------- VALIDATION ----------------
     const Validation = () => {
-        let newError = {};
-        if (user.section.trim() === "") newError.section = "Section required";
-        if (data.find((item) => item.section.toLocaleLowerCase() === user.section.toLocaleLowerCase())) newError.section = "Already exist";
-        setError(newError);
-        return Object.keys(newError).length === 0;
+        let newError = {}
+        const value = update ? roll.section : user.section
+
+        if (value.trim() === "") {
+            newError.section = "Section is required"
+        }
+
+        if (!update && data.find(
+            (item) => item.section.toLowerCase() === value.toLowerCase()
+        )) {
+            newError.section = "Section already exists"
+        }
+
+        setError(newError)
+        return Object.keys(newError).length === 0
     }
+
+    // ---------------- ADD SECTION ----------------
     const Submit = async (e) => {
+        e.preventDefault()
+        if (!Validation()) return
+
         try {
-            e.preventDefault();
-            if (!Validation()) return
-            const add = await axios.post(`${API}addSection`, user)
+            await axios.post(`${API}addSection`, user)
             setUser({ section: "" })
             GetForm()
             setShow(false)
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err)
         }
-
     }
+
+    // ---------------- GET DATA ----------------
     const GetForm = async () => {
         try {
-            const get = await axios.get(`${API}getSection`)
-            setData(get.data.data)
-        }
-        catch (err) {
-            console.log(err, "hello")
+            const res = await axios.get(`${API}getSection`)
+            setData(res.data.data)
+        } catch (err) {
+            console.log(err)
         }
     }
+
     useEffect(() => {
         GetForm()
     }, [])
+
+    // ---------------- EDIT ----------------
     const IsEdit = (id) => {
         const result = data.find((item) => item.id === id)
-        console.log(result)
         if (result) {
             setUpdate(true)
             setShow(true)
@@ -64,95 +77,167 @@ const Section = () => {
             })
         }
     }
+
     const Update = async (e) => {
+        e.preventDefault()
+        if (!Validation()) return
+
         try {
-            e.preventDefault();
-            console.log("update")
-            console.log(user)
-            const add = await axios.patch(`${API}updateSection`, roll)
-            setRoll({ section: "" })
+            await axios.patch(`${API}updateSection`, roll)
+            setRoll({ section: "", id: "" })
+            setUpdate(false)
             GetForm()
             setShow(false)
-            setUpdate(false)
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err)
         }
-
     }
+
+    // ---------------- DELETE ----------------
     const Deletes = async () => {
         try {
-            const add = await axios.patch(`${API}deleteSection`, { id })
+            await axios.patch(`${API}deleteSection`, { id })
             GetForm()
             setDelete(false)
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err)
         }
-
     }
+
     const Del = (id) => {
         setDelete(true)
         setId(id)
     }
-    return (
-        <>
-            <div className="bg-white rounded-lg shadow p-1 m-2">
-                <ButtonHeader title={"Section"} logo={logo} button={"Add Section"} onclick={() => { setShow(true), setUpdate(false) }} />
-                <div className="bg-white p-5 m-5 shadow-2xl flex justify-center items-center rounded-2xl">
-                    <table className="text-center">
-                        <thead>
-                            <tr>
-                                <td className="p-2 border">S.No</td>
-                                <td className="p-2 border">Section</td>
-                                <td className="p-2 border">Action</td>
-                            </tr>
 
-                        </thead>
-                        <tbody>
-                            {data.map((item, index) => (
-                                <tr className="p-2 border" key={item.id}>
-                                    <td className="p-2 border">{index + 1}</td>
-                                    <td className="p-2 border" >{item.section}</td>
-                                    <td className="p-2 border">
-                                        <button onClick={() => { IsEdit(item.id) }} className="bg-blue-700 cursor-pointer m-1 p-2 rounded-lg text-white">edit</button>
-                                        <button onClick={() => { Del(item.id) }} className="bg-red-700 cursor-pointer m-1 p-2 rounded-lg text-white">Delete</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                {show &&
-                    <div className="flex justify-center  items-center inset-0 absolute bg-black/50">
-                        <div className="bg-white p-6 relative mb-30 rounded-lg">
-                            <h1 className=" font-bold text-center text-2xl -mt-3">SECTION</h1>
-                            <div className=" absolute bg-red-500 right-2 top-2" onClick={() => setShow(false)}><img src={close}  onClick={()=>{setUser({section:""}),setError({section:""})}} width={30} /></div>
-                            <form action="" className="flex flex-col" onSubmit={(e) => { update ? Update(e) : Submit(e) }}>
-                                <label className="text-black">Section:</label>
-                                <input type="text" value={update ? roll.section : user.section} className="border p-2 text-xl border-black font-bold text-black focus:outline-blue-600  md:text-lg max-w-full h-10 rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { update ? setRoll({ ...roll, section: e.target.value }) : setUser({ ...user, section: e.target.value }), setError({ ...error, section: "" }) }} />
-                                {
-                                    error.section && <span className="text-red-500">{error.section}</span>
-                                }
-                                <button className="bg-blue-500 mt-2 text-white p-2 max-w-full rounded-lg cursor-pointer" type="Submit">{update ? "update" : "Submit"}</button>
-                            </form>
-                        </div>
-                    </div>
-                }
-                {
-                    Delete &&
-                    <div className="flex justify-center  items-center inset-0 absolute bg-black/50">
-                        <div className="bg-white  p-6 relative mb-30 rounded-lg text-white">
-                            <h1 className="text-black">If You Want To Delete The Section? </h1>
-                            <div className="text-center">
-                                <button onClick={() => setDelete(false)} className="bg-blue-700 cursor-pointer p-2 m-3 rounded-lg">Close</button>
-                                <button className="bg-red-700 p-2 m-3 rounded-lg cursor-pointer" onClick={Deletes}>Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                }
+    return (
+        <div className="bg-gray-50 rounded-xl shadow-md p-3 m-3 relative">
+
+            <ButtonHeader
+                title={"Section"}
+                logo={logo}
+                button={"Add Section"}
+                onclick={() => {
+                    setShow(true)
+                    setUpdate(false)
+                    setUser({ section: "" })
+                }}
+            />
+
+            {/* TABLE */}
+            <div className="bg-white p-6 mt-6 shadow-lg rounded-2xl">
+                <table className="w-full text-center border-collapse">
+                    <thead className="bg-blue-600 text-white">
+                        <tr>
+                            <th className="p-3">S.No</th>
+                            <th className="p-3">Section</th>
+                            <th className="p-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((item, index) => (
+                            <tr key={item.id} className="border-b hover:bg-blue-50 transition">
+                                <td className="p-3">{index + 1}</td>
+                                <td className="p-3">{item.section}</td>
+                                <td className="p-3">
+                                    <button
+                                        onClick={() => IsEdit(item.id)}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg m-1 transition"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() => Del(item.id)}
+                                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg m-1 transition"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
-        </>
+
+            {/* ADD / UPDATE MODAL */}
+            {show && (
+                <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
+                    <div className="bg-white p-6 rounded-2xl shadow-2xl w-96 relative">
+
+                        <h1 className="text-2xl font-bold text-center text-blue-600 mb-4">
+                            {update ? "Update Section" : "Add Section"}
+                        </h1>
+
+                        <img
+                            src={close}
+                            width={25}
+                            className="absolute top-4 right-4 cursor-pointer"
+                            onClick={() => {
+                                setShow(false)
+                                setError({})
+                            }}
+                        />
+
+                        <form
+                            className="flex flex-col"
+                            onSubmit={(e) => update ? Update(e) : Submit(e)}
+                        >
+                            <label className="font-medium mb-1">Section</label>
+                            <input
+                                type="text"
+                                value={update ? roll.section : user.section}
+                                className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onChange={(e) => {
+                                    update
+                                        ? setRoll({ ...roll, section: e.target.value })
+                                        : setUser({ ...user, section: e.target.value })
+                                    setError({})
+                                }}
+                            />
+
+                            {error.section && (
+                                <span className="text-red-500 text-sm mt-1">
+                                    {error.section}
+                                </span>
+                            )}
+
+                            <button
+                                type="submit"
+                                className="bg-blue-600 hover:bg-blue-700 text-white p-2 mt-4 rounded-lg transition"
+                            >
+                                {update ? "Update" : "Submit"}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* DELETE MODAL */}
+            {Delete && (
+                <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
+                    <div className="bg-white p-6 rounded-2xl shadow-xl w-80 text-center">
+                        <h2 className="text-lg font-semibold text-gray-700">
+                            Are you sure you want to delete this section?
+                        </h2>
+                        <div className="mt-5 flex justify-center gap-4">
+                            <button
+                                onClick={() => setDelete(false)}
+                                className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={Deletes}
+                                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+        </div>
     )
 }
+
 export default Section

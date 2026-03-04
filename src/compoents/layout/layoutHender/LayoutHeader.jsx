@@ -31,7 +31,7 @@ const LayoutHeader = () => {
     }
     useEffect(() => {
         GetData()
-        const storedData = localStorage.getItem('adminProfile');
+        const storedData = localStorage.getItem('staffProfile');
         setProfileData(JSON.parse(storedData))
     }, [])
     return (

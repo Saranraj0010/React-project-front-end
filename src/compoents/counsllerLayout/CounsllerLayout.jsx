@@ -1,8 +1,8 @@
 import { useState } from "react";
-import LayoutHeader from "../layout/layoutHender/LayoutHeader";
 import { Footer } from "../layout/footer/Footer";
 import CounsllerContainer from "./container/CounsllerContainer";
 import CounsllerSidebar from "./sidebar/CounsllerSidebar";
+import CounsllerHeader from "../counsllerHeader/CounsllerHeader";
 
 const CounsllerLayout = () => {
     const [activePage, setActivePage] = useState("dashboard");
@@ -10,7 +10,7 @@ const CounsllerLayout = () => {
         <div className="m-0 p-0 h-screen flex flex-col">
             {/* Header */}
             <div className="h-20 shadow-2xl">
-                <LayoutHeader />
+                <CounsllerHeader />
             </div>
 
             {/* Body */}
@@ -26,7 +26,7 @@ const CounsllerLayout = () => {
 
             {/* Footer */}
             <div className="border fixed max-h-fit">
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </div>
     );

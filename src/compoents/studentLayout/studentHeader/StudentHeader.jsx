@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import Logo from "../../../assets/logo.png"
-import { useLoginStore } from "../store/useLoginStore"
 import { useState } from "react"
 import light from "../../../assets/LightMode.png"
 import dark from "../../../assets/darkMode.png"
@@ -10,28 +9,18 @@ import { LabelName } from "../../../Elaments/LabelName"
 import axios from "axios"
 import close from "../../../assets/close.png"
 import { useEffect } from "react"
+import { useLoginStore } from "../../layout/store/useLoginStore"
 const API = import.meta.env.VITE_API;
 
-const AdminLayoutHeader = () => {
+const StudentHeader = () => {
     const [show, setShow] = useState(false)
     const [profile, setProfile] = useState(false)
     const [profileData, setProfileData] = useState(false)
     const [password, setPassword] = useState(false)
     const { darkMode, setDarkMode } = useLoginStore();
     const [data, setData] = useState([])
-    // const fullData=data.find((item)=>item.id===profileData.id)
-    const GetData = async () => {
-        try {
-            const get = await axios.get(`${API}getStaff`)
-            setData(get.data.data)
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
     useEffect(() => {
-        GetData()
-        const storedData = localStorage.getItem('adminProfile');
+        const storedData = localStorage.getItem('studentProfile');
         setProfileData(JSON.parse(storedData))
     }, [])
     return (
@@ -71,7 +60,13 @@ const AdminLayoutHeader = () => {
                                     UserName:<p className="font-light mx-3">{profileData.UserName}</p>
                                 </div>
                                 <div className="flex font-bold">
-                                    Role:<p className="font-light mx-3">Admin</p>
+                                    Role:<p className="font-light mx-3">Student</p>
+                                </div>
+                                 <div className="flex font-bold">
+                                    Standard:<p className="font-light mx-3">{profileData.standard}</p>
+                                </div>
+                                <div className="flex font-bold">
+                                    Section:<p className="font-light mx-3">{profileData.section}</p>
                                 </div>
                                 <div className="flex font-bold">
                                     Phone Number: <p className="font-light mx-3">{profileData.PhoneNumber}</p>
@@ -96,4 +91,4 @@ const AdminLayoutHeader = () => {
             </div></>
     )
 }
-export default AdminLayoutHeader
+export default StudentHeader

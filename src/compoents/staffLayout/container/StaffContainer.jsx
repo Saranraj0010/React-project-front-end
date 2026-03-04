@@ -1,13 +1,14 @@
 import Circular from "../../circular/Circular"
+import ClassStudent from "../../classStudent/ClassStudent"
 import Dashboard from "../../layout/dashboard/Dashboard"
-import StudentDetails from "../../student/studentDetails/StudentDetails"
+import AdmissionDetails from "../../student/admissionDetails/AdmissionDetails"
 const StaffContainer = ({ activePage }) => {
     return (
         <>
             <div className="w-full max-h-full">
                 {activePage === "dashboard" && <Dashboard />}
-                {activePage === "studentDetails" && <StudentDetails />}
                 {activePage==="circular" && <Circular/>}
+                {activePage === "classStudent" && <ClassStudent/>}
             </div>
         </>
     )

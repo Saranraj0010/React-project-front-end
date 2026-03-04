@@ -71,25 +71,37 @@ const Login = () => {
         if (userResult) {
             console.log("User login success");
             navigate("/homePage/adminlayout");
-            localStorage.setItem('Profile', JSON.stringify(userResult));
+            localStorage.setItem('counsllerProfile', JSON.stringify(""));
+            localStorage.setItem('adminProfile', JSON.stringify(userResult));
+            localStorage.setItem('staffProfile', JSON.stringify(""));
+            localStorage.setItem('studentProfile', JSON.stringify(""));
         }
         else if (counsller) {
             // setProfileData(counsller);
             console.log("Counsller login success");
             navigate("/counsllerlayout");
-            localStorage.setItem('adminProfile', JSON.stringify(counsller));
+            localStorage.setItem('adminProfile', JSON.stringify(""));
+            localStorage.setItem('counsllerProfile', JSON.stringify(counsller));
+            localStorage.setItem('staffProfile', JSON.stringify(""));
+            localStorage.setItem('studentProfile', JSON.stringify(""));
         }
         else if (staffResult) {
             // setProfileData(staffResult);
             console.log("Staff login success");
             navigate("/homePage/stafflayout");
-            localStorage.setItem('adminProfile', JSON.stringify(staffResult));
+            localStorage.setItem('adminProfile', JSON.stringify(""));
+            localStorage.setItem('counsllerProfile', JSON.stringify(""));
+            localStorage.setItem('staffProfile', JSON.stringify(staffResult));
+            localStorage.setItem('studentProfile', JSON.stringify(""));
         }
         else if (studentResult) {
             // setProfileData(studentResult);
             console.log("Student login success");
             navigate("/homePage/studentlayout");
-            localStorage.setItem('adminProfile', JSON.stringify(studentResult));
+            localStorage.setItem('adminProfile', JSON.stringify(""));
+            localStorage.setItem('counsllerProfile', JSON.stringify(""));
+            localStorage.setItem('staffProfile', JSON.stringify(""));
+            localStorage.setItem('studentProfile', JSON.stringify(studentResult));
 
         }
         else {

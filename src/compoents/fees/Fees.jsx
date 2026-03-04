@@ -19,20 +19,18 @@ const Fees = () => {
         let newError = {};
         let Number = /^\+?[1-9]\d{3,6}$/
         if (price.standard.trim() === "") newError.standard = "Standard required";
-        const alreadyExists = allocation.some((item) => item.standard === user.standard);
+        const alreadyExists = allocation.some((item) => item.standard === price.standard);
         if (alreadyExists) newError.standard = "Fees is already allocated";
         if (price.fees.trim() === "") newError.fees = "Fees required";
-        else if (!Number.test(price.fees))newError.fees = "Invalid Fees Entry";
-        // else if (price.fees<=2000)newError.fees="Minimum Amount is '2000'";
+        else if (!Number.test(price.fees)) newError.fees = "Invalid Fees Entry";
         setError(newError);
         return Object.keys(newError).length === 0;
     };
     const GetData = async () => {
         try {
             const standard = await axios.get(`${API}getStandard`)
-            // const allocation = await axios.get(`${API}`)
+            const allocation = await axios.get(`${API}getFees`)
             setStandard(standard.data.data)
-            console.log(standard)
             setAllocation(allocation.data.data)
         }
         catch (err) {
@@ -57,58 +55,140 @@ const Fees = () => {
             console.log(err)
         }
     }
-    return (
-        <>
-            <div className="">
-                <ButtonHeader title={"Fees"} button={"Add Fees"} logo={logo} onclick={() => { setShow(true) }} />
+   return (
+  <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 p-5">
 
-                <div className="bg-white rounded-lg flex justify-center items-center shadow-2xl m-5 p-4">
-                    <table>
-                        <thead className="text-center">
-                            <tr>
-                                <td className="p-2 border">S.No</td>
-                                <td className="p-2 border">Class</td>
-                                <td className="p-2 border">Fees</td>
-                                <td className="p-2 border">Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                {
-                    show && (
-                        <div className="bg-black/60 absolute inset-0">
-                            <div className="flex justify-center mt-10">
-                                <div className="bg-white flex gap-5 flex-col w-fit rounded-lg p-3 relative left-2">
-                                    <div className="relative flex flex-col">
-                                        <label>Stanard Allocation</label>
-                                        <select name="standard" onChange={(e) => { setPrice({ ...price, standard: e.target.value }), setError({ ...error, standard: "" }) }} className="h-10 border rounded-lg w-60" id="">
-                                            <option value="">Select the Stanard</option>
-                                            {standard.map((item) => (
-                                                <option key={item.id} value={item.standard}>{item.standard}</option>
-                                            ))}
-                                        </select>
-                                        {error.standard && (
-                                            <p className="text-red-600 text-[10px] absolute top-17 right-2">{error.standard}</p>
-                                        )}</div>
-                                    <div className="relative flex flex-col">
-                                        <label>Fees Allocation</label>
-                                        <input type="text" placeholder="Enter the Fees" name="fees" className="w-60 h-10 border rounded-lg pl-3 mb-4" onChange={(e) => { setPrice({ ...price, fees: e.target.value }), setError({ ...error, fees: "" }) }} />
-                                        {error.fees && (
-                                            <p className="text-red-600 text-[10px] absolute top-17 right-2">{error.fees}</p>
-                                        )}</div>
-                                    <div className="text-center">
-                                        <button className="bg-red-500 mx-3 rounded-lg p-1 hover:bg-red-800 hover:text-white" onClick={() => {setShow(false),setError({})}}>close</button>
-                                        <button className="bg-green-500 mx-3 rounded-lg p-1 hover:bg-green-800 hover:text-white" onClick={Submit}>Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                }
-            </div>
-        </>
-    )
+    <ButtonHeader
+      title={"Fees"}
+      button={"Add Fees"}
+      logo={logo}
+      onclick={() => setShow(true)}
+    />
+
+    {/* Table Card */}
+    <div className="bg-white rounded-2xl shadow-xl m-5 p-6 border border-blue-100">
+
+      <table className="w-full border-collapse">
+        <thead>
+          <tr className="bg-blue-600 text-white text-center">
+            <th className="p-3">S.No</th>
+            <th className="p-3">Class</th>
+            <th className="p-3">Fees</th>
+            <th className="p-3">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {allocation.map((item, index) => (
+            <tr
+              key={item.id}
+              className="text-center border-b hover:bg-blue-50 transition"
+            >
+              <td className="p-3">{index + 1}</td>
+              <td className="p-3 font-medium text-blue-700">
+                {item.standard}
+              </td>
+              <td className="p-3 font-semibold text-gray-700">
+                ₹ {item.fees}
+              </td>
+              <td className="p-3">
+                <button className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {/* Modal */}
+    {show && (
+      <div className="fixed inset-0 bg-blue-900/40 backdrop-blur-sm flex items-center justify-center z-50">
+
+        <div className="bg-white w-96 rounded-2xl shadow-2xl p-6 border border-blue-200">
+
+          <h2 className="text-xl font-bold text-blue-700 mb-5 text-center">
+            Allocate Fees
+          </h2>
+
+          {/* Standard */}
+          <div className="mb-4 relative">
+            <label className="block mb-1 text-blue-700 font-medium">
+              Standard Allocation
+            </label>
+
+            <select
+              name="standard"
+              value={price.standard}
+              onChange={(e) => {
+                setPrice({ ...price, standard: e.target.value });
+                setError({ ...error, standard: "" });
+              }}
+              className="w-full h-10 border border-blue-200 rounded-lg px-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            >
+              <option value="">Select the Standard</option>
+              {standard.map((item) => (
+                <option key={item.id} value={item.standard}>
+                  {item.standard}
+                </option>
+              ))}
+            </select>
+
+            {error.standard && (
+              <p className="text-red-500 text-xs mt-1">
+                {error.standard}
+              </p>
+            )}
+          </div>
+
+          {/* Fees */}
+          <div className="mb-5 relative">
+            <label className="block mb-1 text-blue-700 font-medium">
+              Fees Allocation
+            </label>
+
+            <input
+              type="text"
+              placeholder="Enter the Fees"
+              value={price.fees}
+              onChange={(e) => {
+                setPrice({ ...price, fees: e.target.value });
+                setError({ ...error, fees: "" });
+              }}
+              className="w-full h-10 border border-blue-200 rounded-lg px-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            />
+
+            {error.fees && (
+              <p className="text-red-500 text-xs mt-1">
+                {error.fees}
+              </p>
+            )}
+          </div>
+
+          {/* Buttons */}
+          <div className="flex justify-end gap-3">
+            <button
+              className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition"
+              onClick={() => {
+                setShow(false);
+                setError({});
+              }}
+            >
+              Close
+            </button>
+
+            <button
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              onClick={Submit}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+);
 }
 export default Fees

@@ -144,7 +144,7 @@ const TotalStaff = () => {
                                     </td>
                                     <td className="flex gap-3 p-3">
                                         <button className="bg-green-500 hover:font-extrabold cursor-pointer left-3 p-1 rounded-lg text-white" onClick={() => OnEdit(staff.id)}><img width={20} src={EditImg} /></button>
-                                        <button className="bg-red-700 hover:font-extrabold cursor-pointer right-3 p-1 rounded-lg text-white" onClick={() => Del(staff.id)}><img width={20} src={Delimage} /></button>
+                                        <button className="bg-red-700 hover:font-extrabold cursor-pointer right-3 p-1 rounded-lg text-white" onClick={() => Del(staff.id)}><img width={20} height={20} src={Delimage} /></button>
                                     </td>
                                 </tr>
                             </tbody>

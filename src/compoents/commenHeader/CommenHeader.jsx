@@ -1,11 +1,19 @@
-const CommenHeader = ({title,logo}) => {
-    return(
-        <>
-        <div className="flex gap-3 md:gap-10 lg:gap-80 items-center px-5 m-5 bg-white h-25 max-w-full rounded-2xl shadow-2xl">
-            <div className=""><img src={logo} width={70} alt="" className=" rounded-full" /></div>
-            <div className="text-4xl font-semibold">{title}</div>
-        </div>
-        </>
-    )
-}
-export default CommenHeader
+const CommenHeader = ({ title, logo }) => {
+  return (
+    <div className="flex items-center justify-between px-6 py-4 m-5 bg-white rounded-2xl shadow-xl">
+      {/* Left Side - Logo */}
+      <div className="flex items-center gap-4">
+        <img
+          src={logo}
+          alt="Logo"
+          className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border-2 border-blue-500"
+        />
+      </div>
+      {/* Center - Title */}
+      <div className="text-xl md:text-3xl lg:text-4xl font-bold text-gray-800 text-center flex-1">
+        {title}
+      </div>
+    </div>
+  );
+};
+export default CommenHeader;

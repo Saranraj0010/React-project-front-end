@@ -1,8 +1,8 @@
 import { useState } from "react";
-import LayoutHeader from "../layout/layoutHender/LayoutHeader";
 import StudentSidebar from "./sidebar/StudentSidebar";
 import StudentContainer from "./container/StudentContainer";
 import { Footer } from "../layout/footer/Footer";
+import StudentHeader from "./studentHeader/StudentHeader";
 
 const StudentLayout = () => {
     const [activePage, setActivePage] = useState("dashboard");
@@ -10,7 +10,7 @@ const StudentLayout = () => {
         <div className="m-0 p-0 h-screen flex flex-col">
             {/* Header */}
             <div className="h-20 shadow-2xl">
-                <LayoutHeader/>
+                <StudentHeader/>
             </div>
 
             {/* Body */}

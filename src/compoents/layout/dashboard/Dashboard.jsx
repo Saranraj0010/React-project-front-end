@@ -1,52 +1,103 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 const API = import.meta.env.VITE_API;
 
 const Dashboard = () => {
+
     const [student, setStudent] = useState([])
     const [staff, setStaff] = useState([])
-    const currentDate = new Date();
-    let time = currentDate.toLocaleTimeString()
-    let date = currentDate.toLocaleDateString()
+    const [time, setTime] = useState(new Date())
+
+    // ---------------- GET DATA ----------------
     const GetForm = async () => {
         try {
-            const student = await axios.get(`${API}getStudent`)
-            const staff = await axios.get(`${API}getStaff`)
-            setStudent(student.data.data)
-            setStaff(staff.data.data)
-        }
-        catch (err) {
-            console.log(err, "hello")
+            const [studentRes, staffRes] = await Promise.all([
+                axios.get(`${API}getStudent`),
+                axios.get(`${API}getStaff`)
+            ])
+
+            setStudent(studentRes.data.data)
+            setStaff(staffRes.data.data)
+
+        } catch (err) {
+            console.log(err)
         }
     }
+
     useEffect(() => {
         GetForm()
+
+        // Live clock
+        const timer = setInterval(() => {
+            setTime(new Date())
+        }, 1000)
+
+        return () => clearInterval(timer)
     }, [])
 
+    const date = time.toLocaleDateString()
+    const clock = time.toLocaleTimeString()
+
     return (
-        <><div className="p-5">
-            <div className="bg-white rounded-lg shadow-2xl p-1 m-5">
-                <div className="bg-blue-400 m-2 rounded-lg p-2 flex justify-between items-center px-5 gap-3">
-                    <div className="text-white font-semibold text-lg">Welcome To School Site!</div>
-                    <div className="flex gap-5">
-                        <div className="text-white font-mono">Date:{date}</div>
-                        <div className="text-white font-mono">Time:{time}</div>
+        <div className="p-6 bg-gray-50 min-h-screen">
+
+            {/* HEADER */}
+            <div className="bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl shadow-xl p-6 flex flex-col md:flex-row justify-between items-center text-white">
+
+                <div>
+                    <h1 className="text-2xl md:text-3xl font-bold">
+                        Welcome To School Dashboard 👋
+                    </h1>
+                    <p className="text-sm opacity-90">
+                        Manage your school data easily
+                    </p>
+                </div>
+
+                <div className="flex gap-6 mt-4 md:mt-0 font-mono text-sm md:text-base">
+                    <div>
+                        <span className="font-semibold">Date:</span> {date}
+                    </div>
+                    <div>
+                        <span className="font-semibold">Time:</span> {clock}
                     </div>
                 </div>
+
             </div>
-            <div className="flex justify-around bg-gray-200 m-5 rounded-lg shadow-2xl p-5">
-                <div className="bg-white rounded-lg shadow-2xl p-4 m-2 text-center ">
-                    <p className=" font-semibold text-red-600 text-2xl">Number Of Students in School</p>
-                    <p className="font-extrabold text-blue-600 text-2xl">{student.length}</p>
+
+            {/* STAT CARDS */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+                {/* STUDENTS CARD */}
+                <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition duration-300">
+
+                    <h2 className="text-lg font-semibold text-gray-600">
+                        Total Students
+                    </h2>
+
+                    <p className="text-4xl font-extrabold text-blue-600 mt-3">
+                        {student.length}
+                    </p>
+
                 </div>
-                <div className="bg-white rounded-lg shadow-2xl p-4 m-2 text-center">
-                    <p className=" font-semibold text-red-600 text-2xl">Number Of Staffs in School</p>
-                    <p className="font-extrabold text-blue-600 text-2xl">{staff.length}</p>
+
+                {/* STAFF CARD */}
+                <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition duration-300">
+
+                    <h2 className="text-lg font-semibold text-gray-600">
+                        Total Staff
+                    </h2>
+
+                    <p className="text-4xl font-extrabold text-green-600 mt-3">
+                        {staff.length}
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
-        </>
     )
 }
+
 export default Dashboard
