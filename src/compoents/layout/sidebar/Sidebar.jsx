@@ -19,14 +19,27 @@ const sidebar = [
 
 const Sidebar = ({ setActivePage }) => {
     const { darkMode } = useLoginStore();
-    const [style, setStyle] = useState(false)
+    const [active, setActive] = useState("dashboard");
 
     return (
-        <div className={`${darkMode ? "bg-black" : "bg-blue-800"} overflow-y-scroll  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] font-semibold w-64 h-142 text-white`}>
-            <h1 className="text-center p-3 border-b ">Admin Pannel</h1>
+        <div className={`${darkMode ? "bg-black" : "bg-blue-800"} 
+            overflow-y-scroll [&::-webkit-scrollbar]:hidden 
+            [-ms-overflow-style:none] [scrollbar-width:none] 
+            font-semibold w-64 h-142 text-white`}>
+
+            <h1 className="text-center p-3 border-b">Admin Panel</h1>
+
             <ol className="w-full p-2 flex flex-col gap-2">
                 {sidebar.map((item) => (
-                    <li key={item.id} onClick={() => { setActivePage(item.page) }} className={`${darkMode ? "bg-gray-400 text-black hover:bg-gray-800 hover:text-white" : "bg-white text-blue-600 hover:bg-blue-600 hover:text-white"} rounded-md p-2 text-lg font-serif cursor-pointer`} >
+                    <li
+                        key={item.id}
+                        onClick={() => {
+                            setActive(item.page);
+                            setActivePage(item.page);
+                        }}
+                        className={`rounded-md p-2 text-lg font-serif cursor-pointer transition-all duration-300
+                        
+                        ${active === item.page? "bg-blue-600 text-white scale-100 shadow-lg": darkMode? "bg-gray-400 text-black hover:bg-gray-800 hover:text-white": "bg-white text-blue-600 hover:bg-blue-600 hover:text-white"}`}>
                         {item.name}
                     </li>
                 ))}

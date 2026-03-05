@@ -177,7 +177,6 @@ setFees(true);
     }, [])
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 p-6">
-            <div className="bg-white rounded-2xl shadow-xl p-6">
                 <CommenHeader title={"Student Admission"} logo={logo} button={"Add Student"} />
                 {/* Student addForm  */}
                 <div className="mt-6 bg-gray-50 rounded-2xl shadow-inner p-6">
@@ -401,7 +400,6 @@ setFees(true);
     </div>
   </div>
 )}
-            </div>
         </div>
     )
 }

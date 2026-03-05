@@ -206,7 +206,7 @@ const AdmissionDetails = () => {
                 <div className="absolute bg-black/50 flex items-center justify-center inset-0 h-screen w-screen">
                     <div className=" relative flex justify-center h-full rounded-2xl z-50 bg-white items-center gap-3 overflow-y-scroll  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] p-5">
                         <form className={`w-full p-5 rounded-lg h-full flex flex-col gap-4`} onSubmit={(e) => UpdateForm(e)}>
-                            <div className="bg-red-500 w-fit absolute right-3 top-3">
+                            <div className="w-fit absolute right-3 top-3">
                                 <img src={close} width={20} onClick={() => { setShow(false) }} alt="" />
                             </div>
                             <h1 className="font-bold text-center underline text-2xl">ADMISSION FORM UPDATE</h1>

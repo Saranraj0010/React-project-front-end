@@ -66,7 +66,7 @@ const AdminLayoutHeader = () => {
                     profile && (
                         <div className=" absolute bg-black/50 flex items-center justify-center inset-0 h-screen w-screen">
                             <div className=" bg-gray-300 p-5 flex relative flex-col justify-center items-center gap-3 border rounded-lg">
-                                <div className="bg-red-500 absolute top-2 right-2" onClick={()=>{setProfile(false)}}><img src={close} alt="" /></div>
+                                <div className="absolute top-2 right-2" onClick={()=>{setProfile(false)}}><img src={close} alt="" /></div>
                                 <div className="flex font-bold">
                                     UserName:<p className="font-light mx-3">{profileData.UserName}</p>
                                 </div>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Header from "../layout/header/Header";
-import { useLoginStore } from "../layout/store/useLoginStore";
 import { Footer } from "../layout/footer/Footer";
 import HomeContainer from "../homeContainer/HomeContainer";
 
@@ -8,19 +7,23 @@ const Home = () => {
     const [activePage, setActivePage] = useState("dashboard");
 
     return (
-        <div className={`m-0 p-0 h-screen flex flex-col`}>
+        <div className="min-h-screen flex flex-col">
+
             {/* Header */}
-            <div className="shadow-xl">
+            <header className="shadow-md">
                 <Header />
-            </div>
-            {/* Body */}
-            <div className=" shadow-xl">
-                <HomeContainer/>
-            </div>
+            </header>
+
+            {/* Main Content */}
+            <main className="flex-1">
+                <HomeContainer />
+            </main>
+
             {/* Footer */}
-            <div className="">
-                <Footer/>
-            </div>
+            <footer>
+                <Footer />
+            </footer>
+
         </div>
     );
 };
