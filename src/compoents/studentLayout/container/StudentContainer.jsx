@@ -1,5 +1,5 @@
 import Circular from "../../circular/Circular"
-import Dashboard from "../../layout/dashboard/Dashboard"
+import Dashboard from "../../dashboard/Dashboard"
 const StudentContainer = ({ activePage }) => {
     return (
         <>

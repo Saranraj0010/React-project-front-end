@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useStudentStore } from "./compoents/student/store/useStudentStore";
 import Layout from "./compoents/layout/Layout";
-import Login from "./compoents/layout/login/Login";
-import SignUp from "./compoents/layout/signup/SignUp";
+import Login from "./compoents/login/Login";
+import SignUp from "./compoents/signup/SignUp";
 import { Route, Routes } from "react-router-dom";
 import Home from "./compoents/home/Home";
 import StaffLayout from "./compoents/staffLayout/StaffLayout";

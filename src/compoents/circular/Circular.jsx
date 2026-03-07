@@ -19,7 +19,6 @@ const Circular = () => {
         select: ""
     })
 
-    // ---------------- GET DATA ----------------
     const GetForm = async () => {
         try {
             const res = await axios.get(`${API}getCircular`)
@@ -33,7 +32,6 @@ const Circular = () => {
         GetForm()
     }, [])
 
-    // ---------------- SUBMIT ----------------
     const Submit = async () => {
 
         if (!circular.title || !circular.text || !circular.select) {
@@ -65,7 +63,6 @@ const Circular = () => {
         }
     }
 
-    // ---------------- FILTER ----------------
     let filterData = data
 
     if (filter.select && filter.select !== "all") {
@@ -91,7 +88,6 @@ const Circular = () => {
                 onclick={() => setShowCircular(true)}
             />
 
-            {/* FILTER SECTION */}
             <div className="bg-white rounded-2xl p-5 mt-6 shadow-lg flex flex-col md:flex-row gap-4 items-center">
 
                 <input
@@ -121,7 +117,6 @@ const Circular = () => {
 
             </div>
 
-            {/* CIRCULAR CARDS */}
             <div className="bg-white rounded-2xl p-6 mt-6 shadow-lg">
 
                 {filterData.length === 0 ? (
@@ -161,7 +156,6 @@ const Circular = () => {
 
             </div>
 
-            {/* MODAL */}
             {showCircular && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
                     <div className="bg-white rounded-2xl shadow-2xl p-6 w-96 relative">

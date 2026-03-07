@@ -3,6 +3,7 @@ import close from "../../assets/close.png"
 import { useState, useEffect } from "react"
 import axios from "axios"
 import ButtonHeader from "../commenHeader/ButtonHeader"
+import { toast } from "react-toastify"
 
 const API = import.meta.env.VITE_API;
 
@@ -17,27 +18,27 @@ const Role = () => {
     const [error, setError] = useState({})
     const [id, setId] = useState("")
 
-    // ---------------- VALIDATION ----------------
     const Validation = () => {
         let newError = {}
 
         const value = update ? roll.role : user.role
 
         if (value.trim() === "") {
-            newError.role = "Role is required"
+            toast.error("Role is required")
+            return false
         }
 
         if (!update && data.find((item) =>
             item.role.toLowerCase() === value.toLowerCase()
         )) {
-            newError.role = "Role already exists"
+            toast.error("Role already exists")
+            return false
         }
 
         setError(newError)
         return Object.keys(newError).length === 0
     }
 
-    // ---------------- ADD ROLE ----------------
     const Submit = async (e) => {
         e.preventDefault()
         if (!Validation()) return
@@ -52,7 +53,6 @@ const Role = () => {
         }
     }
 
-    // ---------------- GET ROLES ----------------
     const GetForm = async () => {
         try {
             const res = await axios.get(`${API}getRole`)
@@ -66,7 +66,6 @@ const Role = () => {
         GetForm()
     }, [])
 
-    // ---------------- EDIT ----------------
     const IsEdit = (id) => {
         const result = data.find((item) => item.id === id)
         if (result) {
@@ -94,7 +93,6 @@ const Role = () => {
         }
     }
 
-    // ---------------- DELETE ----------------
     const Deletes = async () => {
         try {
             await axios.patch(`${API}deleteRole`, { id })
@@ -124,7 +122,6 @@ const Role = () => {
                 button={"Add Role"}
             />
 
-            {/* TABLE */}
             <div className="bg-white p-6 mt-6 shadow-lg rounded-2xl">
                 <table className="w-full text-center border-collapse">
                     <thead className="bg-blue-600 text-white">
@@ -159,7 +156,6 @@ const Role = () => {
                 </table>
             </div>
 
-            {/* ADD / UPDATE MODAL */}
             {show && (
                 <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
                     <div className="bg-white p-6 rounded-2xl shadow-2xl w-96 relative animate-fadeIn">
@@ -212,7 +208,6 @@ const Role = () => {
                 </div>
             )}
 
-            {/* DELETE MODAL */}
             {Delete && (
                 <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
                     <div className="bg-white p-6 rounded-2xl shadow-xl w-80 text-center">

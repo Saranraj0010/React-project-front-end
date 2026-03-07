@@ -1,8 +1,8 @@
 import { useState } from "react";
 import StudentSidebar from "./sidebar/StudentSidebar";
 import StudentContainer from "./container/StudentContainer";
-import { Footer } from "../layout/footer/Footer";
 import StudentHeader from "./studentHeader/StudentHeader";
+import { Footer } from "../footer/Footer";
 
 const StudentLayout = () => {
     const [activePage, setActivePage] = useState("dashboard");

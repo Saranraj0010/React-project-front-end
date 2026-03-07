@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import logo from "../../assets/profile4.jpg"
 import ButtonHeader from "../commenHeader/ButtonHeader"
 import axios from "axios"
+import { toast } from "react-toastify";
 
 const API = import.meta.env.VITE_API;
 
@@ -23,14 +24,22 @@ const StaffAllocation = () => {
     const [allocation, setAllocation] = useState([])
     const [error, setError] = useState({})
 
-    // ---------------- VALIDATION ----------------
     const Validation = () => {
         let newError = {}
 
-        if (!user.staff) newError.staff = "Staff required"
-        if (!user.standard) newError.standard = "Standard required"
-        if (!user.section) newError.section = "Section required"
-        if (!user.subject) newError.subject = "Subject required"
+        if (!user.staff){
+            toast.error("Staff required")
+        }
+        if (!user.standard){
+            toast.error("Standard required")
+        }
+        if (!user.section){
+            toast.error("Section required")
+        }
+        if (!user.subject){
+            toast.error("Subject required")
+            return false
+        }
 
         const alreadyExists = allocation.some(
             (item) =>
@@ -48,7 +57,6 @@ const StaffAllocation = () => {
         return Object.keys(newError).length === 0
     }
 
-    // ---------------- GET ALL DATA ----------------
     const GetData = async () => {
         try {
             const [
@@ -80,7 +88,6 @@ const StaffAllocation = () => {
         GetData()
     }, [])
 
-    // ---------------- SUBMIT ----------------
     const Submit = async () => {
         if (!Validation()) return
 
@@ -109,7 +116,6 @@ const StaffAllocation = () => {
                 onclick={() => setShow(true)}
             />
 
-            {/* TABLE */}
             <div className="bg-white rounded-2xl shadow-lg mt-6 p-6 overflow-x-auto">
                 <table className="w-full text-center border-collapse">
                     <thead className="bg-blue-600 text-white">
@@ -142,7 +148,6 @@ const StaffAllocation = () => {
                 </table>
             </div>
 
-            {/* MODAL */}
             {show && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
                     <div className="bg-white rounded-2xl shadow-2xl p-6 w-96 space-y-4">
@@ -151,7 +156,6 @@ const StaffAllocation = () => {
                             Staff Allocation
                         </h2>
 
-                        {/* STAFF */}
                         <div>
                             <label className="font-medium">Staff</label>
                             <select
@@ -175,7 +179,6 @@ const StaffAllocation = () => {
                             {error.staff && <p className="text-red-500 text-sm">{error.staff}</p>}
                         </div>
 
-                        {/* STANDARD */}
                         <div>
                             <label className="font-medium">Standard</label>
                             <select
@@ -196,7 +199,6 @@ const StaffAllocation = () => {
                             {error.standard && <p className="text-red-500 text-sm">{error.standard}</p>}
                         </div>
 
-                        {/* SECTION */}
                         <div>
                             <label className="font-medium">Section</label>
                             <select
@@ -217,7 +219,6 @@ const StaffAllocation = () => {
                             {error.section && <p className="text-red-500 text-sm">{error.section}</p>}
                         </div>
 
-                        {/* SUBJECT */}
                         <div>
                             <label className="font-medium">Subject</label>
                             <select
@@ -238,7 +239,6 @@ const StaffAllocation = () => {
                             {error.subject && <p className="text-red-500 text-sm">{error.subject}</p>}
                         </div>
 
-                        {/* BUTTONS */}
                         <div className="flex justify-center gap-4 pt-2">
                             <button
                                 onClick={() => setShow(false)}

@@ -3,6 +3,7 @@ import logo from "../../assets/profile4.jpg"
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const API = import.meta.env.VITE_API;
 const Fees = () => {
@@ -18,11 +19,21 @@ const Fees = () => {
     const Validation = () => {
         let newError = {};
         let Number = /^\+?[1-9]\d{3,6}$/
-        if (price.standard.trim() === "") newError.standard = "Standard required";
+        if (price.standard.trim() === ""){
+          toast.error("Standard required")
+        }
         const alreadyExists = allocation.some((item) => item.standard === price.standard);
-        if (alreadyExists) newError.standard = "Fees is already allocated";
-        if (price.fees.trim() === "") newError.fees = "Fees required";
-        else if (!Number.test(price.fees)) newError.fees = "Invalid Fees Entry";
+        if (alreadyExists){
+          toast.error("Fees is already allocated")
+        }
+        if (price.fees.trim() === ""){
+          toast.error("Fees required")
+          return false
+        }
+        else if (!Number.test(price.fees)){
+          toast.error("Invalid Fees Entry")
+          return false
+        }
         setError(newError);
         return Object.keys(newError).length === 0;
     };

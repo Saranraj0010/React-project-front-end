@@ -4,6 +4,7 @@ import close from "../../assets/close.png"
 import { useEffect } from "react"
 import axios from "axios"
 import ButtonHeader from "../commenHeader/ButtonHeader"
+import { toast } from "react-toastify"
 const API = import.meta.env.VITE_API;
 
 const Subject = () => {
@@ -21,8 +22,12 @@ const Subject = () => {
     const[id,setId]=useState("")
     const Validation = () => {
         let newError = {};
-        if (user.subject.trim() === "") newError.subject = "Subject required";
-        if(data.find((item)=>item.subject.toLocaleLowerCase()===user.subject.toLocaleLowerCase()))newError.subject = "Already exist";
+        if (user.subject.trim() === ""){
+          toast.error("Subject required")
+        }
+        if(data.find((item)=>item.subject.toLocaleLowerCase()===user.subject.toLocaleLowerCase())){
+          toast.error("Already exist")
+        }
         setError(newError);
         return Object.keys(newError).length === 0;
     }

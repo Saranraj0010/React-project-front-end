@@ -1,6 +1,5 @@
 import StudentForm from "../../student/StudentForm"
-import Form from "../../0pratice/Form"
-import Dashboard from "../dashboard/Dashboard"
+import Dashboard from "../../dashboard/Dashboard"
 import StudentDetails from "../../student/studentDetails/StudentDetails"
 import Staff from "../../staff/Staff"
 import TotalStaff from "../../staff/TotalStaff"
@@ -14,6 +13,7 @@ import Calendar from "../../calendar/Calendar"
 import StaffAllocation from "../../staffAllocation/StaffAllocation"
 import Subject from "../../subject/Subject"
 import Fees from "../../fees/Fees"
+import Payment from "../../payment/Payment"
 const Container = ({ activePage }) => {
     return (
         <>
@@ -29,6 +29,7 @@ const Container = ({ activePage }) => {
                 {activePage==="studentAdmission" && <StudentAdmission/>}
                 {activePage==="admissionDetails" && <AdmissionDetails/>}
                 {activePage==="fees" && <Fees/>}
+                {activePage==="payment" && <Payment/>}
                 {activePage==="standard" && <Standard/>}
                 {activePage==="role" && <Role/>}
                 {activePage==="section" && <Section/>}

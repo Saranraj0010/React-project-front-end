@@ -1,8 +1,8 @@
 import Sidebar from "./sidebar/Sidebar";
 import Container from "./container/Container";
 import { useState } from "react";
-import { Footer } from "./footer/Footer";
 import AdminLayoutHeader from "./adminLayoutHeader/AdminLayoutHeader";
+import { Footer } from "../footer/Footer";
 
 const Layout = () => {
     const [activePage, setActivePage] = useState("dashboard");

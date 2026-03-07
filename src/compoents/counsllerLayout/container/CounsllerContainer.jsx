@@ -1,6 +1,6 @@
 import Circular from "../../circular/Circular"
 import ClassStudent from "../../classStudent/ClassStudent"
-import Dashboard from "../../layout/dashboard/Dashboard"
+import Dashboard from "../../dashboard/Dashboard"
 import AdmissionDetails from "../../student/admissionDetails/AdmissionDetails"
 import StudentAdmission from "../../student/StudentAdmission"
 import StudentDetails from "../../student/studentDetails/StudentDetails"

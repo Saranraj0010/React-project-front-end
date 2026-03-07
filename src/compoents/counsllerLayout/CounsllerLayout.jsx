@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Footer } from "../layout/footer/Footer";
+import { Footer } from "../footer/Footer";
 import CounsllerContainer from "./container/CounsllerContainer";
 import CounsllerSidebar from "./sidebar/CounsllerSidebar";
 import CounsllerHeader from "../counsllerHeader/CounsllerHeader";

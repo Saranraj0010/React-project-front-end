@@ -1,5 +1,5 @@
-import { useLoginStore } from "../store/useLoginStore";
-import BackGroundImage from "../../../assets/background.jpg";
+import { useLoginStore } from "../layout/store/useLoginStore";
+import BackGroundImage from "../../assets/background.jpg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";

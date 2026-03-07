@@ -2,7 +2,7 @@ import { useState } from "react";
 import LayoutHeader from "../layout/layoutHender/LayoutHeader";
 import StaffSidebar from "./sidebar/StaffSidebar";
 import StaffContainer from "./container/StaffContainer";
-import { Footer } from "../layout/footer/Footer";
+import { Footer } from "../footer/Footer";
 
 const StaffLayout = () => {
     const [activePage, setActivePage] = useState("dashboard");

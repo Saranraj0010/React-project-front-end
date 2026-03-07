@@ -7,28 +7,25 @@ const Dashboard = () => {
 
     const [student, setStudent] = useState([])
     const [staff, setStaff] = useState([])
+    const [payment, setPayment] = useState([])
     const [time, setTime] = useState(new Date())
 
-    // ---------------- GET DATA ----------------
     const GetForm = async () => {
         try {
-            const [studentRes, staffRes] = await Promise.all([
-                axios.get(`${API}getStudent`),
-                axios.get(`${API}getStaff`)
-            ])
-
-            setStudent(studentRes.data.data)
-            setStaff(staffRes.data.data)
+            const student = await axios.get(`${API}getStudent`)
+            const staff = await axios.get(`${API}getStaff`)
+            const payment = await axios.get(`${API}getPayment`)
+            setStudent(student.data.data)
+            setStaff(staff.data.data)
+            setPayment(payment.data.data)
 
         } catch (err) {
             console.log(err)
         }
     }
-
     useEffect(() => {
         GetForm()
 
-        // Live clock
         const timer = setInterval(() => {
             setTime(new Date())
         }, 1000)
@@ -42,7 +39,6 @@ const Dashboard = () => {
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
 
-            {/* HEADER */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl shadow-xl p-6 flex flex-col md:flex-row justify-between items-center text-white">
 
                 <div>
@@ -65,10 +61,8 @@ const Dashboard = () => {
 
             </div>
 
-            {/* STAT CARDS */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 
-                {/* STUDENTS CARD */}
                 <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition duration-300">
 
                     <h2 className="text-lg font-semibold text-gray-600">
@@ -81,7 +75,6 @@ const Dashboard = () => {
 
                 </div>
 
-                {/* STAFF CARD */}
                 <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition duration-300">
 
                     <h2 className="text-lg font-semibold text-gray-600">
@@ -93,7 +86,28 @@ const Dashboard = () => {
                     </p>
 
                 </div>
+                 <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition duration-300">
 
+                    <h2 className="text-lg font-semibold text-gray-600">
+                        Total Fees Amount
+                    </h2>
+
+                    <div className="text-4xl font-extrabold text-blue-600 mt-3">
+                       { payment.reduce((total, item) => total + Number(item.fees), 0)}
+                    </div>
+
+                </div>
+                <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition duration-300">
+
+                    <h2 className="text-lg font-semibold text-gray-600">
+                        Total Fees Paided
+                    </h2>
+
+                    <div className="text-4xl font-extrabold text-green-600 mt-3">
+                        {payment.reduce((total, item) => total + Number(item.downPayment), 0)}
+                    </div>
+
+                </div>
             </div>
 
         </div>

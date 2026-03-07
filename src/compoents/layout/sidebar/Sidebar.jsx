@@ -9,12 +9,13 @@ const sidebar = [
     { id: 5, name: "Staff Details", page: "staffDetails" },
     { id: 6, name: "Student Admission", page: "studentAdmission" },
     { id: 7, name: "Admission Details", page: "admissionDetails" },
-    { id: 8, name: "Fees", page: "fees" },
-    { id: 9, name: "Subject", page: "subject" },
-    { id: 10, name: "Standard", page: "standard" },
-    { id: 11, name: "Role", page: "role" },
-    { id: 12, name: "Section", page: "section" },
-    { id: 13, name: "Calendar", page: "calendar" }
+    { id: 8, name: "Payment", page: "payment" },
+    { id: 9, name: "Fees", page: "fees" },
+    { id: 10, name: "Subject", page: "subject" },
+    { id: 11, name: "Standard", page: "standard" },
+    { id: 12, name: "Role", page: "role" },
+    { id: 13, name: "Section", page: "section" },
+    { id: 14, name: "Calendar", page: "calendar" }
 ];
 
 const Sidebar = ({ setActivePage }) => {
@@ -37,7 +38,7 @@ const Sidebar = ({ setActivePage }) => {
                             setActive(item.page);
                             setActivePage(item.page);
                         }}
-                        className={`rounded-md p-2 text-lg font-serif cursor-pointer transition-all duration-300
+                        className={`rounded-md p-2 text-lg cursor-pointer transition-all duration-300
                         
                         ${active === item.page? "bg-blue-600 text-white scale-100 shadow-lg": darkMode? "bg-gray-400 text-black hover:bg-gray-800 hover:text-white": "bg-white text-blue-600 hover:bg-blue-600 hover:text-white"}`}>
                         {item.name}

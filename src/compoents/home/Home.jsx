@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "../layout/header/Header";
-import { Footer } from "../layout/footer/Footer";
 import HomeContainer from "../homeContainer/HomeContainer";
+import { Footer } from "../footer/Footer";
 
 const Home = () => {
     const [activePage, setActivePage] = useState("dashboard");

@@ -1,4 +1,4 @@
-import { useLoginStore } from "../store/useLoginStore";
+import { useLoginStore } from "../layout/store/useLoginStore";
 
 export const Footer = () => {
     const { darkMode } = useLoginStore();
