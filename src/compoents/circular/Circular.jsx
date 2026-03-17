@@ -88,7 +88,7 @@ const Circular = () => {
                 onclick={() => setShowCircular(true)}
             />
 
-            <div className="bg-white rounded-2xl p-5 mt-6 shadow-lg flex flex-col md:flex-row gap-4 items-center">
+            <div className="bg-white rounded-2xl mx-5 p-5 mt-6 shadow-lg flex flex-col md:flex-row gap-4 items-center">
 
                 <input
                     type="text"
@@ -117,7 +117,7 @@ const Circular = () => {
 
             </div>
 
-            <div className="bg-white rounded-2xl p-6 mt-6 shadow-lg">
+            <div className="bg-white rounded-2xl p-6 mx-5 mt-6 shadow-lg">
 
                 {filterData.length === 0 ? (
                     <p className="text-center text-gray-500">No Circular Found</p>

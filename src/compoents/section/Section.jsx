@@ -4,39 +4,13 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import ButtonHeader from "../commenHeader/ButtonHeader"
 import { toast } from "react-toastify"
+import { useSectionStore } from "../store/useSectionStore"
 
 const API = import.meta.env.VITE_API;
 
 const Section = () => {
-
-    const [user, setUser] = useState({ section: "" })
-    const [roll, setRoll] = useState({ section: "", id: "" })
-    const [data, setData] = useState([])
-    const [show, setShow] = useState(false)
-    const [update, setUpdate] = useState(false)
-    const [Delete, setDelete] = useState(false)
-    const [error, setError] = useState({})
-    const [id, setId] = useState("")
-
-    const Validation = () => {
-        let newError = {}
-        const value = update ? roll.section : user.section
-
-        if (value.trim() === "") {
-        toast.error("Section is required")
-        return false
-        }
-
-        if (!update && data.find(
-            (item) => item.section.toLowerCase() === value.toLowerCase()
-        )) {
-        toast.error("Section already exists")
-        return false
-        }
-
-        setError(newError)
-        return Object.keys(newError).length === 0
-    }
+    const { user, roll, data, show, update, Delete, error, id, setUser, setRoll, setData, setShow, setUpdate, setDelete, setError, setId, resetUser, resetRoll,Validation } = useSectionStore();
+   
 
     const Submit = async (e) => {
         e.preventDefault()
@@ -44,7 +18,7 @@ const Section = () => {
 
         try {
             await axios.post(`${API}addSection`, user)
-            setUser({ section: "" })
+            resetUser()
             GetForm()
             setShow(false)
         } catch (err) {
@@ -60,7 +34,6 @@ const Section = () => {
             console.log(err)
         }
     }
-
     useEffect(() => {
         GetForm()
     }, [])
@@ -70,20 +43,21 @@ const Section = () => {
         if (result) {
             setUpdate(true)
             setShow(true)
-            setRoll({
-                section: result.section,
-                id: result.id
-            })
+            setRoll("id", result.id)
+            setRoll("section", result.section)
+            // setRoll({
+            //     section: result.section,
+            //     id: result.id
+            // })
         }
     }
-
     const Update = async (e) => {
         e.preventDefault()
         if (!Validation()) return
 
         try {
             await axios.patch(`${API}updateSection`, roll)
-            setRoll({ section: "", id: "" })
+            resetRoll()
             setUpdate(false)
             GetForm()
             setShow(false)
@@ -108,7 +82,7 @@ const Section = () => {
     }
 
     return (
-        <div className="bg-gray-50 rounded-xl shadow-md p-3 m-3 relative">
+        <div className="p-3 m-3 relative">
 
             <ButtonHeader
                 title={"Section"}
@@ -121,8 +95,10 @@ const Section = () => {
                 }}
             />
 
-            <div className="bg-white p-6 mt-6 shadow-lg rounded-2xl">
-                <table className="w-full text-center border-collapse">
+            <div className="bg-white p-6 mx-5 mt-6 shadow-lg rounded-2xl">
+                {data.length === 0?(
+                    <p className="text-center text-gray-500">No Section Found</p>
+                ):(<table className="w-full text-center border-collapse">
                     <thead className="bg-blue-600 text-white">
                         <tr>
                             <th className="p-3">S.No</th>
@@ -152,7 +128,7 @@ const Section = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table>)}
             </div>
 
             {show && (
@@ -184,8 +160,8 @@ const Section = () => {
                                 className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 onChange={(e) => {
                                     update
-                                        ? setRoll({ ...roll, section: e.target.value })
-                                        : setUser({ ...user, section: e.target.value })
+                                        ? setRoll("section",e.target.value)
+                                        : setUser("section",e.target.value)
                                     setError({})
                                 }}
                             />

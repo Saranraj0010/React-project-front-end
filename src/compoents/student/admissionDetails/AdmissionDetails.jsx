@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import CommenHeader from "../../commenHeader/CommenHeader";
 import logo from "../../../assets/profile4.jpg"
-import Delimage from "../../../assets/trash.png"
-import EditImg from "../../../assets/edit.png"
 import close from "../../../assets/close.png"
 import Input from "../../../Elaments/Input";
 const API = import.meta.env.VITE_API;
@@ -42,13 +40,13 @@ const AdmissionDetails = () => {
         GetForm()
     }, [])
     const filterData = student.filter((item) => {
+        const name=`${item.firstName}${item.lastName}`
         return (
             (filter.filterStandard === "" || filter.filterStandard === "no" || item.standard === filter.filterStandard) &&
             (filter.filterSection === "" || item.section === filter.filterSection) &&
-            (filter.filterText === "" || item.firstName.toLowerCase().includes(filter.filterText.toLowerCase()))
+            (filter.filterText === "" || name.toLowerCase().includes(filter.filterText.toLowerCase()))
         );
     });
-
     const OnEdit = (id) => {
         const selected = student.find((items) => items.id === id)
         console.log(selected)
@@ -143,10 +141,10 @@ const AdmissionDetails = () => {
     }
 
     return (
-        <div className="">
+        <div className="m-5">
             <CommenHeader title={"Admission Details"} logo={logo} />
             <div className="bg-white rounded-2xl shadow flex justify-end gap-3 items-center m-5 p-4">
-                <Input value={filter.filterText} placeholder={"Enter Student Name"} onchange={(e) => { setFilter({ ...filter, filterText: e.target.value }) }} />
+                <Input value={filter.filterText} placeholder={"Enter Student Name"} onchange={(e) => { setFilter({ ...filter, filterText: e.target.value }) }} className=" placeholder:opacity-40" />
                 <select name="standard" id="" value={filter.filterStandard} placeholder="Standard" className={input} onChange={(e) => { setFilter({ ...filter, filterStandard: e.target.value }) }}>
                     <option value="no">Select Standard</option>
                     {standard.map((item) => (
@@ -162,32 +160,36 @@ const AdmissionDetails = () => {
                     <button className="bg-green-400 rounded-lg p-1 cursor-pointer" onClick={() => setFilter({ filterSection:"",filterStandard:"",filterText:"" })}>Reset</button>
             </div>
             <div className="bg-white rounded-2xl shadow flex justify-center items-center m-5 p-4">
-                <table className="w-full border shadow-lg">
+                {filterData.length===0?(
+                    <p className="text-center text-gray-500">No Student Found</p>
+                ):(<table className="w-full  shadow-lg">
                     <thead className="">
                         <tr className="bg-blue-600 text-white uppercase text-sm">
-                            <th className="border p-3">Name</th>
-                            <th className="border p-3">Date Of Birth</th>
-                            <th className="border p-3">Standard</th>
-                            <th className="border p-3">Section</th>
-                            <th className="border p-3">Mobile Number</th>
-                            <th className="border p-3">View</th>
-                            <th className="border p-3">Action</th>
+                            <th className="p-3">S.no</th>
+                            <th className="p-3">Name</th>
+                            <th className="p-3">Date Of Birth</th>
+                            <th className=" p-3">Standard</th>
+                            <th className=" p-3">Section</th>
+                            <th className=" p-3">Mobile Number</th>
+                            <th className=" p-3">View</th>
+                            <th className=" p-3">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {filterData.map((item) => (
-                            <tr key={item.id} className={`bg-white hover:bg-gray-300 hover:text-black`}>
-                                <td className="border p-3 font-medium">{item.firstName} {item.lastName}</td>
-                                <td className="border p-3">{item.dateOfBirth}</td>
-                                <td className="border p-3">{item.standard}</td>
-                                <td className="border p-3">{item.section}</td>
-                                <td className="border p-3">{item.studentMobileNo}</td>
-                                <td className="border p-3">
+                        {filterData.map((item,index) => (
+                            <tr key={item.id} className={`bg-white border-b hover:bg-blue-50 hover:text-black`}>
+                                <td className=" p-3">{index+1}</td>
+                                <td className=" p-3 font-medium">{item.firstName} {item.lastName}</td>
+                                <td className=" p-3">{item.dateOfBirth}</td>
+                                <td className=" p-3">{item.standard}</td>
+                                <td className=" p-3">{item.section}</td>
+                                <td className=" p-3">{item.studentMobileNo}</td>
+                                <td className=" p-3">
                                     <button className="bg-blue-500 cursor-pointer text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition" onClick={() => OnView(item.id)}>
                                         View
                                     </button>
                                 </td>
-                                <td className="p-3 flex gap-3 border-b mt-2">
+                                <td className="p-3 flex gap-3 mt-2">
                                     <button className="bg-green-500 cursor-pointer text-white p-2 rounded-lg hover:bg-green-600 transition" onClick={() => OnEdit(item.id)}>
                                         Edit
                                     </button>
@@ -198,7 +200,7 @@ const AdmissionDetails = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table>)}
             </div>
 
             {/* update Form */}
@@ -298,7 +300,7 @@ const AdmissionDetails = () => {
                                     )} */}
                                 </div>
                             </div>
-                            <h2 className="text-blue-700 font-bold text-xl border-b pb-2">Address</h2>
+                            <h2 className="font-bold text-xl">Address</h2>
                             <div className="grid grid-cols-2 gap-1">
                                 <div className="flex flex-col gap-2">
                                     <label>Address:</label>
@@ -405,6 +407,7 @@ const AdmissionDetails = () => {
                             <p className=" absolute top-1 right-1 " onClick={() => setView(false)}><img src={close} className="" /></p>
                             <div className="text-4xl font-serif rounded-lg h-20 bg-blue-300 text-center"><h1 className="pt-5">Student Details</h1></div>
                             <div className="grid grid-cols-2 gap-3 p-5 text-lg text-left">
+                                <div className="">Admission Number:{viewData.roleNo}</div>
                                 <div className="col-span-2">Name:{viewData.firstName}{viewData.lastName}</div>
                                 <div className="col-span-2">Date Of Birth:{viewData.dateOfBirth}</div>
                                 <div className="col-span-2">Address:{viewData.address}{viewData.city}{viewData.statee}</div>

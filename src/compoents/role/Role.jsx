@@ -4,40 +4,22 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import ButtonHeader from "../commenHeader/ButtonHeader"
 import { toast } from "react-toastify"
+import { useRollStore } from "../store/useRollStore"
 
 const API = import.meta.env.VITE_API;
 
 const Role = () => {
+    const { user, roll, data, show, update, Delete, error, id, setUser, setRoll, setData, setShow, setUpdate, setDelete, setError, setId, resetUser, resetRoll, Validation } = useRollStore();
 
-    const [user, setUser] = useState({ role: "" })
-    const [roll, setRoll] = useState({ role: "", id: "" })
-    const [data, setData] = useState([])
-    const [show, setShow] = useState(false)
-    const [update, setUpdate] = useState(false)
-    const [Delete, setDelete] = useState(false)
-    const [error, setError] = useState({})
-    const [id, setId] = useState("")
+    // const [user, setUser] = useState({ role: "" })
+    // const [roll, setRoll] = useState({ role: "", id: "" })
+    // const [data, setData] = useState([])
+    // const [show, setShow] = useState(false)
+    // const [update, setUpdate] = useState(false)
+    // const [Delete, setDelete] = useState(false)
+    // const [error, setError] = useState({})
+    // const [id, setId] = useState("")
 
-    const Validation = () => {
-        let newError = {}
-
-        const value = update ? roll.role : user.role
-
-        if (value.trim() === "") {
-            toast.error("Role is required")
-            return false
-        }
-
-        if (!update && data.find((item) =>
-            item.role.toLowerCase() === value.toLowerCase()
-        )) {
-            toast.error("Role already exists")
-            return false
-        }
-
-        setError(newError)
-        return Object.keys(newError).length === 0
-    }
 
     const Submit = async (e) => {
         e.preventDefault()
@@ -45,7 +27,8 @@ const Role = () => {
 
         try {
             await axios.post(`${API}addRole`, user)
-            setUser({ role: "" })
+            resetUser();
+            // setUser({ role: "" })
             GetForm()
             setShow(false)
         } catch (err) {
@@ -71,10 +54,12 @@ const Role = () => {
         if (result) {
             setUpdate(true)
             setShow(true)
-            setRoll({
-                role: result.role,
-                id: result.id
-            })
+            setRoll("id",result.id)
+            setRoll("role",result.role)
+            // setRoll({
+            //     role: result.role,
+            //     id: result.id
+            // })
         }
     }
 
@@ -84,7 +69,8 @@ const Role = () => {
 
         try {
             await axios.patch(`${API}updateRole`, roll)
-            setRoll({ role: "", id: "" })
+            resetRoll();
+            // setRoll({ role: "", id: "" })
             setUpdate(false)
             GetForm()
             setShow(false)
@@ -109,7 +95,7 @@ const Role = () => {
     }
 
     return (
-        <div className="bg-gray-50 rounded-xl shadow-md p-3 m-3 relative">
+        <div className=" p-3 m-3 relative">
 
             <ButtonHeader
                 title={"Role"}
@@ -122,8 +108,10 @@ const Role = () => {
                 button={"Add Role"}
             />
 
-            <div className="bg-white p-6 mt-6 shadow-lg rounded-2xl">
-                <table className="w-full text-center border-collapse">
+            <div className="bg-white p-6 mx-5 mt-6 shadow-lg rounded-2xl">
+                {data.length===0?(
+                    <p className="text-center text-gray-500">No Role Found</p>
+                ):(<table className="w-full text-center border-collapse">
                     <thead className="bg-blue-600 text-white">
                         <tr>
                             <th className="p-3">S.No</th>
@@ -153,7 +141,7 @@ const Role = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table>)}
             </div>
 
             {show && (
@@ -185,8 +173,8 @@ const Role = () => {
                                 className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 onChange={(e) => {
                                     update
-                                        ? setRoll({ ...roll, role: e.target.value })
-                                        : setUser({ ...user, role: e.target.value })
+                                        ? setRoll("role",e.target.value)
+                                        : setUser("role",e.target.value)
                                     setError({})
                                 }}
                             />

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {useLoginStore} from "../layout/store/useLoginStore"
 
 const API = import.meta.env.VITE_API;
 
@@ -9,15 +10,17 @@ const Dashboard = () => {
     const [staff, setStaff] = useState([])
     const [payment, setPayment] = useState([])
     const [time, setTime] = useState(new Date())
+    const { darkMode, setDarkMode } = useLoginStore();
 
     const GetForm = async () => {
         try {
             const student = await axios.get(`${API}getStudent`)
             const staff = await axios.get(`${API}getStaff`)
             const payment = await axios.get(`${API}getPayment`)
+            const filter = Array.from(new Map((payment.data.data).map(item => [item.roleNo, item])).values())
             setStudent(student.data.data)
             setStaff(staff.data.data)
-            setPayment(payment.data.data)
+            setPayment(filter)
 
         } catch (err) {
             console.log(err)
@@ -37,7 +40,7 @@ const Dashboard = () => {
     const clock = time.toLocaleTimeString()
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
+        <div className={`${darkMode?"bg-black/80 border border-white":" bg-gray-50"} p-6 min-h-screen`}>
 
             <div className="bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl shadow-xl p-6 flex flex-col md:flex-row justify-between items-center text-white">
 

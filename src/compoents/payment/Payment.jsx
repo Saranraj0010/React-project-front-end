@@ -1,13 +1,11 @@
 import axios from "axios"
-import { useEffect } from "react"
-import { useState } from "react"
-import CommenHeader from "../commenHeader/CommenHeader";
+import { useEffect, useState } from "react"
+import CommenHeader from "../commenHeader/CommenHeader"
 import logo from "../../assets/profile4.jpg"
-import { toast } from "react-toastify";
-const API = import.meta.env.VITE_API;
-
+import { toast } from "react-toastify"
+const API = import.meta.env.VITE_API
 const Payment = () => {
-    const [student, setStudent] = useState([])
+    const [payment, setPayment] = useState([])
     const [paymentStudent, setPaymentStudent] = useState({
         roleNo: "",
         fees: "",
@@ -15,251 +13,240 @@ const Payment = () => {
         standard: "",
         section: "",
         downPayment: "",
+        currentDownPayment: "",
         balance: "",
-        currentpayment: "",
-        currentBalance: ""
+        currentBalance: "",
+        totalPaid: "",
+        currentTotalPaid: ""
     })
-    const [payment, setPayment] = useState([])
     const [fees, setFees] = useState(false)
-    const [onePay, setOnePay] = useState("")
-    const [error, setError] = useState({})
     const [view, setView] = useState(false)
-   const Validation = () => {
-    let newError = {}
-
-    if (!paymentStudent.currentpayment) {
-        toast.error("Payment required")
-        return false
-    }
-    else if (paymentStudent.currentpayment > paymentStudent.balance) {
-        toast.error("Payment is greater than balance")
-        return false
-    }
-
-    setError(newError)
-
-    return Object.keys(newError).length === 0
-}
+    const [viewStudent, setViewStudent] = useState(null)
+    const [viewData, setViewData] = useState([])
+    const [map, setMap] = useState([])
     const GetForm = async () => {
         try {
-            const get = await axios.get(`${API}getStudent`)
-            const payment = await axios.get(`${API}getPayment`)
-            setStudent(get.data.data)
-            setPayment(payment.data.data)
-        }
-        catch (err) {
-            console.log(err, "hello")
+            const getPayment = await axios.get(`${API}getPayment`)
+            setMap(getPayment.data.data)
+            const Tabel = Array.from(new Map((getPayment.data.data).map(item => [item.roleNo, item])).values())
+            setPayment(Tabel)
+
+        } catch (err) {
+            console.log(err)
         }
     }
-  const addFees = async () => {
-    try {
-
-       if (!Validation()) return
-
-        const updatedPayment = {
-            roleNo: paymentStudent.roleNo,
-            downPayment:
-                Number(paymentStudent.downPayment) +
-                Number(paymentStudent.currentpayment),
-            balance: paymentStudent.currentBalance
-        }
-
-        console.log(updatedPayment)
-
-        const update = await axios.patch(`${API}updatePayment`, updatedPayment)
-
-        console.log(update.data)
-
-        setFees(false)
-        GetForm()
-
-    } catch (err) {
-        console.log(err)
+    const Show = (item, roleNo) => {
+        let Fees = map.filter((item) => item.roleNo === roleNo)
+        setViewData(Fees)
+        setViewStudent(item)
+        setView(true)
+        console.log(Fees)
     }
-}
-    const OnEdit = (id) => {
-        const selectedStudent = student.find((item) => item.roleNo === id)
-        const selectedPayment = payment.find((item) => item.roleNo === id)
-
-        if (selectedPayment) {
-            setPaymentStudent(selectedPayment)
-        } else if (selectedStudent) {
-            setPaymentStudent({
-                roleNo: selectedStudent.roleNo,
-                name: `${selectedStudent.firstName} ${selectedStudent.lastName}`,
-                standard: selectedStudent.standard,
-                section: selectedStudent.section,
-                fees: 0,
-                downPayment: 0,
-                balance: 0
-            })
-        }
-
-        setFees(true)
-    }
+    // console.log(payment)
     useEffect(() => {
         GetForm()
     }, [])
+    const Validation = () => {
+        if (!paymentStudent.currentDownPayment) {
+            toast.error("Enter payment amount")
+            return false
+        }
+        if (Number(paymentStudent.currentDownPayment) <= 0) {
+            toast.error("Invalid payment")
+            return false
+        }
+        if (Number(paymentStudent.currentDownPayment) > Number(paymentStudent.balance)) {
+            toast.error("Payment greater than balance")
+            return false
+        }
+        return true
+    }
+    const OnEdit = (roleNo) => {
+        const selected = payment.findLast((item) => item.roleNo === roleNo)
+        if (!selected) return
+        setPaymentStudent({
+            roleNo: selected.roleNo,
+            name: selected.name,
+            standard: selected.standard,
+            section: selected.section,
+            downPayment: Number(selected.currentDownPayment),
+            fees: Number(selected.fees),
+            totalPaid: Number(selected.currentTotalPaid),
+            currentTotalPaid: Number(selected.currentTotalPaid),
+            balance: Number(selected.currentBalance),
+        })
+        setFees(true)
+    }
+
+    const addFees = async () => {
+        try {
+            console.log("hello")
+            if (!Validation()) return
+            const previousPaid = Number(paymentStudent.currentTotalPaid)
+            const currentPay = Number(paymentStudent.currentDownPayment)
+            const totalFees = Number(paymentStudent.fees)
+            const TotalPaid = previousPaid + currentPay
+            const newBalance = totalFees - TotalPaid
+            const addPayment = {
+                roleNo: paymentStudent.roleNo,
+                name: paymentStudent.name,
+                standard: paymentStudent.standard,
+                section: paymentStudent.section,
+                fees: totalFees,
+                downPayment: paymentStudent.downPayment,
+                currentDownPayment: paymentStudent.currentDownPayment,
+                totalPaid: paymentStudent.totalPaid,
+                currentTotalPaid: TotalPaid,
+                balance: paymentStudent.balance,
+                currentBalance: newBalance
+            }
+            console.log(addPayment)
+            await axios.post(`${API}updatePayment`, addPayment)
+            toast.success("Payment Successfully")
+            setFees(false)
+            GetForm()
+        } catch (err) {
+            console.log(err)
+        }
+    }
     return (
         <>
-            <div className="">
-                <CommenHeader title={"Payment"} logo={logo} />
-                <div className="bg-white p-6 m-5 shadow-xl rounded-2xl border border-blue-100">
-                    <table className="w-full text-center border-collapse">
-                        <thead>
-                            <tr className="bg-blue-600 text-white">
-                                <th className="p-3">S.No</th>
-                                <th className="p-3">Name</th>
-                                <th className="p-3">Standard</th>
-                                <th className="p-3">Section</th>
-                                <th className="p-3">Paided</th>
-                                <th className="p-3">Total Fees</th>
-                                <th className="p-3">Balance</th>
-                                <th className="p-3">View</th>
-                                <th className="p-3">Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {payment.map((item, index) => (
-                                <tr
-                                    key={item.id}
-                                    className="border-b hover:bg-blue-50 transition"
-                                >
-                                    <td className="p-3">{index + 1}</td>
-                                    <td className="p-3 font-semibold text-blue-700">
-                                        {item.name}
-                                    </td>
-                                    <td className="p-3 font-semibold text-blue-700">
-                                        {item.standard}
-                                    </td>
-                                    <td className="p-3 font-semibold text-blue-700">
-                                        {item.section}
-                                    </td>
-                                    <td className="p-3 font-semibold text-blue-700">
-                                        {item.downPayment}
-                                    </td>
-                                    <td className="p-3 font-semibold text-blue-700">
-                                        {item.fees}
-                                    </td>
-                                    <td className="p-3 font-semibold text-blue-700">
-                                        {item.balance}
-                                    </td>
-                                    <td className="p-3">
-                                        <button onClick={()=>{setView(true)}} className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg m-1 transition">
-                                            View
-                                        </button>
-                                    </td>
-                                    <td className="p-3">
-                                        <button
-                                            onClick={() => { OnEdit(item.roleNo), setOnePay(item.downPayment) }}
-                                            className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg m-1 transition"
-                                        >
-                                            Add Fees
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                {
-                    view && (
-                       <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
-                            <div className="bg-white w-[450px] p-6 rounded-2xl shadow-2xl relative">
-                                <button className="absolute right-4 top-4 text-red-500 text-xl" onClick={() => setView(false)}>✕</button>
-                                <div className="">
-                                    <h1>{}</h1>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                }
-                {
-                    fees && (
-                        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
-                            <div className="bg-white w-[450px] p-6 rounded-2xl shadow-2xl relative">
-
-                                <button
-                                    className="absolute right-4 top-4 text-red-500 text-xl"
-                                    onClick={() => setFees(false)}
-                                >
-                                    ✕
-                                </button>
-
-                                <h2 className="text-2xl font-bold text-blue-700 mb-4 text-center">
-                                    Student Fees Payment
-                                </h2>
-                                <div className="space-y-3">
-                                    <div className="flex justify-between">
-                                        <span>Student Name:</span>
-                                        <span className="font-semibold">{paymentStudent.name}</span>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <span>Standard:</span>
-                                        <span className="font-semibold">{paymentStudent.standard}</span>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <span>Section:</span>
-                                        <span className="font-semibold">{paymentStudent.section}</span>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <span>Total Fees:</span>
-                                        <span className="font-semibold text-green-600">
-                                            ₹{paymentStudent.fees}
-                                        </span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span>Fees Balance:</span>
-                                        <span className="font-semibold text-green-600">
-                                            ₹ {paymentStudent.currentBalance || paymentStudent.balance}
-                                        </span>
-                                    </div>
-
-                                    <div>
-                                        <label className="block mb-1 font-medium">
-                                            Down Payment
-                                        </label>
-                                        <input
-                                            className="pl-4 h-10 border border-gray-300 rounded-lg"
-                                            value={paymentStudent.currentpayment}
-                                            onChange={(e) => {
-                                                const value = e.target.value
-
-                                                setPaymentStudent({
-                                                    ...paymentStudent,
-                                                    currentpayment: value,
-                                                    currentBalance: paymentStudent.balance - value
-                                                }), setError({ ...error, currentpayment: "" })
-                                            }}
-                                        />
-                                        {error.downPayment && (
-                                            <p className="text-red-600 text-[10px]">{error.downPayment}</p>
-                                        )}
-                                    </div>
-                                    <div className="flex justify-between mt-2">
-                                        <span>Balance:</span>
-                                        <span className="font-semibold text-red-600">
-                                            ₹ {paymentStudent.currentBalance}
-                                        </span>
-                                    </div>
-
-                                    <button
-                                        className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded-lg mt-4"
-                                        onClick={addFees}
-                                    >
-                                        Process Payment
+            <CommenHeader title={"Payment"} logo={logo} />
+           <div className="bg-white p-6 mx-10 shadow-xl rounded-2xl">
+             {payment.length===0 ?(
+                <p className="text-center text-gray-500">No Payment Found</p>
+            ):(<table className="w-full text-center">
+                    <thead>
+                        <tr className="bg-blue-600 text-white">
+                            <th className="p-3">S.No</th>
+                            <th className="p-3">Name</th>
+                            <th className="p-3">Standard</th>
+                            <th className="p-3">Section</th>
+                            <th className="p-3">Last pay</th>
+                            <th className="p-3">Paid</th>
+                            <th className="p-3">Total Fees</th>
+                            <th className="p-3">Balance</th>
+                            <th className="p-3">View</th>
+                            <th className="p-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {payment.map((item, index) => (
+                            <tr key={item.id} className="border-b hover:bg-blue-50">
+                                <td className="p-3">{index + 1}</td>
+                                <td className="p-3 font-semibold text-blue-700">
+                                    {item.name}
+                                </td>
+                                <td className="p-3">{item.standard}</td>
+                                <td className="p-3">{item.section}</td>
+                                <td className="p-3 text-green-600 font-semibold">
+                                    ₹{item.currentDownPayment}
+                                </td>
+                                <td className="p-3 text-green-600 font-semibold">
+                                    ₹{item.currentTotalPaid}
+                                </td>
+                                <td className="p-3">
+                                    ₹{item.fees}
+                                </td>
+                                <td className="p-3 text-red-600 font-semibold">
+                                    ₹{item.currentBalance}
+                                </td>
+                                <td className="p-3">
+                                    <button onClick={() => Show(item, item.roleNo)} className="bg-blue-500 text-white px-3 py-1 rounded">
+                                        View
                                     </button>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                }
+                                </td>
+                                <td className="p-3">
+                                    <button onClick={() => OnEdit(item.roleNo)} className="bg-green-500 text-white px-3 py-1 rounded">
+                                        Add Fees
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>)}
             </div>
+            {view && viewStudent && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black/40">
+                    <div className="bg-white w-fit p-6 mt-10 rounded-xl relative">
+                        <button className="absolute top-3 right-3 text-red-500" onClick={() => setView(false)}>
+                            X
+                        </button>
+                        <h2 className="text-xl font-bold text-center mb-4">
+                            Payment Details
+                        </h2>
+                        <p>Role No : {viewStudent.roleNo}</p>
+                        <p>Name : {viewStudent.name}</p>
+                        <table className="w-full text-center overflow-y-scroll">
+                            <thead>
+                                <tr className="bg-blue-600 text-white">
+                                    <th className="p-3">S.No</th>
+                                    <th className="p-3">Name</th>
+                                    <th className="p-3">Standard</th>
+                                    <th className="p-3">Section</th>
+                                    <th className="p-3">Last pay</th>
+                                    <th className="p-3">Paid</th>
+                                    <th className="p-3">Total Fees</th>
+                                    <th className="p-3">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {viewData.map((item, index) => (
+                                    <tr key={item.id} className="border-b hover:bg-blue-50">
+                                        <td className="p-3">{index + 1}</td>
+                                        <td className="p-3 font-semibold">
+                                            {item.name}
+                                        </td>
+                                        <td className="p-3">{item.standard}</td>
+                                        <td className="p-3">{item.section}</td>
+                                        <td className="p-3 text-green-600 font-semibold">
+                                            ₹{item.currentDownPayment}
+                                        </td>
+                                        <td className="p-3 text-blue-600 font-semibold">
+                                            ₹{item.currentTotalPaid}
+                                        </td>
+                                        <td className="p-3">
+                                            ₹{item.fees}
+                                        </td>
+                                        <td className="p-3 text-red-600 font-semibold">
+                                            ₹{item.currentBalance}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+            {fees && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black/40">
+                    <div className="bg-white w-[400px] p-6 rounded-xl relative">
+                        <button className="absolute right-3 top-3 text-red-500" onClick={() => setFees(false)}>
+                            X
+                        </button>
+                        <h2 className="text-xl font-bold text-center mb-4">
+                            Add Student Payment
+                        </h2>
+                        <p>Role No : {paymentStudent.roleNo}</p>
+                        <p>Name : {paymentStudent.name}</p>
+                        <p>Total Fees : ₹{paymentStudent.fees}</p>
+                        <p>Paid : ₹{paymentStudent.totalPaid}</p>
+                        <p>Balance : ₹{paymentStudent.balance}</p>
+                        <input placeholder="Enter Payment" className="w-full border p-2 mt-3 rounded" value={paymentStudent.currentDownPayment} onChange={(e) => {
+                            const value = Number(e.target.value)
+                            const newBalance = paymentStudent.balance - value
+                            setPaymentStudent({ ...paymentStudent, currentDownPayment: value, currentBalance: newBalance })
+                        }} />
+                        <p className="text-red-600 mt-2">
+                            Current Balance : ₹{paymentStudent.currentBalance}
+                        </p>
+                        <button onClick={addFees} className="w-full bg-blue-600 text-white py-2 rounded mt-4">
+                            Process Payment
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
     )
 }
-export default Payment;
+export default Payment

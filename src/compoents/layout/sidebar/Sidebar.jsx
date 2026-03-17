@@ -15,7 +15,8 @@ const sidebar = [
     { id: 11, name: "Standard", page: "standard" },
     { id: 12, name: "Role", page: "role" },
     { id: 13, name: "Section", page: "section" },
-    { id: 14, name: "Calendar", page: "calendar" }
+    { id: 14, name: "AddAdmin", page: "addAdmin" },
+    { id: 15, name: "Calendar", page: "calendar" }
 ];
 
 const Sidebar = ({ setActivePage }) => {
@@ -23,7 +24,7 @@ const Sidebar = ({ setActivePage }) => {
     const [active, setActive] = useState("dashboard");
 
     return (
-        <div className={`${darkMode ? "bg-black" : "bg-blue-800"} 
+        <div className={`${darkMode ? "bg-black/80 border border-white" : "bg-blue-800"} 
             overflow-y-scroll [&::-webkit-scrollbar]:hidden 
             [-ms-overflow-style:none] [scrollbar-width:none] 
             font-semibold w-64 h-142 text-white`}>
@@ -40,7 +41,7 @@ const Sidebar = ({ setActivePage }) => {
                         }}
                         className={`rounded-md p-2 text-lg cursor-pointer transition-all duration-300
                         
-                        ${active === item.page? "bg-blue-600 text-white scale-100 shadow-lg": darkMode? "bg-gray-400 text-black hover:bg-gray-800 hover:text-white": "bg-white text-blue-600 hover:bg-blue-600 hover:text-white"}`}>
+                        ${active === item.page? `${darkMode?"bg-black":"bg-blue-600"} text-white scale-100 shadow-lg`: darkMode? "bg-gray-400 text-white hover:bg-gray-800 hover:text-white": "bg-white text-blue-600 hover:bg-blue-600 hover:text-white"}`}>
                         {item.name}
                     </li>
                 ))}

@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useStudentStore } from "./compoents/student/store/useStudentStore";
 import Layout from "./compoents/layout/Layout";
 import Login from "./compoents/login/Login";
 import SignUp from "./compoents/signup/SignUp";
@@ -12,8 +10,6 @@ import CounsllerLayout from "./compoents/counsllerLayout/CounsllerLayout";
 
 
 const App = () => {
-  // const [studentProfile, setStudentProfile] = useState({});
-  // const{studentProfile}=useStudentStore();
   return (
     <>
       <Routes>

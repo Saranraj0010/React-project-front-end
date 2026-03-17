@@ -84,13 +84,13 @@ const Staff = () => {
     }, [])
     return (
         <>
-            <div className="bg-white rounded-lg shadow p-1 m-2">
+            <div className="p-1 m-2">
                 <CommenHeader title={"Add Staff"} logo={logo} />
-                <div className="flex justify-center items-center m-10 p-10 bg-white rounded-2xl shadow-2xl">
+                <div className="flex justify-center items-center mx-5 p-10 bg-white rounded-2xl shadow-2xl">
                     <form className={`p-5 w-full border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
                         <h1 className="font-bold text-center underline text-2xl">STAFF REGISTER FORM</h1>
                         <h1 className="font-semibold text-lg">Staff Information</h1>
-                        <div className="grid grid-cols-3 gap-5">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                             <div className="flex flex-col gap-2">
                                 <label>User Name:</label>
                                 <input name="userName" value={staff.userName} placeholder="User Name" className="pl-5 focus:outline-blue-600 text-sm md:text-lg max-w-full h-10 p-1 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, userName: e.target.value }), setError({ ...error, userName: "" }) }} />
@@ -133,7 +133,7 @@ const Staff = () => {
                             </div>
                         </div>
                         <h1 className="font-semibold text-lg">Address</h1>
-                        <div className="grid grid-cols-2 gap-1">
+                        <div className="grid grid-cols-2 gap-2">
                             <div className="flex flex-col col-span-2 gap-2">
                                 <label>Address:</label>
                                 <input name="address" value={staff.address} placeholder="Address" className="pl-5 max-w-full focus:outline-blue-600 text-sm md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, address: e.target.value }), setError({ ...error, address: "" }) }} />
@@ -164,7 +164,7 @@ const Staff = () => {
                             </div>
                         </div>
                         <h1 className="font-semibold text-lg">Contact Info</h1>
-                        <div className="grid grid-cols-2">
+                        <div className="grid grid-cols-2 gap-2">
                             <div className="flex flex-col gap-2">
                                 <label>E-mail:</label>
                                 <input name="email" value={staff.email} placeholder="E-mail" className="pl-5 max-w-full text-sm focus:outline-blue-600 md:text-lg h-10 border rounded-lg hover:border-blue-500 shadow-xl" onChange={(e) => { setStaff({ ...staff, email: e.target.value }), setError({ ...error, email: "" }) }} />

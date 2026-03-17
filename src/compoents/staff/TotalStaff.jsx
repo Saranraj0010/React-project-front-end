@@ -114,32 +114,34 @@ const TotalStaff = () => {
     }
     return (
         <>
-            <div className="bg-white rounded-lg shadow p-1 m-2">
+            <div className="p-1 m-2">
                 <CommenHeader title={"Staff Details"} logo={logo} />
                 <div className="flex  flex-col justify-center bg-white p-5 m-5 rounded-2xl shadow-2xl gap-5">
-                    <table border={1} className="p-2 m-2 text-center">
+                   {data.length===0?(
+                    <p className="text-center text-gray-500">No Staff Found</p>
+                   ):( <table border={1} className="p-2 m-2 text-center">
                         <thead className="bg-gray-200">
                             <tr className="bg-blue-600 text-white uppercase text-sm">
-                                <td className="border p-3">S.No</td>
-                                <td className="border p-3">Employee.id</td>
-                                <td className="border ">Name</td>
-                                <td className="border ">Date of Birth</td>
-                                <td className="border ">E-mail</td>
-                                <td className="border ">Phone Number</td>
-                                <td className="border ">View</td>
-                                <td className="border ">Action</td>
+                                <td className="p-3">S.No</td>
+                                <td className="p-3">Employee.id</td>
+                                <td className="p-3">Name</td>
+                                <td className="p-3">Date of Birth</td>
+                                <td className="p-3">E-mail</td>
+                                <td className="p-3">Phone Number</td>
+                                <td className="p-3">View</td>
+                                <td className="p-3">Action</td>
                             </tr>
                         </thead>
                         {data.map((staff,index) => (
-                            <tbody key={staff.id} className="p-2 border">
-                                <tr className={`bg-white hover:bg-gray-300 transition-colors font-medium`}>
-                                    <td className="border p-3">{index+1}</td>
-                                    <td className="border p-3">{staff.id}</td>
-                                    <td className="border p-3">{staff.firstName}{staff.lastName}</td>
-                                    <td className="border p-3">{staff.dateOfBirth}</td>
-                                    <td className="border p-3">{staff.email}</td>
-                                    <td className="border p-3">{staff.phoneNumber}</td>
-                                    <td className="border p-3">
+                            <tbody key={staff.id} className="p-2">
+                                <tr className={`bg-white border-b hover:bg-blue-50 transition-colors font-medium`}>
+                                    <td className="p-3">{index+1}</td>
+                                    <td className="p-3">{staff.id}</td>
+                                    <td className="p-3">{staff.firstName}{staff.lastName}</td>
+                                    <td className="p-3">{staff.dateOfBirth}</td>
+                                    <td className="p-3">{staff.email}</td>
+                                    <td className="p-3">{staff.phoneNumber}</td>
+                                    <td className="p-3">
                                         <button className="bg-blue-500 p-1 hover:font-extrabold cursor-pointer left-3 rounded-lg text-white hover:bg-blue-700" onClick={() => OnView(staff.id)}>View</button>
                                     </td>
                                     <td className="flex gap-3 p-3">
@@ -149,7 +151,7 @@ const TotalStaff = () => {
                                 </tr>
                             </tbody>
                         ))}
-                    </table>
+                    </table>)}
                     {shows && (
                         <div className="flex justify-center items-center inset-0 absolute">
                             <div className="bg-white w-fit p-3 border rounded-2xl text-center">

@@ -36,7 +36,7 @@ const AdminLayoutHeader = () => {
     }, [])
     return (
         <>
-            <div className={`flex justify-between items-center shadow ${darkMode ? "bg-black text-white shadow shadow-white" : "bg-blue-800"}`}>
+            <div className={`flex justify-between items-center shadow ${darkMode ? "bg-black/80 text-white border border-white" : "bg-blue-800"}`}>
                 <div className="flex justify-center items-center gap-5 mx-5">
                     {/* <RouterProvider router={Form}/> */}
                     <div className="m-2"><img width={70} src={Logo} /></div>

@@ -27,16 +27,16 @@ const StaffAllocation = () => {
     const Validation = () => {
         let newError = {}
 
-        if (!user.staff){
+        if (!user.staff) {
             toast.error("Staff required")
         }
-        if (!user.standard){
+        if (!user.standard) {
             toast.error("Standard required")
         }
-        if (!user.section){
+        if (!user.section) {
             toast.error("Section required")
         }
-        if (!user.subject){
+        if (!user.subject) {
             toast.error("Subject required")
             return false
         }
@@ -116,8 +116,10 @@ const StaffAllocation = () => {
                 onclick={() => setShow(true)}
             />
 
-            <div className="bg-white rounded-2xl shadow-lg mt-6 p-6 overflow-x-auto">
-                <table className="w-full text-center border-collapse">
+            <div className="bg-white rounded-2xl shadow-lg mt-6 mx-5 p-6 overflow-x-auto">
+                {allocation.length === 0 ? (
+                    <p className="text-center text-gray-500">No StaffAllocation Found</p>
+                ) : (<table className="w-full text-center border-collapse">
                     <thead className="bg-blue-600 text-white">
                         <tr>
                             <th className="p-3">S.No</th>
@@ -145,7 +147,7 @@ const StaffAllocation = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table>)}
             </div>
 
             {show && (

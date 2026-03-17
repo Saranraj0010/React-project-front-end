@@ -1,13 +1,14 @@
-import { useLoginStore } from "../layout/store/useLoginStore";
-import BackGroundImage from "../../assets/background.jpg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useLoginStore } from "../store/useLoginStore";
+import CommenHeader from "../../commenHeader/CommenHeader";
+import logo from "../../../assets/profile4.jpg"
 
 const API = import.meta.env.VITE_API;
 
-const SignUp = () => {
+const AddAdmin = () => {
     const [error, setError] = useState({});
     const {
         signUpUser,
@@ -17,10 +18,10 @@ const SignUp = () => {
         eyeHide,
         setSignUpUser,
         ShowPassword,
-        ConfirmShowPassword
+        ConfirmShowPassword,
+        resetSignUp
     } = useLoginStore();
 
-    const navigate = useNavigate();
     const Validation = () => {
         let newError = {};
 
@@ -32,9 +33,20 @@ const SignUp = () => {
             toast.error("Phone Number required")
             newError.PhoneNumber = "Phone Number required";
         }
+        if (!signUpUser.PhoneNumber) {
+            toast.error("Phone Number is required");
+            newError.PhoneNumber = "Phone Number is required";
+        } else if (!/^[0-9]{10}$/.test(signUpUser.PhoneNumber)) {
+            toast.error("Invalid Phone Number");
+            newError.PhoneNumber = "Invalid Phone Number";
+        }
         if (signUpUser.Password.trim() === "") {
             toast.error("Password required")
             newError.Password = "Password required";
+        }
+        if (!signUpUser.Password.value == signUpUser.ConfirmPassword.value) {
+            toast.error("Password MisMatch")
+            return
         }
         if (signUpUser.ConfirmPassword.trim() === "") {
             toast.error("Confirm Password required")
@@ -49,10 +61,7 @@ const SignUp = () => {
             e.preventDefault();
             if (!Validation()) return;
             const add = await axios.post(`${API}addSignUp`, signUpUser);
-
-            if (add) {
-                navigate("/homePage");
-            }
+            resetSignUp()
         } catch (err) {
             console.log(err);
         }
@@ -71,132 +80,67 @@ const SignUp = () => {
     }, []);
 
     return (
-        <div className="relative min-h-screen flex items-center justify-center">
-
-            {/* Background */}
-            <img
-                src={BackGroundImage}
-                alt="bg"
-                className="absolute inset-0 w-full h-full object-cover"
-            />
-
-            {/* Form */}
-            <form
-                onSubmit={Add}
-                className="relative z-10 bg-white w-[90%] sm:w-95 p-6 rounded-xl shadow-2xl grid gap-3"
-            >
+        <div className="min-h-screen grid grid-cols-1 relative justify-center">
+            <CommenHeader title={"Add Admin"} logo={logo} />
+            <form onSubmit={Add} className="bg-white w-[90%] absolute top-40 right-90 sm:w-95 p-6 rounded-xl shadow-2xl flex flex-col gap-3">
                 <h1 className="text-center text-2xl font-bold font-mono">
-                    Register Form
+                    Add Admin
                 </h1>
-
-                {/* Username */}
                 <div>
-                    <label className="text-gray-600">User Name</label>
-                    <input
-                        name="UserName"
-                        placeholder="Enter User Name"
+                    <label className="text-gray-600">Admin User Name</label>
+                    <input name="UserName" placeholder="Enter User Name" value={signUpUser.UserName}
                         onChange={(e) => {
                             setSignUpUser("UserName", e.target.value);
                             setError({ ...error, UserName: "" });
-                        }}
-                        className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600"
-                    />
+                        }} className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600" />
                     {error.UserName && (
                         <p className="text-red-600 text-xs">{error.UserName}</p>
                     )}
                 </div>
-
-                {/* Phone */}
                 <div>
                     <label className="text-gray-600">Phone Number</label>
-                    <input
-                        name="PhoneNumber"
-                        placeholder="Enter Phone Number"
+                    <input name="PhoneNumber" placeholder="Enter Phone Number" value={signUpUser.PhoneNumber}
                         onChange={(e) => {
                             setSignUpUser("PhoneNumber", e.target.value);
                             setError({ ...error, PhoneNumber: "" });
-                        }}
-                        className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600"
-                    />
+                        }} className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600" />
                     {error.PhoneNumber && (
                         <p className="text-red-600 text-xs">{error.PhoneNumber}</p>
                     )}
                 </div>
-
-                {/* Password */}
                 <div className="relative">
                     <label className="text-gray-600">Password</label>
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Enter Password"
+                    <input value={signUpUser.Password} type={showPassword ? "text" : "password"} placeholder="Enter Password"
                         onChange={(e) => {
                             setSignUpUser("Password", e.target.value);
                             setError({ ...error, Password: "" });
-                        }}
-                        className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600"
-                    />
-
-                    <button
-                        type="button"
-                        className="absolute right-2 top-8"
-                        onClick={ShowPassword}
-                    >
-                        <img
-                            width={20}
-                            src={showPassword ? eyeHide : eyeShow}
-                        />
+                        }} className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600" />
+                    <button type="button" className="absolute right-2 top-8" onClick={ShowPassword}>
+                        <img width={20} src={showPassword ? eyeHide : eyeShow} />
                     </button>
-
                     {error.Password && (
                         <p className="text-red-600 text-xs">{error.Password}</p>
                     )}
                 </div>
-
-                {/* Confirm Password */}
                 <div className="relative">
                     <label className="text-gray-600">Confirm Password</label>
-                    <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder="Confirm Password"
+                    <input value={signUpUser.ConfirmPassword} type={showConfirmPassword ? "text" : "password"} placeholder="Confirm Password"
                         onChange={(e) => {
                             setSignUpUser("ConfirmPassword", e.target.value);
                             setError({ ...error, ConfirmPassword: "" });
-                        }}
-                        className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600"
-                    />
-
-                    <button
-                        type="button"
-                        className="absolute right-2 top-8"
-                        onClick={ConfirmShowPassword}
-                    >
-                        <img
-                            width={20}
-                            src={showConfirmPassword ? eyeHide : eyeShow}
-                        />
+                        }} className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600" />
+                    <button type="button" className="absolute right-2 top-8" onClick={ConfirmShowPassword}>
+                        <img width={20} src={showConfirmPassword ? eyeHide : eyeShow} />
                     </button>
-
                     {error.ConfirmPassword && (
                         <p className="text-red-600 text-xs">
                             {error.ConfirmPassword}
                         </p>
                     )}
                 </div>
-
-                {/* Buttons */}
                 <div className="flex justify-center gap-3 mt-2">
-                    <Link
-                        to="/homePage"
-                        className="bg-red-500 text-white px-4 py-1.5 rounded-lg"
-                    >
-                        Close
-                    </Link>
-
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white px-4 py-1.5 rounded-lg"
-                    >
-                        Register
+                    <button type="submit" className="bg-blue-500 text-white px-4 py-1.5 rounded-lg">
+                        Add Admin
                     </button>
                 </div>
             </form>
@@ -204,4 +148,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default AddAdmin;

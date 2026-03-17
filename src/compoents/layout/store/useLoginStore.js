@@ -84,5 +84,15 @@ export const useLoginStore = create((set, get) => (
             e.preventDefault();
             const { user } = get();
             console.log(user, "hello")
+        },
+        resetSignUp: () => {
+            set(() => ({
+                signUpUser: {
+                    UserName: "",
+                    PhoneNumber: "",
+                    Password: "",
+                    ConfirmPassword: ""
+                }
+            }))
         }
     }))

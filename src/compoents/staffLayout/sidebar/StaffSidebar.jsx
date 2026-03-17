@@ -10,7 +10,7 @@ const sidebar = [
 const StaffSidebar = ({ setActivePage }) => {
         const { darkMode } = useLoginStore();
     return (
-        <div className={`${darkMode?"bg-black":"bg-blue-800"} font-semibold w-64 h-full text-white`}>
+        <div className={`${darkMode?"bg-black/80":"bg-blue-800"} font-semibold w-64 h-full text-white`}>
             <h1 className="text-center p-3 border-b ">Staff Pannel</h1>
             <ol className="w-full p-2 flex flex-col gap-2">
                 {sidebar.map((item) => (

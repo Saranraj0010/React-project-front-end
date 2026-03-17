@@ -14,6 +14,7 @@ import StaffAllocation from "../../staffAllocation/StaffAllocation"
 import Subject from "../../subject/Subject"
 import Fees from "../../fees/Fees"
 import Payment from "../../payment/Payment"
+import AddAdmin from "../addAdmin/AddAdmin"
 const Container = ({ activePage }) => {
     return (
         <>
@@ -36,6 +37,8 @@ const Container = ({ activePage }) => {
                 {activePage==="calendar" && <Calendar/>}
                 {activePage==="staffAllocation" && <StaffAllocation/>}
                 {activePage==="subject" && <Subject/>}
+                {activePage==="addAdmin" && <AddAdmin/>}
+
             </div>
         </>
     )

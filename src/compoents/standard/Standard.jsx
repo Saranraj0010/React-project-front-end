@@ -5,40 +5,18 @@ import { useEffect } from "react"
 import axios from "axios"
 import ButtonHeader from "../commenHeader/ButtonHeader"
 import { toast } from "react-toastify"
+import { useStandardStore } from "../store/useStandardStore"
 const API = import.meta.env.VITE_API;
 
 const Standard = () => {
-  const [user, setUser] = useState({
-    standard: ""
-  })
-  const [roll, setRoll] = useState({
-    standard: ""
-  })
-  const [data, setData] = useState([])
-  const [show, setShow] = useState(false)
-  const [update, setUpdate] = useState(false)
-  const [Delete, setDelete] = useState(false)
-  const [error, setError] = useState({})
-  const [id, setId] = useState("")
-  const Validation = () => {
-    let newError = {};
-    if (user.standard.trim() === "") {
-      toast.error("Standard required")
-      return false
-    }
-    if (data.find((item) => item.standard.toLocaleLowerCase() === user.standard.toLocaleLowerCase())) {
-      toast.error("Already exist")
-      return false
-    }
-    setError(newError);
-    return Object.keys(newError).length === 0;
-  }
+  const { user, setUser, roll, setRoll, data, setData, show, setShow, update, setUpdate, Delete, setDelete, error, setError, id, setId, resetUser, resetRoll,Validation } = useStandardStore()
+  
   const Submit = async (e) => {
     try {
       e.preventDefault();
       if (!Validation()) return
       const add = await axios.post(`${API}addStandard`, user)
-      setUser({ standard: "" })
+      resetUser();
       GetForm()
       setShow(false)
     }
@@ -65,11 +43,9 @@ const Standard = () => {
     if (result) {
       setUpdate(true)
       setShow(true)
-      setRoll({
-        standard: result.standard,
-        id: result.id
-      })
-    }
+      setRoll("id", result.id)
+      setRoll("standard", result.standard)
+    } 
   }
   const Update = async (e) => {
     try {
@@ -77,7 +53,7 @@ const Standard = () => {
       console.log("update")
       console.log(user)
       const add = await axios.patch(`${API}updateStandard`, roll)
-      setRoll({ standard: "" })
+      resetRoll();
       GetForm()
       setShow(false)
       setUpdate(false)
@@ -103,10 +79,8 @@ const Standard = () => {
     setId(id)
   }
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 p-5">
+    <div className="min-h-screen p-5">
 
-      {/* Header Card */}
-      <div className="bg-white rounded-2xl shadow-xl p-4">
         <ButtonHeader
           title={"Standard"}
           logo={logo}
@@ -116,11 +90,11 @@ const Standard = () => {
             setUpdate(false);
           }}
         />
-      </div>
 
-      {/* Table Section */}
       <div className="bg-white p-6 m-5 shadow-xl rounded-2xl border border-blue-100">
-        <table className="w-full text-center border-collapse">
+        {data.length===0?(
+                    <p className="text-center text-gray-500">No Standard Found</p>
+        ):(<table className="w-full text-center border-collapse">
           <thead>
             <tr className="bg-blue-600 text-white">
               <th className="p-3">S.No</th>
@@ -159,13 +133,12 @@ const Standard = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table>)}
       </div>
 
-      {/* Add / Update Modal */}
       {show && (
         <div className="fixed inset-0 flex items-center justify-center bg-blue-900/40 backdrop-blur-sm z-50">
-          <div className="bg-white w-[420px] p-6 rounded-2xl shadow-2xl relative border border-blue-200">
+          <div className="bg-white w-105 p-6 rounded-2xl shadow-2xl relative border border-blue-200">
 
             <h2 className="text-2xl font-bold text-blue-700 text-center mb-4">
               {update ? "Update Standard" : "Add Standard"}
@@ -197,12 +170,11 @@ const Standard = () => {
                   className="w-full border border-blue-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                   onChange={(e) => {
                     update
-                      ? setRoll({ ...roll, standard: e.target.value })
-                      : setUser({ ...user, standard: e.target.value });
+                      ? setRoll("standard", e.target.value)
+                      : setUser("standard", e.target.value);
                     setError({});
                   }}
                 />
-
                 {error.standard && (
                   <p className="text-red-500 text-sm mt-1">
                     {error.standard}
@@ -221,10 +193,9 @@ const Standard = () => {
         </div>
       )}
 
-      {/* Delete Confirmation Modal */}
       {Delete && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
-          <div className="bg-white p-6 rounded-2xl shadow-xl text-center w-[350px] border border-red-200">
+          <div className="bg-white p-6 rounded-2xl shadow-xl text-center w-87.5 border border-red-200">
 
             <h3 className="text-lg font-semibold text-gray-700 mb-4">
               Are you sure you want to delete this standard?

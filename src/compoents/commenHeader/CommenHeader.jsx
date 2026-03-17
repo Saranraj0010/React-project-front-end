@@ -1,6 +1,6 @@
 const CommenHeader = ({ title, logo }) => {
   return (
-    <div className="flex items-center justify-between px-6 py-4 m-5 bg-white rounded-2xl shadow-xl">
+    <div className="flex items-center justify-between h-fit px-6 py-4 mx-10 m-5 bg-white rounded-2xl shadow-xl">
       {/* Left Side - Logo */}
       <div className="flex items-center gap-4">
         <img

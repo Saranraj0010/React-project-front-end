@@ -10,7 +10,7 @@ const Header = () => {
     return (
         <header
             className={`flex items-center justify-between px-4 py-2 shadow-md
-            ${darkMode ? "bg-black text-white shadow-white" : "bg-blue-800 text-white"}`}
+            ${darkMode ? "bg-black/80 text-white shadow-white" : "bg-blue-800 text-white"}`}
         >
             {/* Logo Section */}
             <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ const Header = () => {
                         to="/login"
                         className={`px-3 py-1 rounded-lg text-sm sm:text-base
                         ${darkMode
-                                ? "bg-white text-black hover:bg-gray-500 hover:text-white"
+                                ? "bg-white text-black/80 hover:bg-gray-500 hover:text-white"
                                 : "bg-blue-500 hover:bg-red-700"
                             }`}
                     >
@@ -52,7 +52,7 @@ const Header = () => {
                         to="/signUp"
                         className={`px-3 py-1 rounded-lg text-sm sm:text-base
                         ${darkMode
-                                ? "bg-white text-black hover:bg-gray-500 hover:text-white"
+                                ? "bg-white text-black/80 hover:bg-gray-500 hover:text-white"
                                 : "bg-blue-500 hover:bg-red-700"
                             }`}
                     >

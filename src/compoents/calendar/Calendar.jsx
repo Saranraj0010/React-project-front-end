@@ -99,7 +99,7 @@ const Calendar = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-white p-4">
       <CommenHeader title={"Calendar"} logo={logo} />
 
-      <div className="bg-white m-5 rounded-2xl p-6 shadow-xl border border-blue-200">
+      <div className="bg-white mx-10 rounded-2xl p-6 shadow-xl border border-blue-200">
 
         {/* Header */}
         <div className="flex justify-between items-center mb-6">

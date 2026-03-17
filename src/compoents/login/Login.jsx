@@ -3,6 +3,7 @@ import BackGroundImage from "../../assets/background.jpg";
 import { useLoginStore } from "../layout/store/useLoginStore";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const API = import.meta.env.VITE_API;
 
@@ -37,9 +38,15 @@ const Login = () => {
     const Validation = () => {
         let newError = {};
 
-        if (user.UserId.trim() === "") newError.UserId = "UserId required";
-        if (user.Password.trim() === "") newError.Password = "Password required";
+        if (user.UserId.trim() === ""){ 
+            toast.error("UserId required")
+            newError.UserId = "UserId required";
 
+        }
+        if (user.Password.trim() === ""){ 
+            toast.error("Password required")
+            newError.Password = "Password required";
+}
         setError(newError);
         return Object.keys(newError).length === 0;
     };
@@ -104,7 +111,7 @@ const Login = () => {
             {/* Login Form */}
             <form
                 onSubmit={Login}
-                className="relative z-10 bg-white w-[90%] sm:w-[380px] p-6 rounded-xl shadow-2xl flex flex-col gap-3"
+                className="relative z-10 bg-white w-[90%] sm:w-95 p-6 rounded-xl shadow-2xl flex flex-col gap-3"
             >
                 <h1 className="text-center text-2xl font-bold">User Login</h1>
 
