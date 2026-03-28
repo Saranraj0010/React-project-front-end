@@ -40,7 +40,7 @@ const AdmissionDetails = () => {
         GetForm()
     }, [])
     const filterData = student.filter((item) => {
-        const name=`${item.firstName}${item.lastName}`
+        const name = `${item.firstName}${item.lastName}`
         return (
             (filter.filterStandard === "" || filter.filterStandard === "no" || item.standard === filter.filterStandard) &&
             (filter.filterSection === "" || item.section === filter.filterSection) &&
@@ -141,10 +141,10 @@ const AdmissionDetails = () => {
     }
 
     return (
-        <div className="m-5">
+        <div className="min-h-screen px-2">
             <CommenHeader title={"Admission Details"} logo={logo} />
-            <div className="bg-white rounded-2xl shadow flex justify-end gap-3 items-center m-5 p-4">
-                <Input value={filter.filterText} placeholder={"Enter Student Name"} onchange={(e) => { setFilter({ ...filter, filterText: e.target.value }) }} className=" placeholder:opacity-40" />
+            <div className="bg-white my-5 shadow-2xl rounded-2xl shadow grid grid-cols-2 md:flex justify-end gap-3 items-center p-4">
+                <Input value={filter.filterText} placeholder={"Enter Student Name"} onchange={(e) => { setFilter({ ...filter, filterText: e.target.value }) }} className="placeholder:opacity-40 w-full" />
                 <select name="standard" id="" value={filter.filterStandard} placeholder="Standard" className={input} onChange={(e) => { setFilter({ ...filter, filterStandard: e.target.value }) }}>
                     <option value="no">Select Standard</option>
                     {standard.map((item) => (
@@ -157,50 +157,56 @@ const AdmissionDetails = () => {
                         <option key={item.section} value={item.section}>{item.section}</option>
                     ))}
                 </select>
-                    <button className="bg-green-400 rounded-lg p-1 cursor-pointer" onClick={() => setFilter({ filterSection:"",filterStandard:"",filterText:"" })}>Reset</button>
+                <button className="bg-green-400 rounded-lg p-1 cursor-pointer" onClick={() => setFilter({ filterSection: "", filterStandard: "", filterText: "", })}>Reset</button>
             </div>
-            <div className="bg-white rounded-2xl shadow flex justify-center items-center m-5 p-4">
-                {filterData.length===0?(
+            <div className="bg-white rounded-2xl shadow my-5 p-4">
+                {filterData.length === 0 ? (
                     <p className="text-center text-gray-500">No Student Found</p>
-                ):(<table className="w-full  shadow-lg">
-                    <thead className="">
-                        <tr className="bg-blue-600 text-white uppercase text-sm">
-                            <th className="p-3">S.no</th>
-                            <th className="p-3">Name</th>
-                            <th className="p-3">Date Of Birth</th>
-                            <th className=" p-3">Standard</th>
-                            <th className=" p-3">Section</th>
-                            <th className=" p-3">Mobile Number</th>
-                            <th className=" p-3">View</th>
-                            <th className=" p-3">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filterData.map((item,index) => (
-                            <tr key={item.id} className={`bg-white border-b hover:bg-blue-50 hover:text-black`}>
-                                <td className=" p-3">{index+1}</td>
-                                <td className=" p-3 font-medium">{item.firstName} {item.lastName}</td>
-                                <td className=" p-3">{item.dateOfBirth}</td>
-                                <td className=" p-3">{item.standard}</td>
-                                <td className=" p-3">{item.section}</td>
-                                <td className=" p-3">{item.studentMobileNo}</td>
-                                <td className=" p-3">
-                                    <button className="bg-blue-500 cursor-pointer text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition" onClick={() => OnView(item.id)}>
-                                        View
-                                    </button>
-                                </td>
-                                <td className="p-3 flex gap-3 mt-2">
-                                    <button className="bg-green-500 cursor-pointer text-white p-2 rounded-lg hover:bg-green-600 transition" onClick={() => OnEdit(item.id)}>
-                                        Edit
-                                    </button>
-                                    <button className="bg-red-500 cursor-pointer text-white p-2 rounded-lg hover:bg-red-600 transition" onClick={() => Del(item.id)}>
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>)}
+                ) : (
+                    <div className="overflow-x-scroll md:overflow-hidden">
+                        <table className="w-full shadow-lg">
+                            <thead>
+                                <tr className="bg-blue-600 text-white uppercase text-sm">
+                                    <th className="p-3">S.no</th>
+                                    <th className="p-3">Name</th>
+                                    <th className="p-3">Date Of Birth</th>
+                                    <th className="p-3">Standard</th>
+                                    <th className="p-3">Section</th>
+                                    <th className="p-3">Mobile Number</th>
+                                    <th className="p-3">View</th>
+                                    <th className="p-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filterData.map((item, index) => (
+                                    <tr key={item.id} className="bg-white border-b hover:bg-blue-50">
+                                        <td className="p-3">{index + 1}</td>
+                                        <td className="p-3 font-medium">
+                                            {item.firstName} {item.lastName}
+                                        </td>
+                                        <td className="p-3">{item.dateOfBirth}</td>
+                                        <td className="p-3">{item.standard}</td>
+                                        <td className="p-3">{item.section}</td>
+                                        <td className="p-3">{item.studentMobileNo}</td>
+                                        <td className="p-3">
+                                            <button className="bg-blue-500 text-white px-3 py-1 rounded-lg" onClick={() => OnView(item.id)}>
+                                                View
+                                            </button>
+                                        </td>
+                                        <td className="p-3 flex gap-3">
+                                            <button className="bg-green-500 text-white p-2 rounded-lg" onClick={() => OnEdit(item.id)}>
+                                                Edit
+                                            </button>
+                                            <button className="bg-red-500 text-white p-2 rounded-lg" onClick={() => Del(item.id)}>
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
 
             {/* update Form */}
@@ -402,13 +408,13 @@ const AdmissionDetails = () => {
             {/* student View */}
             {
                 view && viewData && (
-                    <div className="flex justify-center items-center inset-0 absolute left-20 ">
+                    <div className="fixed inset-0 flex justify-center items-center bg-black/50">
                         <div className="bg-blue-500 p-6 relative rounded-lg text-center text-white">
                             <p className=" absolute top-1 right-1 " onClick={() => setView(false)}><img src={close} className="" /></p>
                             <div className="text-4xl font-serif rounded-lg h-20 bg-blue-300 text-center"><h1 className="pt-5">Student Details</h1></div>
                             <div className="grid grid-cols-2 gap-3 p-5 text-lg text-left">
                                 <div className="">Admission Number:{viewData.roleNo}</div>
-                                <div className="col-span-2">Name:{viewData.firstName}{viewData.lastName}</div>
+                                <div className="col-span-2">Name:{viewData.firstName} {viewData.lastName}</div>
                                 <div className="col-span-2">Date Of Birth:{viewData.dateOfBirth}</div>
                                 <div className="col-span-2">Address:{viewData.address}{viewData.city}{viewData.statee}</div>
                                 <div className="">PinCode:{viewData.pincode}</div>

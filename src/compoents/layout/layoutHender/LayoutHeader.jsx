@@ -10,6 +10,7 @@ import { LabelName } from "../../../Elaments/LabelName"
 import axios from "axios"
 import close from "../../../assets/close.png"
 import { useEffect } from "react"
+import menu from "../../../assets/menu.png"
 const API = import.meta.env.VITE_API;
 
 const LayoutHeader = () => {
@@ -44,6 +45,7 @@ const LayoutHeader = () => {
                 </div>
                 <div className="flex items-center gap-4 w-fit m-1 mx-5">
                     <div className="m-2 cursor-pointer" onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <img width={70} src={light} /> : <img width={70} src={dark} />}</div>
+                <img src={menu} alt="" />
                     <div className="cursor-pointer" onClick={() => { }}>
                         <img src={settings} onClick={() => setPassword(!password)} className=" cursor-pointer" />
                     </div>

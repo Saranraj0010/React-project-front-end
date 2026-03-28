@@ -5,8 +5,8 @@ import AdmissionDetails from "../../student/admissionDetails/AdmissionDetails"
 const StaffContainer = ({ activePage }) => {
     return (
         <>
-            <div className="w-full max-h-full">
-                {activePage === "dashboard" && <Dashboard />}
+            <div className="w-full max-h-full p-5">
+                {/* {activePage === "dashboard" && <Dashboard />} */}
                 {activePage==="circular" && <Circular/>}
                 {activePage === "classStudent" && <ClassStudent/>}
             </div>

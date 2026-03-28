@@ -3,7 +3,6 @@ import Logo from "../../../assets/logo.png";
 import { useLoginStore } from "../store/useLoginStore";
 import light from "../../../assets/LightMode.png";
 import dark from "../../../assets/darkMode.png";
-
 const Header = () => {
     const { darkMode, setDarkMode } = useLoginStore();
 
@@ -34,21 +33,19 @@ const Header = () => {
                         className="w-7 sm:w-9 md:w-10"
                     />
                 </button>
-
-                {/* Buttons */}
                 <div className="flex gap-2 sm:gap-3">
                     <Link
                         to="/login"
-                        className={`px-3 py-1 rounded-lg text-sm sm:text-base
+                        className={`px-3 py-1 rounded-lg text-xl font-bold sm:text-base
                         ${darkMode
                                 ? "bg-white text-black/80 hover:bg-gray-500 hover:text-white"
-                                : "bg-blue-500 hover:bg-red-700"
+                                : " hover:text-red-600 hover:underline"
                             }`}
                     >
                         Login
                     </Link>
 
-                    <Link
+                    {/* <Link
                         to="/signUp"
                         className={`px-3 py-1 rounded-lg text-sm sm:text-base
                         ${darkMode
@@ -57,7 +54,7 @@ const Header = () => {
                             }`}
                     >
                         Signup
-                    </Link>
+                    </Link> */}
                 </div>
 
             </div>

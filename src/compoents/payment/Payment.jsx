@@ -111,60 +111,79 @@ const Payment = () => {
     }
     return (
         <>
+        <div className="min-h-screen px-2">
             <CommenHeader title={"Payment"} logo={logo} />
-           <div className="bg-white p-6 mx-10 shadow-xl rounded-2xl">
-             {payment.length===0 ?(
-                <p className="text-center text-gray-500">No Payment Found</p>
-            ):(<table className="w-full text-center">
-                    <thead>
-                        <tr className="bg-blue-600 text-white">
-                            <th className="p-3">S.No</th>
-                            <th className="p-3">Name</th>
-                            <th className="p-3">Standard</th>
-                            <th className="p-3">Section</th>
-                            <th className="p-3">Last pay</th>
-                            <th className="p-3">Paid</th>
-                            <th className="p-3">Total Fees</th>
-                            <th className="p-3">Balance</th>
-                            <th className="p-3">View</th>
-                            <th className="p-3">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {payment.map((item, index) => (
-                            <tr key={item.id} className="border-b hover:bg-blue-50">
-                                <td className="p-3">{index + 1}</td>
-                                <td className="p-3 font-semibold text-blue-700">
-                                    {item.name}
-                                </td>
-                                <td className="p-3">{item.standard}</td>
-                                <td className="p-3">{item.section}</td>
-                                <td className="p-3 text-green-600 font-semibold">
-                                    ₹{item.currentDownPayment}
-                                </td>
-                                <td className="p-3 text-green-600 font-semibold">
-                                    ₹{item.currentTotalPaid}
-                                </td>
-                                <td className="p-3">
-                                    ₹{item.fees}
-                                </td>
-                                <td className="p-3 text-red-600 font-semibold">
-                                    ₹{item.currentBalance}
-                                </td>
-                                <td className="p-3">
-                                    <button onClick={() => Show(item, item.roleNo)} className="bg-blue-500 text-white px-3 py-1 rounded">
-                                        View
-                                    </button>
-                                </td>
-                                <td className="p-3">
-                                    <button onClick={() => OnEdit(item.roleNo)} className="bg-green-500 text-white px-3 py-1 rounded">
-                                        Add Fees
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>)}
+            <div className="bg-white p-6 my-5 shadow-xl rounded-2xl">
+                {payment.length === 0 ? (
+                    <p className="text-center text-gray-500">No Payment Found</p>
+                ) : (
+                    <div className="overflow-x-scroll md:overflow-hidden">
+                        <table className="w-full text-center">
+                            <thead>
+                                <tr className="bg-blue-600 text-white">
+                                    <th className="p-3">S.No</th>
+                                    <th className="p-3">Name</th>
+                                    <th className="p-3">Standard</th>
+                                    <th className="p-3">Section</th>
+                                    <th className="p-3">Last pay</th>
+                                    <th className="p-3">Paid</th>
+                                    <th className="p-3">Total Fees</th>
+                                    <th className="p-3">Balance</th>
+                                    <th className="p-3">View</th>
+                                    <th className="p-3">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {payment.map((item, index) => (
+                                    <tr key={item.id} className="border-b hover:bg-blue-50">
+                                        <td className="p-3">{index + 1}</td>
+
+                                        <td className="p-3 font-semibold text-blue-700">
+                                            {item.name}
+                                        </td>
+
+                                        <td className="p-3">{item.standard}</td>
+                                        <td className="p-3">{item.section}</td>
+
+                                        <td className="p-3 text-green-600 font-semibold">
+                                            ₹{item.currentDownPayment}
+                                        </td>
+
+                                        <td className="p-3 text-green-600 font-semibold">
+                                            ₹{item.currentTotalPaid}
+                                        </td>
+
+                                        <td className="p-3">₹{item.fees}</td>
+
+                                        <td className="p-3 text-red-600 font-semibold">
+                                            ₹{item.currentBalance}
+                                        </td>
+
+                                        <td className="p-3">
+                                            <button
+                                                onClick={() => Show(item, item.roleNo)}
+                                                className="bg-blue-500 text-white px-3 py-1 rounded"
+                                            >
+                                                View
+                                            </button>
+                                        </td>
+
+                                        <td className="p-3">
+                                            <button
+                                                onClick={() => OnEdit(item.roleNo)}
+                                                className="bg-green-500 text-white px-3 py-1 rounded"
+                                            >
+                                                Add Fees
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
             </div>
             {view && viewStudent && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black/40">
@@ -220,7 +239,7 @@ const Payment = () => {
             )}
             {fees && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black/40">
-                    <div className="bg-white w-[400px] p-6 rounded-xl relative">
+                    <div className="bg-white w-100 p-6 rounded-xl relative">
                         <button className="absolute right-3 top-3 text-red-500" onClick={() => setFees(false)}>
                             X
                         </button>

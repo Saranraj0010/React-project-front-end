@@ -47,9 +47,9 @@ const Staff = () => {
     const AddFrom = async (e) => {
         try {
             e.preventDefault();
-            // if (!Validation()) return
+            if (Validation()) return
             const add = await axios.post(`${API}addStaff`, staff)
-            console.log(add)
+            console.log(add,"hello")
             setStaff({
                 userName: "",
                 firstName: "",
@@ -84,9 +84,9 @@ const Staff = () => {
     }, [])
     return (
         <>
-            <div className="p-1 m-2">
+            <div className="min-h-screen px-2">
                 <CommenHeader title={"Add Staff"} logo={logo} />
-                <div className="flex justify-center items-center mx-5 p-10 bg-white rounded-2xl shadow-2xl">
+                <div className="flex justify-center items-center my-5 p-10 bg-white rounded-2xl shadow-2xl">
                     <form className={`p-5 w-full border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
                         <h1 className="font-bold text-center underline text-2xl">STAFF REGISTER FORM</h1>
                         <h1 className="font-semibold text-lg">Staff Information</h1>

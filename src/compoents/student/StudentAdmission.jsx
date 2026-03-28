@@ -210,10 +210,9 @@ const StudentAdmission = () => {
         GetForm()
     }, [])
     return (
-        <div className="min-h-screen bg-linear-to-br from-blue-50 to-gray-100 p-6">
+        <div className="h-screen px-2">
             <CommenHeader title={"Student Admission"} logo={logo} button={"Add Student"} />
-            {/* Student addForm  */}
-            <div className="mt-6 mx-5 bg-gray-50 rounded-2xl shadow-inner p-6">
+            <div className="bg-gray-50 my-5 rounded-2xl shadow-inner p-6">
                 <form className={`w-full p-5 border rounded-lg flex flex-col gap-4`} onSubmit={(e) => AddFrom(e)}>
                     <h1 className="font-bold text-center underline text-2xl">ADMISSION FORM</h1>
                     <h1 className="font-semibold text-lg">Student Information</h1>
@@ -375,8 +374,7 @@ const StudentAdmission = () => {
                     <button type="submit" className="bg-blue-500 mt-2 text-white p-2 max-w-full rounded-lg cursor-pointer ">Register</button>
                 </form>
             </div>
-
-
+            
             {fees && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
                     <div className="bg-white w-112.5 h-fit p-6 rounded-2xl shadow-2xl relative">

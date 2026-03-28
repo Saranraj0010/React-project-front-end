@@ -18,12 +18,10 @@ import AddAdmin from "../addAdmin/AddAdmin"
 const Container = ({ activePage }) => {
     return (
         <>
-            <div className="w-full max-h-full">
-                <div className="max-h-screen bg-white shadow-2xl rounded-2xl cursor-pointer">
+            <div className="w-full max-h-full select-none bg-white shadow-2xl p-5">
                 {activePage === "dashboard" && <Dashboard />}
-                </div>
+                {activePage==="staffAllocation" && <StaffAllocation/>}
                 {activePage==="circular" && <Circular/>}
-                {activePage === "student" && <StudentForm />}
                 {activePage === "studentDetails" && <StudentDetails />}
                 {activePage ==="staff" && <Staff/>}
                 {activePage==="staffDetails" && <TotalStaff/>}
@@ -35,7 +33,6 @@ const Container = ({ activePage }) => {
                 {activePage==="role" && <Role/>}
                 {activePage==="section" && <Section/>}
                 {activePage==="calendar" && <Calendar/>}
-                {activePage==="staffAllocation" && <StaffAllocation/>}
                 {activePage==="subject" && <Subject/>}
                 {activePage==="addAdmin" && <AddAdmin/>}
 

@@ -79,7 +79,7 @@ const Standard = () => {
     setId(id)
   }
   return (
-    <div className="min-h-screen p-5">
+    <div className="min-h-screen px-2">
 
         <ButtonHeader
           title={"Standard"}
@@ -91,7 +91,7 @@ const Standard = () => {
           }}
         />
 
-      <div className="bg-white p-6 m-5 shadow-xl rounded-2xl border border-blue-100">
+      <div className="bg-white p-6 my-5 shadow-xl rounded-2xl border border-blue-100">
         {data.length===0?(
                     <p className="text-center text-gray-500">No Standard Found</p>
         ):(<table className="w-full text-center border-collapse">

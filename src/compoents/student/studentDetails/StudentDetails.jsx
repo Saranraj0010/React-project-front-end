@@ -138,7 +138,7 @@ const UpdateForm = async (e) => {
     }
     return (
         <>
-            <div className="bg-white rounded-lg shadow p-1 m-2">
+            <div className="rounded-lg shadow p-1 m-2">
                 <CommenHeader title={"Student Details"} logo={logo}/>
                 <div className="flex justify-center bg-white shadow-2xl rounded-2xl max-w-full   m-5 p-5">
                     <table border={1} className="p-2 m-2 text-center">

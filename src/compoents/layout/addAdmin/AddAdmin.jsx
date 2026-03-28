@@ -33,10 +33,7 @@ const AddAdmin = () => {
             toast.error("Phone Number required")
             newError.PhoneNumber = "Phone Number required";
         }
-        if (!signUpUser.PhoneNumber) {
-            toast.error("Phone Number is required");
-            newError.PhoneNumber = "Phone Number is required";
-        } else if (!/^[0-9]{10}$/.test(signUpUser.PhoneNumber)) {
+        else if (!/^[0-9]{10}$/.test(signUpUser.PhoneNumber)) {
             toast.error("Invalid Phone Number");
             newError.PhoneNumber = "Invalid Phone Number";
         }
@@ -80,9 +77,9 @@ const AddAdmin = () => {
     }, []);
 
     return (
-        <div className="min-h-screen grid grid-cols-1 relative justify-center">
+        <div className="flex flex-col px-2 justify-center items-center">
             <CommenHeader title={"Add Admin"} logo={logo} />
-            <form onSubmit={Add} className="bg-white w-[90%] absolute top-40 right-90 sm:w-95 p-6 rounded-xl shadow-2xl flex flex-col gap-3">
+            <form onSubmit={Add} className="bg-white p-6 my-5 rounded-xl shadow-2xl flex flex-col gap-3">
                 <h1 className="text-center text-2xl font-bold font-mono">
                     Add Admin
                 </h1>
@@ -116,7 +113,7 @@ const AddAdmin = () => {
                             setError({ ...error, Password: "" });
                         }} className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600" />
                     <button type="button" className="absolute right-2 top-8" onClick={ShowPassword}>
-                        <img width={20} src={showPassword ? eyeHide : eyeShow} />
+                        <img width={20} className="cursor-pointer" src={showPassword ? eyeHide : eyeShow} />
                     </button>
                     {error.Password && (
                         <p className="text-red-600 text-xs">{error.Password}</p>
@@ -130,7 +127,7 @@ const AddAdmin = () => {
                             setError({ ...error, ConfirmPassword: "" });
                         }} className="w-full h-10 pl-3 border rounded-lg focus:outline-blue-600" />
                     <button type="button" className="absolute right-2 top-8" onClick={ConfirmShowPassword}>
-                        <img width={20} src={showConfirmPassword ? eyeHide : eyeShow} />
+                        <img width={20} className="cursor-pointer" src={showConfirmPassword ? eyeHide : eyeShow} />
                     </button>
                     {error.ConfirmPassword && (
                         <p className="text-red-600 text-xs">

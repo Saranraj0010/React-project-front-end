@@ -7,11 +7,12 @@ import StaffLayout from "./compoents/staffLayout/StaffLayout";
 import StudentLayout from "./compoents/studentLayout/StudentLayout";
 import StudentAdmission from "./compoents/student/StudentAdmission";
 import CounsllerLayout from "./compoents/counsllerLayout/CounsllerLayout";
+import AuthPage from "./compoents/Login/NewLogin";
 
 
 const App = () => {
   return (
-    <>
+    <>  
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/homePage" element={<Home/>}/>
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/homePage/stafflayout" element={<StaffLayout/>}/>
         <Route path="/homePage/studentlayout" element={<StudentLayout/>}/>
         <Route path="/login" element={<Login />} />
+        <Route path="/newLogin" element={<AuthPage />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/admission" element={<StudentAdmission/>}/>
         <Route path="/counsllerlayout" element={<CounsllerLayout/>}/>

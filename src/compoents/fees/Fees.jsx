@@ -72,7 +72,7 @@ const Fees = () => {
     }
   }
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-blue-100 p-5">
+    <div className="min-h-screen px-2">
 
       <ButtonHeader
         title={"Fees"}
@@ -81,8 +81,7 @@ const Fees = () => {
         onclick={() => setShow(true)}
       />
 
-      {/* Table Card */}
-      <div className="bg-white rounded-2xl shadow-xl m-5 p-6 border border-blue-100">
+      <div className="bg-white rounded-2xl shadow-xl my-5 p-6 border border-blue-100">
 
         {allocation.length===0?( 
           <p className="text-center text-gray-500">No Fees Found</p>

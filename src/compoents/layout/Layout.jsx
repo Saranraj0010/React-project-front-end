@@ -10,16 +10,21 @@ const Layout = () => {
         <div className="m-0 p-0 h-screen flex flex-col">
             {/* Header */}
             <div className="h-20 shadow-lg bg-white w-full fixed z-50">
-                <AdminLayoutHeader/>
+                <AdminLayoutHeader setActivePage={setActivePage}/>
             </div>
 
             {/* Body */}
-            <div className="flex flex-1 mt-21 relative max-w-full">
-                <div className="shadow-2xl fixed h-full">
+            <div className="md:flex hidden md: mt-20 relative max-w-full">
+                <div className="shadow-2xl md:fixed h-full">
                     <Sidebar setActivePage={setActivePage} />
                 </div>
 
-                <div className="flex-1 overflow-auto ml-64">
+                <div className="flex-1 w-full overflow-auto ml-64">
+                    <Container activePage={activePage} />
+                </div>
+            </div>
+            <div className="md:hidden mt-20 relative max-w-full">
+                <div className="flex-1 w-full overflow-auto">
                     <Container activePage={activePage} />
                 </div>
             </div>

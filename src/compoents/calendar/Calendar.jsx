@@ -5,8 +5,8 @@ import logo from "../../assets/profile4.jpg";
 const Calendar = () => {
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
-    "January","February","March","April","May","June",
-    "July","August","September","October","November","December"
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
   ];
 
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -74,11 +74,10 @@ const Calendar = () => {
             setSelectedDate(key);
             setNoteText(notes[key] || "");
           }}
-          className={`p-3 rounded-xl cursor-pointer transition-all duration-300 relative min-h-[90px] border
-            ${
-              isToday
-                ? "bg-blue-600 text-white border-blue-600 shadow-lg"
-                : "bg-blue-50 border-blue-100 hover:bg-blue-100"
+          className={`p-3 rounded-xl cursor-pointer transition-all duration-300 relative md:min-h-22.5 h-10 flex justify-center items-center border
+            ${isToday
+              ? "bg-blue-600 text-white border-blue-600 shadow-lg"
+              : "bg-blue-50 border-blue-100 hover:bg-blue-100"
             }`}
         >
           <div className="font-semibold">{day}</div>
@@ -96,12 +95,9 @@ const Calendar = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-white p-4">
+    <div className="min-h-screen px-2">
       <CommenHeader title={"Calendar"} logo={logo} />
-
-      <div className="bg-white mx-10 rounded-2xl p-6 shadow-xl border border-blue-200">
-
-        {/* Header */}
+      <div className="bg-white my-5 rounded-2xl p-6 shadow-xl border border-blue-200">
         <div className="flex justify-between items-center mb-6">
           <button
             onClick={prevMonth}
@@ -109,40 +105,28 @@ const Calendar = () => {
           >
             Prev
           </button>
-
           <h2 className="text-2xl font-bold text-blue-700">
             {months[month]} {year}
           </h2>
-
-          <button
-            onClick={nextMonth}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-          >
+          <button onClick={nextMonth} className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
             Next
           </button>
         </div>
-
-        {/* Weekdays */}
         <div className="grid grid-cols-7 gap-3 mb-3 text-center font-semibold text-blue-700">
           {weekdays.map((day) => (
             <div key={day}>{day}</div>
           ))}
         </div>
-
-        {/* Days */}
-        <div className="grid grid-cols-7 gap-3">
+        <div className="grid h-fit w-fit md:h-full md:w-full grid-cols-7 gap-3">
           {renderDays()}
         </div>
       </div>
-
-      {/* Modal */}
       {selectedDate && (
         <div className="fixed inset-0 bg-blue-900/40 backdrop-blur-sm flex items-center justify-center">
           <div className="bg-white p-6 rounded-2xl w-96 shadow-2xl border border-blue-200">
             <h3 className="text-lg font-bold text-blue-700 mb-4">
               {notes[selectedDate] ? "Edit Note" : "Add Note"}
             </h3>
-
             <textarea
               value={noteText}
               onChange={(e) => setNoteText(e.target.value)}
@@ -150,7 +134,6 @@ const Calendar = () => {
               rows="3"
               placeholder="Write your note..."
             />
-
             <div className="flex justify-between">
               {notes[selectedDate] && (
                 <button
@@ -160,7 +143,6 @@ const Calendar = () => {
                   Delete
                 </button>
               )}
-
               <div className="flex gap-3 ml-auto">
                 <button
                   onClick={() => setSelectedDate(null)}
@@ -168,7 +150,6 @@ const Calendar = () => {
                 >
                   Cancel
                 </button>
-
                 <button
                   onClick={handleSaveNote}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"

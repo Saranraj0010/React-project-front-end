@@ -82,7 +82,7 @@ const Section = () => {
     }
 
     return (
-        <div className="p-3 m-3 relative">
+        <div className="min-h-screen px-2">
 
             <ButtonHeader
                 title={"Section"}
@@ -95,7 +95,7 @@ const Section = () => {
                 }}
             />
 
-            <div className="bg-white p-6 mx-5 mt-6 shadow-lg rounded-2xl">
+            <div className="bg-white p-6 my-5 mt-6 shadow-lg rounded-2xl">
                 {data.length === 0?(
                     <p className="text-center text-gray-500">No Section Found</p>
                 ):(<table className="w-full text-center border-collapse">
