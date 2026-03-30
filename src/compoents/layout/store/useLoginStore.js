@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import SignUp from "../../signup/SignUp";
+import SignUp from "../../Register/signup/SignUp";
 import hide from "../../../assets/hide.png"
 import show from "../../../assets/show.png"
 import axios from "axios";

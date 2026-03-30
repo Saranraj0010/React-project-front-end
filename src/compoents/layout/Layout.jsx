@@ -2,18 +2,14 @@ import Sidebar from "./sidebar/Sidebar";
 import Container from "./container/Container";
 import { useState } from "react";
 import AdminLayoutHeader from "./adminLayoutHeader/AdminLayoutHeader";
-import { Footer } from "../footer/Footer";
 
 const Layout = () => {
     const [activePage, setActivePage] = useState("dashboard");
     return (
         <div className="m-0 p-0 h-screen flex flex-col">
-            {/* Header */}
             <div className="h-20 shadow-lg bg-white w-full fixed z-50">
                 <AdminLayoutHeader setActivePage={setActivePage}/>
             </div>
-
-            {/* Body */}
             <div className="md:flex hidden md: mt-20 relative max-w-full">
                 <div className="shadow-2xl md:fixed h-full">
                     <Sidebar setActivePage={setActivePage} />
@@ -28,8 +24,6 @@ const Layout = () => {
                     <Container activePage={activePage} />
                 </div>
             </div>
-
-            {/* Footer */}
             <div className="border fixed max-h-fit">
                 {/* <Footer/> */}
             </div>

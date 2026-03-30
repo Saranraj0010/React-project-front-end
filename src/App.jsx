@@ -1,13 +1,13 @@
 import Layout from "./compoents/layout/Layout";
-import Login from "./compoents/login/Login";
-import SignUp from "./compoents/signup/SignUp";
+import Login from "./compoents/Register/login/Login";
+import SignUp from "./compoents/Register/signup/SignUp";
 import { Route, Routes } from "react-router-dom";
 import Home from "./compoents/home/Home";
 import StaffLayout from "./compoents/staffLayout/StaffLayout";
 import StudentLayout from "./compoents/studentLayout/StudentLayout";
-import StudentAdmission from "./compoents/student/StudentAdmission";
+import StudentAdmission from "./compoents/layout/student/StudentAdmission";
 import CounsllerLayout from "./compoents/counsllerLayout/CounsllerLayout";
-import AuthPage from "./compoents/Login/NewLogin";
+import AuthPage from "./compoents/Register/Login/NewLogin";
 
 
 const App = () => {

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Footer } from "../footer/Footer";
 import CounsllerContainer from "./container/CounsllerContainer";
 import CounsllerSidebar from "./sidebar/CounsllerSidebar";
-import CounsllerHeader from "../counsllerHeader/CounsllerHeader";
+import CounsllerHeader from "../counsllerLayout/counsllerHeader/CounsllerHeader";
 
 const CounsllerLayout = () => {
     const [activePage, setActivePage] = useState("dashboard");

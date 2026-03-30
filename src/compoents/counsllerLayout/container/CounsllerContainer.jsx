@@ -1,14 +1,12 @@
-import Circular from "../../circular/Circular"
-import ClassStudent from "../../classStudent/ClassStudent"
-import Dashboard from "../../dashboard/Dashboard"
-import AdmissionDetails from "../../student/admissionDetails/AdmissionDetails"
-import StudentAdmission from "../../student/StudentAdmission"
-import StudentDetails from "../../student/studentDetails/StudentDetails"
-import CounsllerLayout from "../CounsllerLayout"
+import Circular from "../../layout/circular/Circular"
+import ClassStudent from "../../staffLayout/classStudent/ClassStudent"
+import Dashboard from "../../layout/dashboard/Dashboard"
+import AdmissionDetails from "../../layout/student/admissionDetails/AdmissionDetails"
+import StudentAdmission from "../../layout/student/StudentAdmission"
 const CounsllerContainer = ({ activePage }) => {
     return (
         <>
-            <div className="w-full max-h-full">
+            <div className="w-full max-h-full p-5">
                 {activePage === "dashboard" && <Dashboard />}
                 {activePage==="studentAdmission" && <StudentAdmission/>}
                 {activePage === "studentDetails" && <AdmissionDetails />}
