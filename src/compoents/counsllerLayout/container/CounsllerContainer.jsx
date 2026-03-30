@@ -6,7 +6,7 @@ import StudentAdmission from "../../layout/student/StudentAdmission"
 const CounsllerContainer = ({ activePage }) => {
     return (
         <>
-            <div className="w-full max-h-full p-5">
+            <div className="w-full max-h-full p-5 ">
                 {activePage === "dashboard" && <Dashboard />}
                 {activePage==="studentAdmission" && <StudentAdmission/>}
                 {activePage === "studentDetails" && <AdmissionDetails />}
