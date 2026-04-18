@@ -36,17 +36,18 @@ const Circular = () => {
     : "border";
 
   const GetForm = async () => {
-    try {
-      const res = await axios.get(`${API}getCircular`);
-      setData(res.data.data);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  try {
+    setIsLoading(true);
+    const res = await axios.get(`${API}getCircular`);
+    setData(res.data.data);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   useEffect(() => {
-    setIsLoading(true);
     GetForm();
   }, []);
 
