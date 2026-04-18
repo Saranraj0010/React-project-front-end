@@ -171,8 +171,8 @@ const Login = () => {
     };
 
     useEffect(() => {
-        getUsers();
-    }, []);
+        getUsers()
+    },[]);
 
     const Validation = () => {
         let newError = {};
@@ -233,7 +233,7 @@ const Login = () => {
             navigate("/homePage/studentlayout");
             localStorage.setItem("studentProfile", JSON.stringify(studentResult));
         } else {
-            navigate("/homePage/adminlayout");
+            // navigate("/homePage/adminlayout");
             alert("Invalid Username or Password");
         }
     };
