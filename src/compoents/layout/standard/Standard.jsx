@@ -9,7 +9,7 @@ import { useStandardStore } from "../../store/useStandardStore"
 const API = import.meta.env.VITE_API;
 
 const Standard = () => {
-  const { user, setUser, roll, setRoll, data, setData, show, setShow, update, setUpdate, Delete, setDelete, error, setError, id, setId, resetUser, resetRoll,Validation } = useStandardStore()
+  const { user, setUser, roll, setRoll, data, setData, show, setShow, update, setUpdate, Delete, setDelete, error, id, setId, resetUser, resetRoll,Validation } = useStandardStore()
   
   const Submit = async (e) => {
     try {
@@ -52,7 +52,7 @@ const Standard = () => {
       e.preventDefault();
       console.log("update")
       console.log(user)
-      const add = await axios.patch(`${API}v1/updateStandard`, roll)
+      const updateStandard = await axios.patch(`${API}v1/updateStandard`, roll)
       resetRoll();
       GetForm()
       setShow(false)
@@ -65,7 +65,7 @@ const Standard = () => {
   }
   const Deletes = async () => {
     try {
-      const add = await axios.patch(`${API}v1/deleteStandard`, { id })
+      const deleteStandard = await axios.patch(`${API}v1/deleteStandard`, { id })
       GetForm()
       setDelete(false)
     }
@@ -149,7 +149,7 @@ const Standard = () => {
               onClick={() => {
                 setShow(false);
                 setUser({ standard: "" });
-                setError({});
+                // setError({});
               }}
             >
               ✕
@@ -172,7 +172,7 @@ const Standard = () => {
                     update
                       ? setRoll("standard", e.target.value)
                       : setUser("standard", e.target.value);
-                    setError({});
+                    // setError({});
                   }}
                 />
                 {error.standard && (
