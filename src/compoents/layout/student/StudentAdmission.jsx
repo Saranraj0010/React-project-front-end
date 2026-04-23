@@ -195,9 +195,9 @@ const StudentAdmission = () => {
     };
     const GetForm = async () => {
         try {
-            const get = await axios.get(`${API}getStandard`)
-            const section = await axios.get(`${API}getSection`)
-            const fees = await axios.get(`${API}getFees`)
+            const get = await axios.get(`${API}v1/getStandard`)
+            const section = await axios.get(`${API}v1/getSection`)
+            const fees = await axios.get(`${API}v1/getFees`)
             setSection(section.data.data)
             setStandard(get.data.data)
             setPrice(fees.data.data)
