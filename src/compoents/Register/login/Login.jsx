@@ -239,22 +239,16 @@ const Login = () => {
 
     return (
         <div className="relative min-h-screen flex items-center justify-center">
-
-            {/* Background */}
             <img
                 src={BackGroundImage}
                 alt="bg"
                 className="absolute inset-0 w-full h-full object-cover"
             />
-
-            {/* Login Form */}
             <form
                 onSubmit={Login}
                 className="relative z-10 bg-white w-[90%] sm:w-95 p-6 rounded-xl shadow-2xl flex flex-col gap-3"
             >
                 <h1 className="text-center text-2xl font-bold">User Login</h1>
-
-                {/* UserId */}
                 <div className="flex flex-col">
                     <label>User Number</label>
                     <input
@@ -269,8 +263,6 @@ const Login = () => {
                         <p className="text-red-600 text-xs">{error.UserId}</p>
                     )}
                 </div>
-
-                {/* Password */}
                 <div className="flex flex-col relative">
                     <label>Password</label>
 
@@ -299,7 +291,6 @@ const Login = () => {
                     )}
                 </div>
 
-                {/* Buttons */}
                 <div className="flex justify-center gap-4 mt-2">
                     <Link
                         to="/"
