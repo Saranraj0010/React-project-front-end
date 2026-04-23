@@ -159,10 +159,10 @@ const Login = () => {
    useEffect(() => {
     const fetchData = async () => {
         try {
-            const userRes = await axios.get(`${API}getSignUp`);
+            const userRes = await axios.get(`${API}v1/getSignUp`);
             console.log(userRes)
-            const staffRes = await axios.get(`${API}getStaff`);
-            const studentRes = await axios.get(`${API}getStudent`);
+            const staffRes = await axios.get(`${API}v1/getStaff`);
+            const studentRes = await axios.get(`${API}v1/getStudent`);
 
             setUsers(userRes.data.data);
             setStaff(staffRes.data.data);
