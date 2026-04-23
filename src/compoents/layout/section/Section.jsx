@@ -1,9 +1,8 @@
 import logo from "../../../assets/profile4.jpg"
 import close from "../../../assets/close.png"
-import { useState, useEffect } from "react"
+import {  useEffect } from "react"
 import axios from "axios"
 import ButtonHeader from "../../commenHeader/ButtonHeader"
-import { toast } from "react-toastify"
 import { useSectionStore } from "../../store/useSectionStore"
 
 const API = import.meta.env.VITE_API;
@@ -17,9 +16,10 @@ const Section = () => {
         if (!Validation()) return
 
         try {
-            await axios.post(`${API}v1/addSection`, user)
-            resetUser()
+            const data = await axios.post(`${API}v1/addSection`, user)
+            console.log(data)
             GetForm()
+            resetUser()
             setShow(false)
         } catch (err) {
             console.log(err)

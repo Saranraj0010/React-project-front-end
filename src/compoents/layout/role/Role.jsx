@@ -1,9 +1,8 @@
 import logo from "../../../assets/profile4.jpg"
 import close from "../../../assets/close.png"
-import { useState, useEffect } from "react"
+import {  useEffect } from "react"
 import axios from "axios"
 import ButtonHeader from "../../commenHeader/ButtonHeader"
-import { toast } from "react-toastify"
 import { useRollStore } from "../../store/useRollStore"
 
 const API = import.meta.env.VITE_API;
