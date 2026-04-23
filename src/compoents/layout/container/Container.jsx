@@ -12,7 +12,7 @@ import Calendar from "../calendar/Calendar"
 import StaffAllocation from "../staffAllocation/StaffAllocation"
 import Subject from "../subject/Subject"
 import Fees from "../fees/Fees"
-import Payment from "../fees/Fees"
+import Payment from "../payment/Payment"
 import AddAdmin from "../addAdmin/AddAdmin"
 const Container = ({ activePage }) => {
     return (
