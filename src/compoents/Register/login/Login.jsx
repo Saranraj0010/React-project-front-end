@@ -160,6 +160,7 @@ const Login = () => {
     const fetchData = async () => {
         try {
             const userRes = await axios.get(`${API}getSignUp`);
+            console.log(userRes)
             const staffRes = await axios.get(`${API}getStaff`);
             const studentRes = await axios.get(`${API}getStudent`);
 
