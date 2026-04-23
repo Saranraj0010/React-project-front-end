@@ -50,7 +50,7 @@ const TotalStaff = () => {
 
   const GetData = async () => {
     try {
-      const res = await axios.get(`${API}getStaff`);
+      const res = await axios.get(`${API}v1/getStaff`);
       setData(res.data.data);
       console.log(res.data.data)
     } catch (err) {
@@ -74,7 +74,7 @@ const TotalStaff = () => {
   const UpdateForm = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`${API}updateForm`, staff);
+      await axios.patch(`${API}v1/updateForm`, staff);
       toast.success("Updated successfully");
       setShow(false);
       GetData();
@@ -93,7 +93,7 @@ const TotalStaff = () => {
   // DELETE
   const DeleteForm = async () => {
     try {
-      await axios.patch(`${API}deleteStaff`, { id: deleteId });
+      await axios.patch(`${API}v1/deleteStaff`, { id: deleteId });
       toast.success("Deleted successfully");
       setDeleteId(null);
       GetData();

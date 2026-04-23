@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react"
@@ -22,7 +23,7 @@ export const Form = () => {
         try {
             setIsEdit(false)
              if (!Validation()) return
-            const post = await axios.post(`${API}AddUser`, user)
+            const post = await axios.post(`${API}v1/AddUser`, user)
             console.log(post, "data added succesfuly")           
             getFrom()
         }
@@ -33,7 +34,7 @@ export const Form = () => {
 
     const getFrom = async () => {
         try {
-            const responce = await axios.get(`${API}GetFormUser`)
+            const responce = await axios.get(`${API}v1/GetFormUser`)
             console.log(responce, "data fetch succesfuly")
             let data = responce.data.data
             setData(data)
@@ -73,7 +74,7 @@ export const Form = () => {
         try {
             console.log("hellooooo")
             setIsEdit(true)
-            const responce = await axios.patch(`${API}UpdateFormUser`, user)
+            const responce = await axios.patch(`${API}v1/UpdateFormUser`, user)
             console.log("data updated", responce)
             getFrom()
         }
@@ -90,7 +91,7 @@ export const Form = () => {
             // const selected = data.filter((items) => (items.id == id))
             // console.log(selected)
             console.log(id)
-            const responce = await axios.patch(`${API}DeleteFormUser`, { id: id })
+            const responce = await axios.patch(`${API}v1/DeleteFormUser`, { id: id })
             console.log("data Deleted", responce)
             getFrom()
         }

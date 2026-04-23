@@ -48,7 +48,7 @@ const SignUp = () => {
         try {
             e.preventDefault();
             if (!Validation()) return;
-            const add = await axios.post(`${API}addSignUp`, signUpUser);
+            const add = await axios.post(`${API}v1/addSignUp`, signUpUser);
 
             if (add) {
                 navigate("/homePage");
@@ -60,7 +60,7 @@ const SignUp = () => {
 
     const Get = async () => {
         try {
-            await axios.get(`${API}getSignUp`);
+            await axios.get(`${API}v1/getSignUp`);
         } catch (err) {
             console.log(err);
         }

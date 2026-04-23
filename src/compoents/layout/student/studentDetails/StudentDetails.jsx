@@ -33,7 +33,7 @@ const StudentDetails = () => {
     const [error, setError] = useState({})
     const GetForm = async () => {
         try {
-            const get = await axios.get(`${API}getForm`)
+            const get = await axios.get(`${API}v1/getForm`)
             setData(get.data.data)
         }
         catch (err) {
@@ -70,7 +70,7 @@ const UpdateForm = async (e) => {
         try {
             e.preventDefault();
             console.log("hello")
-            const result = await axios.patch(`${API}updateForm`, student)
+            const result = await axios.patch(`${API}v1/updateForm`, student)
             setStudent(
                 {
                     studentId: "",
@@ -106,7 +106,7 @@ const UpdateForm = async (e) => {
     }
     const DeleteForm = async () => {
         try {
-            const result = await axios.patch(`${API}deleteForm`, { studentId: searchId })
+            const result = await axios.patch(`${API}v1/deleteForm`, { studentId: searchId })
             GetForm()
             setShows(false)
         }

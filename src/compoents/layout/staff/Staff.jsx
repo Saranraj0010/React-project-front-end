@@ -48,7 +48,7 @@ const Staff = () => {
         try {
             e.preventDefault();
             if (Validation()) return
-            const add = await axios.post(`${API}addStaff`, staff)
+            const add = await axios.post(`${API}v1/addStaff`, staff)
             console.log(add,"hello")
             setStaff({
                 userName: "",
@@ -70,8 +70,8 @@ const Staff = () => {
     }
     const GetData = async () => {
         try {
-            const get = await axios.get(`${API}getStaff`)
-            const staffs = await axios.get(`${API}getRole`)
+            const get = await axios.get(`${API}v1/getStaff`)
+            const staffs = await axios.get(`${API}v1/getRole`)
             setData(get.data.data)
             setRole(staffs.data.data)
         }

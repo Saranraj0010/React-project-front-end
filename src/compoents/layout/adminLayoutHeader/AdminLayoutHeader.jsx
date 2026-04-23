@@ -56,7 +56,7 @@ const AdminLayoutHeader = ({ setActivePage }) => {
 
   const GetData = async () => {
     try {
-      const get = await axios.get(`${API}getStaff`);
+      const get = await axios.get(`${API}v1/getStaff`);
       setData(get.data.data);
     } catch (err) {
       console.log(err);

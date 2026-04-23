@@ -181,8 +181,8 @@ const StudentAdmission = () => {
 
         try {
 
-            const studentData = await axios.post(`${API}addStudent`,student);
-            const paymentData = await axios.post(`${API}addPayment`,payment );
+            const studentData = await axios.post(`${API}v1/addStudent`,student);
+            const paymentData = await axios.post(`${API}v1/addPayment`,payment );
             resetStudent()
             resetPayment()
             setFees(false);

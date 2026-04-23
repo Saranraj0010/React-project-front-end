@@ -26,7 +26,7 @@ const Role = () => {
         if (!Validation()) return
 
         try {
-            await axios.post(`${API}addRole`, user)
+            await axios.post(`${API}v1/addRole`, user)
             resetUser();
             // setUser({ role: "" })
             GetForm()
@@ -38,7 +38,7 @@ const Role = () => {
 
     const GetForm = async () => {
         try {
-            const res = await axios.get(`${API}getRole`)
+            const res = await axios.get(`${API}v1/getRole`)
             setData(res.data.data)
         } catch (err) {
             console.log(err)
@@ -68,7 +68,7 @@ const Role = () => {
         if (!Validation()) return
 
         try {
-            await axios.patch(`${API}updateRole`, roll)
+            await axios.patch(`${API}v1/updateRole`, roll)
             resetRoll();
             // setRoll({ role: "", id: "" })
             setUpdate(false)
@@ -81,7 +81,7 @@ const Role = () => {
 
     const Deletes = async () => {
         try {
-            await axios.patch(`${API}deleteRole`, { id })
+            await axios.patch(`${API}v1/deleteRole`, { id })
             GetForm()
             setDelete(false)
         } catch (err) {

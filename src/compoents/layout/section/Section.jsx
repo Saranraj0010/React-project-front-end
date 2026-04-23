@@ -17,7 +17,7 @@ const Section = () => {
         if (!Validation()) return
 
         try {
-            await axios.post(`${API}addSection`, user)
+            await axios.post(`${API}v1/addSection`, user)
             resetUser()
             GetForm()
             setShow(false)
@@ -28,7 +28,7 @@ const Section = () => {
 
     const GetForm = async () => {
         try {
-            const res = await axios.get(`${API}getSection`)
+            const res = await axios.get(`${API}v1/getSection`)
             setData(res.data.data)
         } catch (err) {
             console.log(err)
@@ -56,7 +56,7 @@ const Section = () => {
         if (!Validation()) return
 
         try {
-            await axios.patch(`${API}updateSection`, roll)
+            await axios.patch(`${API}v1/updateSection`, roll)
             resetRoll()
             setUpdate(false)
             GetForm()
@@ -68,7 +68,7 @@ const Section = () => {
 
     const Deletes = async () => {
         try {
-            await axios.patch(`${API}deleteSection`, { id })
+            await axios.patch(`${API}v1/deleteSection`, { id })
             GetForm()
             setDelete(false)
         } catch (err) {

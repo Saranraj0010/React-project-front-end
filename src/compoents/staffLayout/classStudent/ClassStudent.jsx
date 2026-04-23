@@ -12,8 +12,8 @@ const ClassStudent = () => {
     const [profileData, setProfileData] = useState([])
     const GetData = async () => {
         try {
-            const allocation = await axios.get(`${API}getAllocation`)
-            const get = await axios.get(`${API}getStudent`)
+            const allocation = await axios.get(`${API}v1/getAllocation`)
+            const get = await axios.get(`${API}v1/getStudent`)
             setAllocation(allocation.data.data)
             setStudent(get.data.data)
         }

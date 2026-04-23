@@ -41,8 +41,8 @@ const Fees = () => {
   // };
   const GetData = async () => {
     try {
-      const standard = await axios.get(`${API}getStandard`)
-      const allocationData = await axios.get(`${API}getFees`)
+      const standard = await axios.get(`${API}v1/getStandard`)
+      const allocationData = await axios.get(`${API}v1/getFees`)
       setStandard(standard.data.data)
       setAllocation(allocationData.data.data)
     }
@@ -58,7 +58,7 @@ const Fees = () => {
   const Submit = async () => {
     if (!Validation()) return
     try {
-      const add = await axios.post(`${API}addFees`, price)
+      const add = await axios.post(`${API}v1/addFees`, price)
       GetData()
       setShow(false)
       resetPrice();

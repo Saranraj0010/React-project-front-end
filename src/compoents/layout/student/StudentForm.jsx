@@ -61,7 +61,7 @@ const StudentForm = () => {
             e.preventDefault();
             // if (!Validation()) return
             console.log(student)
-            const add = await axios.post(`${API}addForm`, student)
+            const add = await axios.post(`${API}v1/addForm`, student)
             console.log(add, "add")
             GetForm()
             setStudent(
@@ -87,7 +87,7 @@ const StudentForm = () => {
     };
     const GetForm = async () => {
         try {
-            const get = await axios.get(`${API}getForm`)
+            const get = await axios.get(`${API}v1/getForm`)
             setData(get.data.data)
         }
         catch (err) {

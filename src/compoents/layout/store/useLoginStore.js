@@ -67,7 +67,7 @@ export const useLoginStore = create((set, get) => (
         },
         Get: async () => {
             try {
-                const get = await axios.get(`${API}getSignUp`)
+                const get = await axios.get(`${API}v1/getSignUp`)
                 console.log(get)
             }
             catch (err) {

@@ -38,7 +38,7 @@ const Circular = () => {
   const GetForm = async () => {
   try {
     setIsLoading(true);
-    const res = await axios.get(`${API}getCircular`);
+    const res = await axios.get(`${API}v1/getCircular`);
     setData(res.data.data);
   } catch (err) {
     console.log(err);
@@ -64,7 +64,7 @@ const Circular = () => {
     formData.append("select", circular.select);
 
     try {
-      await axios.post(`${API}addCircular`, formData);
+      await axios.post(`${API}v1/addCircular`, formData);
       toast.success("Circular added successfully");
 
       setCircular({

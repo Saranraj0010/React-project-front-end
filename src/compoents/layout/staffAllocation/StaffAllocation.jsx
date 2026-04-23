@@ -86,11 +86,11 @@ const StaffAllocation = () => {
         allocationRes,
         subjectRes,
       ] = await Promise.all([
-        axios.get(`${API}getStaff`),
-        axios.get(`${API}getStandard`),
-        axios.get(`${API}getSection`),
-        axios.get(`${API}getAllocation`),
-        axios.get(`${API}getSubject`),
+        axios.get(`${API}v1/getStaff`),
+        axios.get(`${API}v1/getStandard`),
+        axios.get(`${API}v1/getSection`),
+        axios.get(`${API}v1/getAllocation`),
+        axios.get(`${API}v1/getSubject`),
       ]);
 
       setStaff(staffRes.data.data);
@@ -111,7 +111,7 @@ const StaffAllocation = () => {
     if (!Validation()) return;
 
     try {
-      await axios.post(`${API}addAllocation`, user);
+      await axios.post(`${API}v1/addAllocation`, user);
       toast.success("Staff Allocated Successfully");
       await GetData();
       setShow(false);

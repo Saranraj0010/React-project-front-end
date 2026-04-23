@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query" 
+// eslint-disable-next-line no-unused-vars
 import axios from "axios";
 import { useState } from "react";
 const API = import.meta.env.VITE_API;

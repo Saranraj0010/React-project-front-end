@@ -20,7 +20,7 @@ const AuthPage = () => {
 
   const handleSubmit = async () => {
     try {
-      const url = isLogin ? `${API}login` : `${API}signup`;
+      const url = isLogin ? `${API}v1/login` : `${API}v1/signup`;
 
       const payload = isLogin
         ? { emailId: form.emailId, password: form.password }

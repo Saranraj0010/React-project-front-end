@@ -12,7 +12,7 @@ const Subject = () => {
     try {
       e.preventDefault();
       if (!Validation()) return;
-      const add = await axios.post(`${API}addSubject`, user)
+      const add = await axios.post(`${API}v1/addSubject`, user)
       resetUser();
       GetForm()
       setShow(false)
@@ -24,7 +24,7 @@ const Subject = () => {
   }
   const GetForm = async () => {
     try {
-      const get = await axios.get(`${API}getSubject`)
+      const get = await axios.get(`${API}v1/getSubject`)
       setData(get.data.data)
     }
     catch (err) {
@@ -49,7 +49,7 @@ const Subject = () => {
       e.preventDefault();
       console.log("update")
       console.log(user)
-      const add = await axios.patch(`${API}updateSubject`, roll)
+      const add = await axios.patch(`${API}v1/updateSubject`, roll)
       resetRoll();
       GetForm()
       setShow(false)
@@ -62,7 +62,7 @@ const Subject = () => {
   }
   const Deletes = async () => {
     try {
-      const add = await axios.patch(`${API}deleteSubject`, { id })
+      const add = await axios.patch(`${API}v1/deleteSubject`, { id })
       GetForm()
       setDelete(false)
     }

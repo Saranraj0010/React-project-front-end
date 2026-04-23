@@ -15,7 +15,7 @@ const Standard = () => {
     try {
       e.preventDefault();
       if (!Validation()) return
-      const add = await axios.post(`${API}addStandard`, user)
+      const add = await axios.post(`${API}v1/addStandard`, user)
       resetUser();
       GetForm()
       setShow(false)
@@ -27,7 +27,7 @@ const Standard = () => {
   }
   const GetForm = async () => {
     try {
-      const get = await axios.get(`${API}getStandard`)
+      const get = await axios.get(`${API}v1/getStandard`)
       setData(get.data.data)
     }
     catch (err) {
@@ -52,7 +52,7 @@ const Standard = () => {
       e.preventDefault();
       console.log("update")
       console.log(user)
-      const add = await axios.patch(`${API}updateStandard`, roll)
+      const add = await axios.patch(`${API}v1/updateStandard`, roll)
       resetRoll();
       GetForm()
       setShow(false)
@@ -65,7 +65,7 @@ const Standard = () => {
   }
   const Deletes = async () => {
     try {
-      const add = await axios.patch(`${API}deleteStandard`, { id })
+      const add = await axios.patch(`${API}v1/deleteStandard`, { id })
       GetForm()
       setDelete(false)
     }

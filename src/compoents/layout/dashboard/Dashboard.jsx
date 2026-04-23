@@ -15,9 +15,9 @@ const Dashboard = () => {
 
     const GetForm = async () => {
         try {
-            const student = await axios.get(`${API}getStudent`)
-            const staff = await axios.get(`${API}getStaff`)
-            const payment = await axios.get(`${API}getPayment`)
+            const student = await axios.get(`${API}v1/getStudent`)
+            const staff = await axios.get(`${API}v1/getStaff`)
+            const payment = await axios.get(`${API}v1/getPayment`)
             setLastPay(payment.data.data)
             const filter = Array.from(new Map((payment.data.data).map(item => [item.roleNo, item])).values())
             setStudent(student.data.data)

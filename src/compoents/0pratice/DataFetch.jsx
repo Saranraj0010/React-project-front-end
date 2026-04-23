@@ -14,16 +14,16 @@ export const DataFitch = () => {
 
     const AddForm = async () => {
         try {
-            await axios.post(`${API}AddFrom`, issave)
+            await axios.post(`${API}v1/AddFrom`, issave)
         }
         catch (err) {
             console.log(err)
         }
     }
 
-    const showdata = () => {
-        console.log(issave)
-    }
+    // const showdata = () => {
+    //     console.log(issave)
+    // }
 
     return (
         <>

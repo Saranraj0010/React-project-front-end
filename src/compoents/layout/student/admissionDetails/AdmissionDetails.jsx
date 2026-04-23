@@ -25,11 +25,11 @@ const AdmissionDetails = () => {
     const input = "pl-5 focus:outline-blue-600 text-sm md:text-lg max-w-full h-10 border rounded-lg hover:border-blue-500 shadow-xl"
     const GetForm = async () => {
         try {
-            const get = await axios.get(`${API}getStudent`)
+            const get = await axios.get(`${API}v1/getStudent`)
             setStudent(get.data.data)
-            const standard = await axios.get(`${API}getStandard`)
+            const standard = await axios.get(`${API}v1/getStandard`)
             setStandard(standard.data.data)
-            const section = await axios.get(`${API}getSection`)
+            const section = await axios.get(`${API}v1/getSection`)
             setSection(section.data.data)
         }
         catch (err) {
@@ -84,7 +84,7 @@ const AdmissionDetails = () => {
         try {
             e.preventDefault();
             console.log("hello")
-            const result = await axios.patch(`${API}updateStudent`, editStudent)
+            const result = await axios.patch(`${API}v1/updateStudent`, editStudent)
             setEditStudent(
                 {
                     userName: "",
@@ -131,7 +131,7 @@ const AdmissionDetails = () => {
     }
     const DeleteForm = async () => {
         try {
-            const result = await axios.patch(`${API}deleteStudent`, { id: id })
+            const result = await axios.patch(`${API}v1/deleteStudent`, { id: id })
             GetForm()
             setShows(false)
         }

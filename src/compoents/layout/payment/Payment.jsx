@@ -26,7 +26,7 @@ const Payment = () => {
     const [map, setMap] = useState([])
     const GetForm = async () => {
         try {
-            const getPayment = await axios.get(`${API}getPayment`)
+            const getPayment = await axios.get(`${API}v1/getPayment`)
             setMap(getPayment.data.data)
             const Tabel = Array.from(new Map((getPayment.data.data).map(item => [item.roleNo, item])).values())
             setPayment(Tabel)
@@ -101,7 +101,7 @@ const Payment = () => {
                 currentBalance: newBalance
             }
             console.log(addPayment)
-            await axios.post(`${API}updatePayment`, addPayment)
+            await axios.post(`${API}vupdatePayment`, addPayment)
             toast.success("Payment Successfully")
             setFees(false)
             GetForm()

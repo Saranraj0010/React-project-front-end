@@ -57,7 +57,7 @@ const AddAdmin = () => {
         try {
             e.preventDefault();
             if (!Validation()) return;
-            const add = await axios.post(`${API}addSignUp`, signUpUser);
+            const add = await axios.post(`${API}v1/addSignUp`, signUpUser);
             resetSignUp()
         } catch (err) {
             console.log(err);
@@ -66,7 +66,7 @@ const AddAdmin = () => {
 
     const Get = async () => {
         try {
-            await axios.get(`${API}getSignUp`);
+            await axios.get(`${API}v1/getSignUp`);
         } catch (err) {
             console.log(err);
         }
