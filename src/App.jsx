@@ -1,20 +1,30 @@
-import { useState } from "react";
-import { useStudentStore } from "./compoents/student/store/useStudentStore";
 import Layout from "./compoents/layout/Layout";
-import Login from "./compoents/layout/login/Login";
-import SignUp from "./compoents/layout/signup/SignUp";
-import StudentView from "./compoents/student/studentserach/Studentview";
-import StudentForm from "./compoents/student/StudentForm";
-  
+import Login from "./compoents/Register/login/Login";
+import SignUp from "./compoents/Register/signup/SignUp";
+import { Route, Routes } from "react-router-dom";
+import Home from "./compoents/home/Home";
+import StaffLayout from "./compoents/staffLayout/StaffLayout";
+import StudentLayout from "./compoents/studentLayout/StudentLayout";
+import StudentAdmission from "./compoents/layout/student/StudentAdmission";
+import CounsllerLayout from "./compoents/counsllerLayout/CounsllerLayout";
+import AuthPage from "./compoents/Register/Login/NewLogin";
 
-const App = () =>{
-    // const [studentProfile, setStudentProfile] = useState({});
-    // const{studentProfile}=useStudentStore();
-  return(
-    <>
-    <Layout/>
-    {/* <Login/> */}
-    {/* <SignUp/> */}
+
+const App = () => {
+  return (
+    <>  
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/homePage" element={<Home/>}/>
+        <Route path="/homePage/adminlayout" element={<Layout/>}/>
+        <Route path="/homePage/stafflayout" element={<StaffLayout/>}/>
+        <Route path="/homePage/studentlayout" element={<StudentLayout/>}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/newLogin" element={<AuthPage />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/admission" element={<StudentAdmission/>}/>
+        <Route path="/counsllerlayout" element={<CounsllerLayout/>}/>
+      </Routes>
     </>
   )
 }
