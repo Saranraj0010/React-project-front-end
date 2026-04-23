@@ -70,7 +70,7 @@ export const useSectionStore = create((set, get) => ({
         }))
     },
      Validation : () => {
-        const { update,roll,user,data } =get();
+        const { update,roll,user,data,setError } =get();
         let newError = {}
         const value = update ? roll.section : user.section
 

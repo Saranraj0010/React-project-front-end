@@ -47,7 +47,7 @@ export const useFeesStore = create((set, get) => ({
     // id: value
     // }))}
     Validation: () => {
-        const { price,allocation }=get()
+        const { price,allocation,setError }=get()
         let newError = {};
         let Number = /^\+?[1-9]\d{3,6}$/
         if (price.standard.trim() === "") {

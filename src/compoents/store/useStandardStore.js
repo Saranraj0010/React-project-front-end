@@ -69,18 +69,28 @@ export const useStandardStore = create((set, get) => ({
             id: value
         }))
     },
-    Validation : () => {
-        const { user,data } =get()
-    let newError = {};
-    if (user.standard.trim() === "") {
-      toast.error("Standard required")
-      return false
-    }
-    if (data.find((item) => item.standard.toLocaleLowerCase() === user.standard.toLocaleLowerCase())) {
-      toast.error("Already exist")
-      return false
-    }
-    setError(newError);
-    return Object.keys(newError).length === 0;
+   Validation: () => {
+  const { user, data, setError } = get();
+
+  let newError = {};
+
+  if (user.standard.trim() === "") {
+    toast.error("Standard required");
+    return false;
   }
+
+  if (
+    data.find(
+      (item) =>
+        item.standard.toLowerCase() === user.standard.toLowerCase()
+    )
+  ) {
+    toast.error("Already exist");
+    return false;
+  }
+
+  setError(newError);
+
+  return Object.keys(newError).length === 0;
+}
 }))

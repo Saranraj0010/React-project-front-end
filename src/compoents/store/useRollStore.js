@@ -71,7 +71,7 @@ export const useRollStore = create((set, get) => ({
     },
     
     Validation : () => {
-        const { user,update,roll,data }=get()
+        const { user,update,roll,data,setError }=get()
         let newError = {}
         const value = update ? roll.role : user.role
 
