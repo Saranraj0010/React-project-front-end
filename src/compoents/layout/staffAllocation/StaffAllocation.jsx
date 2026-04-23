@@ -94,13 +94,18 @@ const StaffAllocation = () => {
       ]);
 
       setStaff(staffRes.data.data);
+      console.log(staffRes)
       setStandard(standardRes.data.data);
+      console.log(standardRes)
       setSection(sectionRes.data.data);
+      console.log(sectionRes)
       setAllocation(allocationRes.data.data);
+      console.log(allocationRes)
       setSubject(subjectRes.data.data);
+      console.log(subjectRes)
     } catch (err) {
-  console.log("Error:", err.response?.data || err.message);
-}
+      console.log(err);
+    }
   };
 
   useEffect(() => {
