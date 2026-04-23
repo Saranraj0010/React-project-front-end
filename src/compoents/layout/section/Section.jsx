@@ -22,8 +22,8 @@ const Section = () => {
             GetForm()
             setShow(false)
         } catch (err) {
-            console.log(err)
-        }
+  console.log("Error:", err.response?.data || err.message);
+}
     }
 
     const GetForm = async () => {
