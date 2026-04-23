@@ -302,7 +302,7 @@ const Login = () => {
                 {/* Buttons */}
                 <div className="flex justify-center gap-4 mt-2">
                     <Link
-                        to="/homePage/adminlayout"
+                        to="/"
                         className="bg-red-500 text-white px-4 py-1.5 rounded-lg"
                     >
                         Close
