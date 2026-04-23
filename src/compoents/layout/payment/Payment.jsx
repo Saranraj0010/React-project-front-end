@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import CommenHeader from "../../commenHeader/CommenHeader"
-import logo from "../../assets/profile4.jpg"
+import logo from "../../../assets/profile4.jpg"
 import { toast } from "react-toastify"
 const API = import.meta.env.VITE_API
 const Payment = () => {
