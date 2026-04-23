@@ -30,9 +30,9 @@ const Section = () => {
         try {
             const res = await axios.get(`${API}v1/getSection`)
             setData(res.data.data)
-        } catch (err) {
-            console.log(err)
-        }
+        }catch (err) {
+  console.log("Error:", err.response?.data || err.message);
+}
     }
     useEffect(() => {
         GetForm()

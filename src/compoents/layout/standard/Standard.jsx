@@ -29,10 +29,11 @@ const Standard = () => {
     try {
       const get = await axios.get(`${API}v1/getStandard`)
       setData(get.data.data)
+      console.log(get)
     }
-    catch (err) {
-      console.log(err, "hello")
-    }
+   catch (err) {
+  console.log("Error:", err.response?.data || err.message);
+}
   }
   useEffect(() => {
     GetForm()

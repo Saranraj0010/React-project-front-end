@@ -99,8 +99,8 @@ const StaffAllocation = () => {
       setAllocation(allocationRes.data.data);
       setSubject(subjectRes.data.data);
     } catch (err) {
-      console.log(err);
-    }
+  console.log("Error:", err.response?.data || err.message);
+}
   };
 
   useEffect(() => {

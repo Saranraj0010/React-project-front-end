@@ -28,8 +28,8 @@ const Subject = () => {
       setData(get.data.data)
     }
     catch (err) {
-      console.log(err, "hello")
-    }
+  console.log("Error:", err.response?.data || err.message);
+}
   }
   useEffect(() => {
     GetForm()

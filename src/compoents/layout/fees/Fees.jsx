@@ -47,8 +47,8 @@ const Fees = () => {
       setAllocation(allocationData.data.data)
     }
     catch (err) {
-      console.log(err)
-    }
+  console.log("Error:", err.response?.data || err.message);
+}
   }
   // console.log(standard)
   // console.log(allocation)
