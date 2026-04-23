@@ -22,17 +22,17 @@ const Section = () => {
             GetForm()
             setShow(false)
         } catch (err) {
-  console.log("Error:", err.response?.data || err.message);
-}
+            console.log(err)
+        }
     }
 
     const GetForm = async () => {
         try {
             const res = await axios.get(`${API}v1/getSection`)
             setData(res.data.data)
-        }catch (err) {
-  console.log("Error:", err.response?.data || err.message);
-}
+        } catch (err) {
+            console.log(err)
+        }
     }
     useEffect(() => {
         GetForm()

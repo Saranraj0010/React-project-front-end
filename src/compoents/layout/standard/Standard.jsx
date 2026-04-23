@@ -31,9 +31,9 @@ const Standard = () => {
       setData(get.data.data)
       console.log(get)
     }
-   catch (err) {
-  console.log("Error:", err.response?.data || err.message);
-}
+    catch (err) {
+      console.log(err, "hello")
+    }
   }
   useEffect(() => {
     GetForm()
