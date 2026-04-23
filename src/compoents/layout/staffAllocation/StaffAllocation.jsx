@@ -26,7 +26,6 @@ const StaffAllocation = () => {
   const [allocation, setAllocation] = useState([]);
   const [error, setError] = useState({});
 
-  // ✅ styles
   const pageStyle = darkMode
     ? "bg-gray-950 text-white"
     : "text-black";
@@ -39,7 +38,6 @@ const StaffAllocation = () => {
     ? "bg-gray-800 text-white border border-gray-700"
     : "border";
 
-  // ✅ validation FIXED
   const Validation = () => {
     let newError = {};
 
@@ -79,19 +77,11 @@ const StaffAllocation = () => {
 
   const GetData = async () => {
     try {
-      const [
-        staffRes,
-        standardRes,
-        sectionRes,
-        allocationRes,
-        subjectRes,
-      ] = await Promise.all([
-        axios.get(`${API}v1/getStaff`),
-        axios.get(`${API}v1/getStandard`),
-        axios.get(`${API}v1/getSection`),
-        axios.get(`${API}v1/getAllocation`),
-        axios.get(`${API}v1/getSubject`),
-      ]);
+      const staffRes = await axios.get(`${API}v1/getStaff`)
+      const standardRes = await axios.get(`${API}v1/getStandard`)
+      const sectionRes = await axios.get(`${API}v1/getSection`)
+      const allocationRes = await axios.get(`${API}v1/getAllocation`)
+      const subjectRes = await axios.get(`${API}v1/getSubject`)
 
       setStaff(staffRes.data.data);
       console.log(staffRes)
@@ -133,7 +123,7 @@ const StaffAllocation = () => {
 
   return (
     <div className={`min-h-screen px-2 ${pageStyle}`}>
-      <ButtonHeader title={"Staff Allocation"} logo={logo} button={"Allocate Staff"} onclick={() => setShow(true)}/>
+      <ButtonHeader title={"Staff Allocation"} logo={logo} button={"Allocate Staff"} onclick={() => setShow(true)} />
       <div className={`rounded-2xl shadow-lg my-5 p-6 ${cardStyle}`}>
         {allocation.length === 0 ? (
           <p className="text-center opacity-70">
@@ -182,21 +172,69 @@ const StaffAllocation = () => {
             <h2 className="text-xl font-bold text-center text-blue-500">
               Staff Allocation
             </h2>
-            {["staff", "standard", "section", "subject"].map((field) => (
-              <div key={field}>
-                <label className="font-medium capitalize">
-                  {field}
-                </label>
-                <select value={user[field]} onChange={(e) =>setUser({ ...user, [field]: e.target.value })}className={`w-full h-10 rounded-lg px-2 mt-1 ${inputStyle}`}>
-                  <option value="">Select {field}</option>
-                  {(field === "staff" ? staff.map((s) => ({value: `${s.firstName} ${s.lastName}`,label: `${s.firstName} ${s.lastName}`})) : field === "standard" ? standard.map((s) => ({value: s.standard,label: s.standard})) : field === "section" ? section.map((s) => ({value: s.section,label: s.section})) : subject.map((s) => ({value: s.subject,label: s.subject}))).map((opt, i) => (
-                    <option key={i} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ))}
+            <div>
+              <label className="font-medium">Staff</label>
+              <select
+                value={user.staff}
+                onChange={(e) => setUser({ ...user, staff: e.target.value })}
+                className={`w-full h-10 rounded-lg px-2 mt-1 ${inputStyle}`}
+              >
+                <option value="">Select staff</option>
+                {staff.map((s, i) => (
+                  <option key={i} value={`${s.firstName} ${s.lastName}`}>
+                    {s.firstName} {s.lastName}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="font-medium">Standard</label>
+              <select
+                value={user.standard}
+                onChange={(e) => setUser({ ...user, standard: e.target.value })}
+                className={`w-full h-10 rounded-lg px-2 mt-1 ${inputStyle}`}
+              >
+                <option value="">Select standard</option>
+                {standard.map((s, i) => (
+                  <option key={i} value={s.standard}>
+                    {s.standard}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="font-medium">Section</label>
+              <select
+                value={user.section}
+                onChange={(e) => setUser({ ...user, section: e.target.value })}
+                className={`w-full h-10 rounded-lg px-2 mt-1 ${inputStyle}`}
+              >
+                <option value="">Select section</option>
+                {section.map((s, i) => (
+                  <option key={i} value={s.section}>
+                    {s.section}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="font-medium">Subject</label>
+              <select
+                value={user.subject}
+                onChange={(e) => setUser({ ...user, subject: e.target.value })}
+                className={`w-full h-10 rounded-lg px-2 mt-1 ${inputStyle}`}
+              >
+                <option value="">Select subject</option>
+                {subject.map((s, i) => (
+                  <option key={i} value={s.subject}>
+                    {s.subject}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="flex justify-center gap-4 pt-2">
               <button onClick={() => setShow(false)} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
                 Cancel
