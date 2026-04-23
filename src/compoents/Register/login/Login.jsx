@@ -156,23 +156,23 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const getUsers = async () => {
+   useEffect(() => {
+    const fetchData = async () => {
         try {
-            const user = await axios.get(`${API}getSignUp`);
-            const staff = await axios.get(`${API}getStaff`);
-            const student = await axios.get(`${API}getStudent`);
+            const userRes = await axios.get(`${API}getSignUp`);
+            const staffRes = await axios.get(`${API}getStaff`);
+            const studentRes = await axios.get(`${API}getStudent`);
 
-            setUsers(user.data.data);
-            setStaff(staff.data.data);
-            setStudent(student.data.data);
+            setUsers(userRes.data.data);
+            setStaff(staffRes.data.data);
+            setStudent(studentRes.data.data);
         } catch (err) {
             console.error(err);
         }
     };
 
-    useEffect(() => {
-        getUsers()
-    },[]);
+    fetchData();
+}, []);
 
     const Validation = () => {
         let newError = {};
@@ -233,7 +233,6 @@ const Login = () => {
             navigate("/homePage/studentlayout");
             localStorage.setItem("studentProfile", JSON.stringify(studentResult));
         } else {
-            // navigate("/homePage/adminlayout");
             alert("Invalid Username or Password");
         }
     };
