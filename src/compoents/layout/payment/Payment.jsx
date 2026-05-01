@@ -44,6 +44,7 @@ const Payment = () => {
     }
     // console.log(payment)
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         GetForm()
     }, [])
     const Validation = () => {
@@ -101,7 +102,7 @@ const Payment = () => {
                 currentBalance: newBalance
             }
             console.log(addPayment)
-            await axios.post(`${API}vupdatePayment`, addPayment)
+            await axios.post(`${API}v1/updatePayment`, addPayment)
             toast.success("Payment Successfully")
             setFees(false)
             GetForm()
