@@ -30,7 +30,7 @@ const Staff = () => {
 
   // 🔹 Validation
   const Validation = () => {
-    let newError = {};
+    let newErrory = {};
 
     if (!staff.userName.trim()) newError.userName = "User Name required";
     if (!staff.firstName.trim()) newError.firstName = "First Name required";

@@ -1,61 +1,42 @@
-import { lazy, Suspense } from "react";
-
-// Lazy load all pages
-const Dashboard = lazy(() => import("../dashboard/Dashboard"));
-const StudentDetails = lazy(() => import("../student/studentDetails/StudentDetails"));
-const Staff = lazy(() => import("../staff/Staff"));
-const TotalStaff = lazy(() => import("../staff/TotalStaff"));
-const StudentAdmission = lazy(() => import("../student/StudentAdmission"));
-const Standard = lazy(() => import("../standard/Standard"));
-const AdmissionDetails = lazy(() => import("../student/admissionDetails/AdmissionDetails"));
-const Role = lazy(() => import("../role/Role"));
-const Circular = lazy(() => import("../circular/Circular"));
-const Section = lazy(() => import("../section/Section"));
-const Calendar = lazy(() => import("../calendar/Calendar"));
-const StaffAllocation = lazy(() => import("../staffAllocation/StaffAllocation"));
-const Subject = lazy(() => import("../subject/Subject"));
-const Fees = lazy(() => import("../fees/Fees"));
-const Payment = lazy(() => import("../payment/Payment"));
-const AddAdmin = lazy(() => import("../addAdmin/AddAdmin"));
-
+import Dashboard from "../dashboard/Dashboard"
+import StudentDetails from "../student/studentDetails/StudentDetails"
+import Staff from "../staff/Staff"
+import TotalStaff from "../staff/TotalStaff"
+import StudentAdmission from "../student/StudentAdmission"
+import Standard from "../standard/Standard"
+import AdmissionDetails from "../student/admissionDetails/AdmissionDetails"
+import Role from "../role/Role"
+import Circular from "../circular/Circular"
+import Section from "../section/Section"
+import Calendar from "../calendar/Calendar"
+import StaffAllocation from "../staffAllocation/StaffAllocation"
+import Subject from "../subject/Subject"
+import Fees from "../fees/Fees"
+import Payment from "../payment/Payment"
+import AddAdmin from "../addAdmin/AddAdmin"
 const Container = ({ activePage }) => {
+    return (
+        <>
+            <div className="w-full max-h-full select-none bg-white shadow-2xl p-5">
+                {activePage === "dashboard" && <Dashboard />}
+                {activePage==="staffAllocation" && <StaffAllocation/>}
+                {activePage==="circular" && <Circular/>}
+                {activePage === "studentDetails" && <StudentDetails />}
+                {activePage ==="staff" && <Staff/>}
+                {activePage==="staffDetails" && <TotalStaff/>}
+                {activePage==="studentAdmission" && <StudentAdmission/>}
+                {activePage==="admissionDetails" && <AdmissionDetails/>}
+                {activePage==="fees" && <Fees/>}
+                {activePage==="payment" && <Payment/>}
+                {activePage==="standard" && <Standard/>}
+                {activePage==="role" && <Role/>}
+                {activePage==="section" && <Section/>}
+                {activePage==="calendar" && <Calendar/>}
+                {activePage==="subject" && <Subject/>}
+                {activePage==="addAdmin" && <AddAdmin/>}
 
-  // Page mapping
-  const pages = {
-    dashboard: <Dashboard />,
-    staffAllocation: <StaffAllocation />,
-    circular: <Circular />,
-    studentDetails: <StudentDetails />,
-    staff: <Staff />,
-    staffDetails: <TotalStaff />,
-    studentAdmission: <StudentAdmission />,
-    admissionDetails: <AdmissionDetails />,
-    fees: <Fees />,
-    payment: <Payment />,
-    standard: <Standard />,
-    role: <Role />,
-    section: <Section />,
-    calendar: <Calendar />,
-    subject: <Subject />,
-    addAdmin: <AddAdmin />,
-  };
-
-  return (
-    <div className="w-full min-h-screen bg-white shadow-2xl p-5">
-
-      {/* Suspense Loader */}
-      <Suspense
-        fallback={
-          <div className="flex justify-center items-center h-screen">
-            <div className="loader"></div>
-          </div>
-        }
-      >
-        {pages[activePage] || <Dashboard />}
-      </Suspense>
-
-    </div>
-  );
-};
-
-export default Container;
+            </div>
+        </>
+    )
+}
+export default Container
