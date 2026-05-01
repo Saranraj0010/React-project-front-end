@@ -9,49 +9,24 @@ import { useFeesStore } from "../../store/useFeesStore";
 const API = import.meta.env.VITE_API;
 const Fees = () => {
   const { show, setShow, price, setPrice, standard, setStandard, allocation, setAllocation, error, setError, resetPrice, Validation } = useFeesStore()
-  // const [show, setShow] = useState(false)
-  // const [price, setPrice] = useState({
-  //     standard: "",
-  //     fees: "",
-  // })
-  // const [standard, setStandard] = useState([])
-  // const [allocation, setAllocation] = useState([])
-  // const [filter, setFilter] = useState([])
-  // const [error, setError] = useState({})
-  // const Validation = () => {
-  //     let newError = {};
-  //     let Number = /^\+?[1-9]\d{3,6}$/
-  //     if (price.standard.trim() === ""){
-  //       toast.error("Standard required")
-  //     }
-  //     const alreadyExists = allocation.some((item) => item.standard === price.standard);
-  //     if (alreadyExists){
-  //       toast.error("Fees is already allocated")
-  //     }
-  //     if (price.fees.trim() === ""){
-  //       toast.error("Fees required")
-  //       return false
-  //     }
-  //     else if (!Number.test(price.fees)){
-  //       toast.error("Invalid Fees Entry")
-  //       return false
-  //     }
-  //     setError(newError);
-  //     return Object.keys(newError).length === 0;
-  // };
-  const GetData = async () => {
-    try {
-      const standard = await axios.get(`${API}v1/getStandard`)
-      const allocationData = await axios.get(`${API}v1/getFees`)
-      setStandard(standard.data.data)
-      setAllocation(allocationData.data.data)
-    }
-    catch (err) {
-      console.log(err)
-    }
+  const [isLoading, setIsLoading] = useState(true);
+ const GetData = async () => {
+  try {
+    setIsLoading(true);
+
+    const standardRes = await axios.get(`${API}v1/getStandard`);
+    const allocationRes = await axios.get(`${API}v1/getFees`);
+
+    setStandard(standardRes.data.data);
+    setAllocation(allocationRes.data.data);
+
+  } catch (err) {
+    console.log(err);
+    toast.error("Failed to fetch fees");
+  } finally {
+    setIsLoading(false);
   }
-  // console.log(standard)
-  // console.log(allocation)
+};
   useEffect(() => {
     GetData()
   }, [])
@@ -71,141 +46,155 @@ const Fees = () => {
       console.log(err)
     }
   }
-  return (
-    <div className="min-h-screen px-2">
-
-      <ButtonHeader
-        title={"Fees"}
-        button={"Add Fees"}
-        logo={logo}
-        onclick={() => setShow(true)}
-      />
-
-      <div className="bg-white rounded-2xl shadow-xl my-5 p-6 border border-blue-100">
-
-        {allocation.length===0?( 
-          <p className="text-center text-gray-500">No Fees Found</p>
-        ) : (<table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-blue-600 text-white text-center">
-              <th className="p-3">S.No</th>
-              <th className="p-3">Class</th>
-              <th className="p-3">Fees</th>
-              <th className="p-3">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allocation.map((item, index) => (
-              <tr
-                key={item.id}
-                className="text-center border-b hover:bg-blue-50 transition"
-              >
-                <td className="p-3">{index + 1}</td>
-                <td className="p-3 font-medium text-blue-700">
-                  {item.standard}
-                </td>
-                <td className="p-3 font-semibold text-gray-700">
-                  ₹ {item.fees}
-                </td>
-                <td className="p-3">
-                  <button className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition">
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>)}
+return (
+  <>
+    {isLoading ? (
+      <div className="flex justify-center items-center h-screen">
+        {/* Loader */}
+        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
+    ) : (
+      <div className="min-h-screen px-2">
 
-      {/* Modal */}
-      {show && (
-        <div className="fixed inset-0 bg-blue-900/40 backdrop-blur-sm flex items-center justify-center z-50">
+        <ButtonHeader
+          title={"Fees"}
+          button={"Add Fees"}
+          logo={logo}
+          onclick={() => setShow(true)}
+        />
 
-          <div className="bg-white w-96 rounded-2xl shadow-2xl p-6 border border-blue-200">
+        <div className="bg-white rounded-2xl shadow-xl my-5 p-6 border border-blue-100">
 
-            <h2 className="text-xl font-bold text-blue-700 mb-5 text-center">
-              Allocate Fees
-            </h2>
+          {allocation.length === 0 ? (
+            <p className="text-center text-gray-500">No Fees Found</p>
+          ) : (
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-blue-600 text-white text-center">
+                  <th className="p-3">S.No</th>
+                  <th className="p-3">Class</th>
+                  <th className="p-3">Fees</th>
+                  <th className="p-3">Action</th>
+                </tr>
+              </thead>
 
-            {/* Standard */}
-            <div className="mb-4 relative">
-              <label className="block mb-1 text-blue-700 font-medium">
-                Standard Allocation
-              </label>
+              <tbody>
+                {allocation.map((item, index) => (
+                  <tr
+                    key={item.id}
+                    className="text-center border-b hover:bg-blue-50 transition"
+                  >
+                    <td className="p-3">{index + 1}</td>
 
-              <select
-                name="standard"
-                value={price.standard}
-                onChange={(e) => {
-                  setPrice("standard", e.target.value);
-                  setError("standard", "");
-                }}
-                className="w-full h-10 border border-blue-200 rounded-lg px-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              >
-                <option value="">Select the Standard</option>
-                {standard.map((item) => (
-                  <option key={item.id} value={item.standard}>
-                    {item.standard}
-                  </option>
+                    <td className="p-3 font-medium text-blue-700">
+                      {item.standard}
+                    </td>
+
+                    <td className="p-3 font-semibold text-gray-700">
+                      ₹ {item.fees}
+                    </td>
+
+                    <td className="p-3">
+                      <button className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition">
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
                 ))}
-              </select>
+              </tbody>
+            </table>
+          )}
+        </div>
 
-              {error.standard && (
-                <p className="text-red-500 text-xs mt-1">
-                  {error.standard}
-                </p>
-              )}
-            </div>
+        {/* Modal (same as your code) */}
+        {show && (
+          <div className="fixed inset-0 bg-blue-900/40 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-white w-96 rounded-2xl shadow-2xl p-6 border border-blue-200">
 
-            {/* Fees */}
-            <div className="mb-5 relative">
-              <label className="block mb-1 text-blue-700 font-medium">
-                Fees Allocation
-              </label>
+              <h2 className="text-xl font-bold text-blue-700 mb-5 text-center">
+                Allocate Fees
+              </h2>
 
-              <input
-                type="text"
-                placeholder="Enter the Fees"
-                value={price.fees}
-                onChange={(e) => {
-                  setPrice("fees", e.target.value);
-                  setError("fees", "");
-                }}
-                className="w-full h-10 border border-blue-200 rounded-lg px-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              />
+              {/* Standard */}
+              <div className="mb-4">
+                <label className="block mb-1 text-blue-700 font-medium">
+                  Standard Allocation
+                </label>
 
-              {error.fees && (
-                <p className="text-red-500 text-xs mt-1">
-                  {error.fees}
-                </p>
-              )}
-            </div>
+                <select
+                  value={price.standard}
+                  onChange={(e) => {
+                    setPrice("standard", e.target.value);
+                    setError("standard", "");
+                  }}
+                  className="w-full h-10 border border-blue-200 rounded-lg px-3"
+                >
+                  <option value="">Select the Standard</option>
+                  {standard.map((item) => (
+                    <option key={item.id} value={item.standard}>
+                      {item.standard}
+                    </option>
+                  ))}
+                </select>
 
-            {/* Buttons */}
-            <div className="flex justify-end gap-3">
-              <button
-                className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition"
-                onClick={() => {
-                  setShow(false);
-                  setError({});
-                  resetPrice();
-                }}
-              >
-                Close
-              </button>
+                {error.standard && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {error.standard}
+                  </p>
+                )}
+              </div>
 
-              <button
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                onClick={Submit}
-              >
-                Submit
-              </button>
+              {/* Fees */}
+              <div className="mb-5">
+                <label className="block mb-1 text-blue-700 font-medium">
+                  Fees Allocation
+                </label>
+
+                <input
+                  type="number"
+                  placeholder="Enter the Fees"
+                  value={price.fees}
+                  onChange={(e) => {
+                    setPrice("fees", e.target.value);
+                    setError("fees", "");
+                  }}
+                  className="w-full h-10 border border-blue-200 rounded-lg px-3"
+                />
+
+                {error.fees && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {error.fees}
+                  </p>
+                )}
+              </div>
+
+              {/* Buttons */}
+              <div className="flex justify-end gap-3">
+                <button
+                  className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg"
+                  onClick={() => {
+                    setShow(false);
+                    setError({});
+                    resetPrice();
+                  }}
+                >
+                  Close
+                </button>
+
+                <button
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+                  onClick={Submit}
+                >
+                  Submit
+                </button>
+              </div>
+
             </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    )}
+  </>
+);
 }
 export default Fees

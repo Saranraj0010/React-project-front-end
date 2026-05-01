@@ -12,23 +12,30 @@ const Dashboard = () => {
     const [time, setTime] = useState(new Date())
     const [lastPay, setLastPay] = useState([])
     const { darkMode } = useLoginStore();
+  const [isLoading, setIsLoading] = useState(true);
 
-    const GetForm = async () => {
-        try {
-            const student = await axios.get(`${API}v1/getStudent`)
-            const staff = await axios.get(`${API}v1/getStaff`)
-            const payment = await axios.get(`${API}v1/getPayment`)
-            setLastPay(payment.data.data)
-            const filter = Array.from(new Map((payment.data.data).map(item => [item.roleNo, item])).values())
-            setStudent(student.data.data)
-            setStaff(staff.data.data)
-            setPayment(filter)
+const GetForm = async () => {
+  try {
+    const studentRes = await axios.get(`${API}v1/getStudent`);
+    const staffRes = await axios.get(`${API}v1/getStaff`);
+    const paymentRes = await axios.get(`${API}v1/getPayment`);
 
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    // console.log(lastPay)
+    setLastPay(paymentRes.data.data);
+
+    const filter = Array.from(
+      new Map(paymentRes.data.data.map(item => [item.roleNo, item])).values()
+    );
+
+    setStudent(studentRes.data.data);
+    setStaff(staffRes.data.data);
+    setPayment(filter);
+
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setIsLoading(false);
+  }
+};
     useEffect(() => {
         GetForm()
 
@@ -48,7 +55,13 @@ const Dashboard = () => {
     const titleStyle = darkMode ? "text-gray-300" : "text-gray-600";
 
     return (
-        <div className={`${darkMode ? "bg-gray-950 text-white" : " text-black"} h-screen`}>
+  <>
+    {isLoading ? (
+      <div className="flex justify-center items-center h-screen">
+        <div className="loader"></div>
+      </div>
+    ) : (
+      <div className={`${darkMode ? "bg-gray-950 text-white" : " text-black"} h-screen`}>
             <div className={`bg-linear-to-r ${darkMode
                     ? "from-gray-900 via-gray-800 to-gray-900"
                     : "from-blue-600 to-blue-400"
@@ -138,6 +151,8 @@ const Dashboard = () => {
                         </table>
             </div>
         </div>
-    )
+    )}
+  </>
+)
 }
 export default Dashboard

@@ -7,11 +7,8 @@ import dark from "../../../assets/darkMode.png";
 import setting from "../../../assets/settings.png";
 import Input from "../../../Elaments/Input";
 import { LabelName } from "../../../Elaments/LabelName";
-import axios from "axios";
 import close from "../../../assets/close.png";
-import menu from "../../../assets/menu.png"
-import { useLocation } from "react-router-dom";
-import Sidebar from "../sidebar/Sidebar";
+import menu from "../../../assets/menu.png";
 
 const sidebar = [
   { id: 1, name: "Dashboard", page: "dashboard" },
@@ -30,237 +27,149 @@ const sidebar = [
   { id: 14, name: "AddAdmin", page: "addAdmin" },
   { id: 15, name: "Calendar", page: "calendar" }
 ];
-const API = import.meta.env.VITE_API;
 
 const AdminLayoutHeader = ({ setActivePage }) => {
+  const { darkMode, setDarkMode } = useLoginStore();
+
   const [show, setShow] = useState(false);
   const [profile, setProfile] = useState(false);
-  const [profileData, setProfileData] = useState({});
-  const path = useLocation()
-  const [password, setPassword] = useState(false);
-  const { darkMode, setDarkMode } = useLoginStore();
-  const [data, setData] = useState([]);
-  const [mobile, setMobile] = useState(false)
-  const [settings, setSettings] = useState(false)
+  const [settings, setSettings] = useState(false);
+  const [mobile, setMobile] = useState(false);
+  const [passwordPopup, setPasswordPopup] = useState(false);
+
   const [active, setActive] = useState("dashboard");
-  const modalStyle = darkMode
-    ? "bg-gray-900 text-white border border-gray-700"
-    : "bg-gray-300 text-black";
-
-  const popupStyle = darkMode
-    ? "bg-gray-800 text-white border border-gray-700"
-    : "bg-white text-black";
-
-  const overlayStyle =
-    "absolute bg-black/50 flex items-center justify-center inset-0 h-screen w-screen";
-
-  const GetData = async () => {
-    try {
-      const get = await axios.get(`${API}v1/getStaff`);
-      setData(get.data.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [profileData, setProfileData] = useState({});
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
-    GetData();
-
     const storedData = localStorage.getItem("adminProfile");
     setProfileData(storedData ? JSON.parse(storedData) : {});
   }, []);
-  path.pathname === "/homePage/adminlayout"
+
+  const overlay = "fixed inset-0 bg-black/50 flex justify-center items-center z-50";
+
   return (
     <>
-      <div
-        className={`flex justify-between items-center shadow p-2.5 ${darkMode
-          ? "bg-gray-950 text-white border-b border-gray-800"
-          : "bg-blue-800 text-white"
-          }`}
-      >
-        <div className="flex items-center gap-5">
-          <img width={60} src={Logo} alt="logo" />
-          <h1 className="text-2xl md:text-3xl font-extrabold">
-            School Site
-          </h1>
+      {/* HEADER */}
+      <div className={`flex justify-between items-center p-3 
+      ${darkMode ? "bg-gray-950 text-white" : "bg-blue-800 text-white"}`}>
+
+        <div className="flex items-center gap-4">
+          <img src={Logo} width={50} />
+          <h1 className="text-xl font-bold">School Site</h1>
         </div>
 
-
-        <div className=" hidden md:block">
-          <div className=" flex gap-5 items-center">
-            <div
-              className="cursor-pointer"
-              onClick={() => setDarkMode(!darkMode)}
-            >
-              <img width={40} src={darkMode ? light : dark} alt="mode" />
-            </div>
-
-            <img
-              src={setting}
-              className="cursor-pointer w-7"
-              onClick={() => setPassword(!password)}
-              alt="settings"
-            />
-            <div className="flex gap-4 items-center">
-              <div
-                className="hover:underline cursor-pointer"
-                onClick={() => setProfile(true)}
-              >
-                Profile
-              </div>
-              <button
-                className="hover:text-red-400"
-                onClick={() => setShow(true)}
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="flex md:hidden items-center gap-4">
-          <div
+        {/* DESKTOP */}
+        <div className="hidden md:flex items-center gap-5">
+          <img
+            src={darkMode ? light : dark}
+            width={30}
             className="cursor-pointer"
             onClick={() => setDarkMode(!darkMode)}
-          >
-            <img width={40} src={darkMode ? light : dark} alt="mode" />
-          </div>
+          />
 
           <img
             src={setting}
-            className="cursor-pointer w-7"
+            className="cursor-pointer w-6"
             onClick={() => setSettings(!settings)}
-            alt="settings"
           />
-          <img className=" cursor-pointer" onClick={() => setMobile(!mobile)} src={menu} alt="" />
+
+          <p onClick={() => setProfile(true)} className="cursor-pointer hover:underline">
+            Profile
+          </p>
+
+          <button onClick={() => setShow(true)} className="hover:text-red-400">
+            Logout
+          </button>
+        </div>
+
+        {/* MOBILE */}
+        <div className="md:hidden flex items-center gap-3">
+          <img
+            src={darkMode ? light : dark}
+            width={30}
+            onClick={() => setDarkMode(!darkMode)}
+          />
+          <img src={setting} width={25} onClick={() => setSettings(!settings)} />
+          <img src={menu} width={25} onClick={() => setMobile(!mobile)} />
         </div>
       </div>
-      {
-        mobile && (
-          <div className={`p-5 rounded-lg absolute -right-5 top-15`}>
-            <div className={`w-70 h-150 md:h-full overflow-y-auto font-semibold transition-all duration-300 ${darkMode ? "bg-gray-950 text-white border-r border-gray-800" : "bg-blue-800 text-white"}`} style={{ scrollbarWidth: "none" }}>
-              <ol className="p-3 flex flex-col gap-2">
-                {sidebar.map((item) => {
-                  const isActive = active === item.page;
 
-                  return (
-                    <li
-                      key={item.id}
-                      onClick={() => {
-                        setActive(item.page);
-                        setActivePage(item.page);
-                        setMobile(!mobile)
-                      }}
-                      className={`rounded-lg px-3 py-2 text-[15px] cursor-pointer transition-all duration-300 ${isActive? darkMode? "bg-blue-600 text-white shadow-md scale-[1.02]": "bg-white text-blue-700 shadow-md scale-[1.02]": darkMode ? "text-gray-300 hover:bg-gray-800 hover:text-white" : "bg-blue-700 hover:bg-white hover:text-blue-700" }`}>
-                      {item.name}
-                    </li>
-                  );
-                })}
-              </ol>
+      {/* MOBILE SIDEBAR */}
+      {mobile && (
+        <div className="fixed top-16 right-0 w-64 h-full bg-blue-800 text-white z-50">
+          {sidebar.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => {
+                setActive(item.page);
+                setActivePage(item.page);
+                setMobile(false);
+              }}
+              className={`p-3 cursor-pointer ${
+                active === item.page ? "bg-white text-blue-700" : ""
+              }`}
+            >
+              {item.name}
             </div>
-          </div>
-        )
-      }
-      {
-        settings && (
-          <div className="relative justify-center items-center">
-            <div className={`p-7 shadow-2xl rounded-lg bg-white absolute top-2 right-10`}>
-              <div className="flex flex-col gap-5">
-                <div
-                  className="hover:underline cursor-pointer"
-                  onClick={() => setProfile(true)}
-                >
-                  Profile
-                </div>
+          ))}
+        </div>
+      )}
 
-                <button
-                  className="hover:text-red-400"
-                  onClick={() => setShow(true)}
-                >
-                  Logout
-                </button>
-              </div>
-            </div>
-          </div>
-        )
-      }
-      {password && (
-        <div className="absolute top-20 right-10 z-50">
-          <div
-            className={`p-5 rounded-lg flex flex-col gap-3 shadow-lg ${popupStyle}`}
-          >
-            <LabelName>Update Password:</LabelName>
+      {/* SETTINGS POPUP */}
+      {settings && (
+        <div className="fixed top-16 right-5 bg-white shadow-lg p-4 rounded z-50">
+          <p className="cursor-pointer" onClick={() => setProfile(true)}>Profile</p>
+          <p className="cursor-pointer" onClick={() => setPasswordPopup(true)}>Change Password</p>
+          <p className="cursor-pointer text-red-500" onClick={() => setShow(true)}>Logout</p>
+        </div>
+      )}
 
+      {/* PASSWORD */}
+      {passwordPopup && (
+        <div className={overlay}>
+          <div className="bg-white p-5 rounded w-80">
+            <LabelName>New Password</LabelName>
             <Input
-              placeholder="Enter new password"
-              className={`p-2 rounded ${darkMode
-                ? "bg-gray-700 text-white border border-gray-600"
-                : "border"
-                }`}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter password"
+            />
+            <div className="flex justify-end gap-2 mt-3">
+              <button onClick={() => setPasswordPopup(false)}>Cancel</button>
+              <button className="bg-blue-600 text-white px-3 py-1 rounded">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PROFILE */}
+      {profile && (
+        <div className={overlay}>
+          <div className="bg-white p-5 rounded relative">
+            <img src={close} className="absolute top-2 right-2 w-5 cursor-pointer"
+              onClick={() => setProfile(false)}
             />
 
-            <button className="bg-blue-500 px-3 py-1 rounded text-white hover:bg-blue-700">
-              Update
-            </button>
+            <p><b>Username:</b> {profileData?.userName}</p>
+            <p><b>Phone:</b> {profileData?.phoneNumber}</p>
+            <p><b>Role:</b> Admin</p>
           </div>
         </div>
       )}
 
-      {profile && (
-        <div className={overlayStyle}>
-          <div
-            className={`p-6 rounded-lg relative flex flex-col gap-3 ${modalStyle}`}
-          >
-            <div
-              className="absolute top-2 right-2 cursor-pointer"
-              onClick={() => setProfile(false)}
-            >
-              <img src={close} alt="close" width={20} />
-            </div>
-
-            <div className="flex font-bold">
-              UserName:
-              <span className="font-light ml-2">
-                {profileData?.UserName}
-              </span>
-            </div>
-
-            <div className="flex font-bold">
-              Role:
-              <span className="font-light ml-2">Admin</span>
-            </div>
-
-            <div className="flex font-bold">
-              Phone:
-              <span className="font-light ml-2">
-                {profileData?.PhoneNumber}
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-
+      {/* LOGOUT */}
       {show && (
-        <div className={overlayStyle}>
-          <div
-            className={`p-6 rounded-lg flex flex-col items-center gap-4 ${modalStyle}`}
-          >
-            <h1 className="text-lg font-semibold">
-              Do you want to logout?
-            </h1>
-
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShow(false)}
-                className="bg-blue-500 px-4 py-1 rounded text-white hover:bg-blue-700"
-              >
-                Cancel
-              </button>
-
+        <div className={overlay}>
+          <div className="bg-white p-5 rounded text-center">
+            <p>Do you want to logout?</p>
+            <div className="flex justify-center gap-3 mt-3">
+              <button onClick={() => setShow(false)}>Cancel</button>
               <Link to="/homePage">
-                <button className="bg-red-500 px-4 py-1 rounded text-white hover:bg-red-700">
-                  Yes, Logout
+                <button className="bg-red-500 text-white px-3 py-1 rounded">
+                  Logout
                 </button>
               </Link>
             </div>
